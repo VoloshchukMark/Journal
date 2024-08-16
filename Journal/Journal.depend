@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1723838522 source:d:\study\programming\coursework\journal\journal\main.cpp
+	<iostream>
+	<string.h>
+
