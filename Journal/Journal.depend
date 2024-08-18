@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1723981044 source:d:\study\programming\coursework\journal\journal\main.cpp
+1723981062 source:d:\study\programming\coursework\journal\journal\main.cpp
 	<iostream>
 	<string.h>
 	"./Headers/Person.h"
