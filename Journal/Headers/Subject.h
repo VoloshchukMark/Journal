@@ -1,15 +1,37 @@
 #ifndef SUBJECT_H
 #define SUBJECT_H
 
+#include <iostream>
 
 class Subject
 {
-    public:
-        Subject();
+private:
+    std::string name;
+    std::string teacher;
+    int idOfTeacher;
+    std::string description;
+public:
 
-    protected:
+    std::string getName();
+    std::string getTeacher();
+    int getIdOfTeacher();
+    std::string getDescription();
 
-    private:
+    void setName(std::string newName);
+    void setTeacher(std::string newTeacher);
+    void setIdOfTeacher(int newIdOfTeacher);
+    void setDescription(std::string newDescription);
+
+    void displayName();
+    void displayTeacher();
+    void displayIdOfTeacher();
+    void displayDescrioption();
+    void displayInfo();
+
+    Subject();
+    Subject(std::string newName);
+    Subject(std::string newName, std::string newTeacher);
+    Subject(std::string newName, std::string newTeacher, int newIdOfTeacher);
 };
 
 #endif // SUBJECT_H

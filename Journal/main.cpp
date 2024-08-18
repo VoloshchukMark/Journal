@@ -5,6 +5,7 @@
 #include "./Headers/Parent.h"
 #include "./Headers/Student.h"
 #include "./Headers/Teacher.h"
+#include "./Headers/Subject.h"
 
 using namespace std;
 
@@ -14,4 +15,6 @@ int main()
     mark->displayInfo();
     Parent * sergiy = new Parent(2, "Serhiy", "Voloshchuk", "Viktorovych", 32, "male", "Hauwr", "Jobless");
     sergiy->displayInfo();
+    Subject * math = new Subject("Math", "Mark Voloshchuk", 1);
+    math->displayInfo();
 }
