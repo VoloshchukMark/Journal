@@ -22,6 +22,9 @@ int Person::getAge(){
 std::string Person::getSex(){
     return sex;
 }
+std::string Person::getAddress(){
+    return address;
+}
 
 void Person::setId(int newId){
     std::cout<<"Meow\n";
@@ -42,6 +45,9 @@ void Person::setAge(int newAge){
 void Person::setSex(std::string newSex){
     sex = newSex;
 }
+void Person::setAddress(std::string newAddress){
+    address = newAddress;
+}
 
 void Person::displayId(){
     std::cout << "ID: " << getId() << std::endl;
@@ -61,19 +67,24 @@ void Person::displayAge(){
 void Person::displaySex(){
     std::cout << "Sex: " << getSex() << std::endl;
 }
+void Person::displayAddress(){
+    std::cout << "Address: " << getAddress() << std::endl;
+}
 
 Person::Person()
-    :Person(0, "Unknown", "Unknown", "Unknown", 0, "Unknown") {}
+    :Person(0, "Unknown", "Unknown", "Unknown", 0, "Unknown", "Unknown") {}
 Person::Person(int newId)
-    :Person(newId, "Unknown", "Unknown", "Unknown", 0, "Unknown") {}
+    :Person(newId, "Unknown", "Unknown", "Unknown", 0, "Unknown", "Unknown") {}
 Person::Person(int newId, std::string newName)
-    :Person(newId, newName, "Unknown", "Unknown", 0, "Unknown") {}
+    :Person(newId, newName, "Unknown", "Unknown", 0, "Unknown", "Unknown") {}
 Person::Person(int newId, std::string newName, std::string newSurname)
-    :Person(newId, newName, newSurname, "Unknown", 0, "Unknown") {}
+    :Person(newId, newName, newSurname, "Unknown", 0, "Unknown", "Unknown") {}
 Person::Person(int newId, std::string newName, std::string newSurname, std::string newPatronymic)
-    :Person(newId, newName, newSurname, newPatronymic, 0, "Unknown") {}
+    :Person(newId, newName, newSurname, newPatronymic, 0, "Unknown", "Unknown") {}
 Person::Person(int newId, std::string newName, std::string newSurname, std::string newPatronymic, int newAge)
-    :Person(newId, newName, newSurname, newPatronymic, newAge, "Unknown") {}
+    :Person(newId, newName, newSurname, newPatronymic, newAge, "Unknown", "Unknown") {}
 Person::Person(int newId, std::string newName, std::string newSurname, std::string newPatronymic, int newAge, std::string newSex)
-    :id{newId}, name{newName}, surname{newSurname}, patronymic{newPatronymic}, age{newAge}, sex{newSex} {}
+    :Person(newId, newName, newSurname, newPatronymic, newAge, newSex, "Unknown") {}
+Person::Person(int newId, std::string newName, std::string newSurname, std::string newPatronymic, int newAge, std::string newSex, std::string newAddress)
+    :id{newId}, name{newName}, surname{newSurname}, patronymic{newPatronymic}, age{newAge}, sex{newSex}, address{newAddress} {}
 

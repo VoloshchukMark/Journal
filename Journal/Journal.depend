@@ -26,29 +26,39 @@
 1723909496 d:\study\programming\coursework\journal\journal\\person.h
 	<string>
 
-1723978426 source:d:\study\programming\coursework\journal\journal\sources\person.cpp
+1723985856 source:d:\study\programming\coursework\journal\journal\sources\person.cpp
 	"../Headers/Person.h"
 	<iostream>
 
-1723978378 d:\study\programming\coursework\journal\journal\headers\person.h
+1723985327 d:\study\programming\coursework\journal\journal\headers\person.h
 	<string>
 
-1723978426 source:d:\study\programming\coursework\journal\journal\sources\student.cpp
+1723986039 source:d:\study\programming\coursework\journal\journal\sources\student.cpp
 	"../Headers/Student.h"
 	"../Headers/Person.h"
 	<iostream>
 
-1723978378 d:\study\programming\coursework\journal\journal\headers\student.h
+1723985972 d:\study\programming\coursework\journal\journal\headers\student.h
 	"Person.h"
 	<iostream>
 	<vector>
 
-1723978426 source:d:\study\programming\coursework\journal\journal\sources\parent.cpp
+1723986039 source:d:\study\programming\coursework\journal\journal\sources\parent.cpp
 	"../Headers/Parent.h"
 	"../Headers/Person.h"
 	<iostream>
 
-1723978378 d:\study\programming\coursework\journal\journal\headers\parent.h
+1723985972 d:\study\programming\coursework\journal\journal\headers\parent.h
+	"Person.h"
+	<iostream>
+	<vector>
+
+1723986039 source:d:\study\programming\coursework\journal\journal\sources\teacher.cpp
+	"../Headers/Teacher.h"
+	"../Headers/Person.h"
+	<iostream>
+
+1723985972 d:\study\programming\coursework\journal\journal\headers\teacher.h
 	"Person.h"
 	<iostream>
 	<vector>

@@ -12,20 +12,16 @@ class Student :public Person
 {
 private:
 //    vector<double> marks;
-    std::string address;
 public:
 
-    std::string getAddress();
 
-    void setAddress(std::string newAddress);
-
-    void displayId();
-    void displayName();
-    void displaySurname();
-    void displayPatronymic();
-    void displayAge();
-    void displaySex();
-    void displayAddress();
+//    void displayId();
+//    void displayName();
+//    void displaySurname();
+//    void displayPatronymic();
+//    void displayAge();
+//    void displaySex();
+//    void displayAddress();
 
     Student();
     Student(int newId);

@@ -10,20 +10,16 @@ class Teacher :public Person
 {
 private:
 //    vector<Subject> subjects;
-    std::string address;
 public:
 
-    std::string getAddress();
-
-    void setAddress(std::string newAddress);
-
-    void displayId();
-    void displayName();
-    void displaySurname();
-    void displayPatronymic();
-    void displayAge();
-    void displaySex();
-    void displayAddress();
+//
+//    void displayId();
+//    void displayName();
+//    void displaySurname();
+//    void displayPatronymic();
+//    void displayAge();
+//    void displaySex();
+//    void displayAddress();
 
     Teacher();
     Teacher(int newId);

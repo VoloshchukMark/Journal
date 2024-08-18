@@ -10,23 +10,20 @@
 class Parent :public Person
 {
 private:
-    std::string address;
     std::string work;
 public:
 
-    std::string getAddress();
     std::string getWork();
 
-    void setAddress(std::string newAddress);
     void setWork(std::string newWork);
-
-    void displayId();
-    void displayName();
-    void displaySurname();
-    void displayPatronymic();
-    void displayAge();
-    void displaySex();
-    void displayAddress();
+//
+//    void displayId();
+//    void displayName();
+//    void displaySurname();
+//    void displayPatronymic();
+//    void displayAge();
+//    void displaySex();
+//    void displayAddress();
     void displayWork();
 
     Parent();

@@ -12,6 +12,7 @@ private:
     std::string patronymic;
     int age;
     std::string sex;
+    std::string address;
 public:
     virtual int getId();
     virtual std::string getName();
@@ -19,6 +20,7 @@ public:
     virtual std::string getPatronymic();
     virtual int getAge();
     virtual std::string getSex();
+    virtual std::string getAddress();
 
     virtual void setId(int newId);
     virtual void setName(std::string newName);
@@ -26,6 +28,7 @@ public:
     virtual void setPatronymic(std::string newPatronymic);
     virtual void setAge(int newAge);
     virtual void setSex(std::string newSex);
+    virtual void setAddress(std::string newAddress);
 
     virtual void displayId();
     virtual void displayName();
@@ -33,6 +36,7 @@ public:
     virtual void displayPatronymic();
     virtual void displayAge();
     virtual void displaySex();
+    virtual void displayAddress();
 
     Person();
     Person(int newId);
@@ -41,6 +45,7 @@ public:
     Person(int newId, std::string newName, std::string newSurname, std::string newPatronymic);
     Person(int newId, std::string newName, std::string newSurname, std::string newPatronymic, int newAge);
     Person(int newId, std::string newName, std::string newSurname, std::string newPatronymic, int newAge, std::string newSex);
+    Person(int newId, std::string newName, std::string newSurname, std::string newPatronymic, int newAge, std::string newSex, std::string newAddress);
 
     virtual ~Person() {}
 };
