@@ -4,6 +4,7 @@
 #include "./Headers/Person.h"
 #include "./Headers/Parent.h"
 #include "./Headers/Student.h"
+#include "./Headers/Teacher.h"
 
 using namespace std;
 
