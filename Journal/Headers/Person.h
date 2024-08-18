@@ -29,7 +29,7 @@ public:
 
     virtual void displayId();
     virtual void displayName();
-    virtual void isplaySurname();
+    virtual void displaySurname();
     virtual void displayPatronymic();
     virtual void displayAge();
     virtual void displaySex();

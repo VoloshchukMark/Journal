@@ -1,6 +1,6 @@
-#include "Student.h"
+#include "../Headers/Student.h"
 
-#include "Person.h"
+#include "../Headers/Person.h"
 
 #include <iostream>
 
@@ -21,7 +21,7 @@ void Student::displayId(){
 void Student::displayName(){
     std::cout << "Name: " << getName() << std::endl;
 }
-void Student::isplaySurname(){
+void Student::displaySurname(){
     std::cout << "Surname: " << getSurname() << std::endl;
 }
 void Student::displayPatronymic(){

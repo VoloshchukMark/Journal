@@ -1,9 +1,10 @@
 # depslib dependency file v1.0
-1723975247 source:d:\study\programming\coursework\journal\journal\main.cpp
+1723981044 source:d:\study\programming\coursework\journal\journal\main.cpp
 	<iostream>
 	<string.h>
-	"Person.h"
-	"Student.h"
+	"./Headers/Person.h"
+	"./Headers/Parent.h"
+	"./Headers/Student.h"
 
 1723975158 source:d:\study\programming\coursework\journal\journal\student.cpp
 	"Student.h"
@@ -24,4 +25,31 @@
 
 1723909496 d:\study\programming\coursework\journal\journal\\person.h
 	<string>
+
+1723978426 source:d:\study\programming\coursework\journal\journal\sources\person.cpp
+	"../Headers/Person.h"
+	<iostream>
+
+1723978378 d:\study\programming\coursework\journal\journal\headers\person.h
+	<string>
+
+1723978426 source:d:\study\programming\coursework\journal\journal\sources\student.cpp
+	"../Headers/Student.h"
+	"../Headers/Person.h"
+	<iostream>
+
+1723978378 d:\study\programming\coursework\journal\journal\headers\student.h
+	"Person.h"
+	<iostream>
+	<vector>
+
+1723978426 source:d:\study\programming\coursework\journal\journal\sources\parent.cpp
+	"../Headers/Parent.h"
+	"../Headers/Person.h"
+	<iostream>
+
+1723978378 d:\study\programming\coursework\journal\journal\headers\parent.h
+	"Person.h"
+	<iostream>
+	<vector>
 

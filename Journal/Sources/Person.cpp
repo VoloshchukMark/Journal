@@ -1,4 +1,4 @@
-#include "Person.h"
+#include "../Headers/Person.h"
 
 #include <iostream>
 
@@ -49,7 +49,7 @@ void Person::displayId(){
 void Person::displayName(){
     std::cout << "Name: " << getName() << std::endl;
 }
-void Person::isplaySurname(){
+void Person::displaySurname(){
     std::cout << "Surname: " << getSurname() << std::endl;
 }
 void Person::displayPatronymic(){

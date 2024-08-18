@@ -5,14 +5,14 @@
 
 #include <iostream>
 #include <vector>
-
-using namespace std;
+//
+//using namespace std;
 
 class Student :public Person
 {
 private:
-    vector<double> marks;
-    string address;
+//    vector<double> marks;
+    std::string address;
 public:
 
     std::string getAddress();
@@ -21,7 +21,7 @@ public:
 
     void displayId();
     void displayName();
-    void isplaySurname();
+    void displaySurname();
     void displayPatronymic();
     void displayAge();
     void displaySex();
