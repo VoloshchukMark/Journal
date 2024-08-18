@@ -1,16 +1,26 @@
 #ifndef MARKS_H
 #define MARKS_H
 
+#include <vector>
 
 class Marks
 {
-    public:
-        Marks();
-        virtual ~Marks();
+private:
+    std::vector<double> home_work;
+    std::vector<double> test;
+    std::vector<double> semester;
+    double general;
+public:
 
-    protected:
+    void addHomeWorkMark();
+    void addTestMark();
+    void addSemesterMark();
+    void calculateGeneralMark;
 
-    private:
+    void displayHomeWorkMark();
+    void displayTestMark();
+    void displaySemesterMark();
+    void displayGeneralMark();
 };
 
 #endif // MARKS_H
