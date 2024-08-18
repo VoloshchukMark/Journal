@@ -5,6 +5,16 @@
 #include <iostream>
 
 
+void Student::displayInfo(){
+    std::cout << "================================" << std::endl;
+    this->displayName();
+    this->displaySurname();
+    this->displayPatronymic();
+    this->displaySex();
+    this->displayAge();
+    this->displayAddress();
+    std::cout << "================================" << std::endl;
+}
 
 Student::Student()
     :Student(0, "Unknown", "Unknown", "Unknown", 0, "Unknown", "Unknown") {}

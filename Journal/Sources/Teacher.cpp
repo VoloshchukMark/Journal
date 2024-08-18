@@ -4,6 +4,16 @@
 
 #include <iostream>
 
+void Teacher::displayInfo(){
+    std::cout << "================================" << std::endl;
+    this->displayName();
+    this->displaySurname();
+    this->displayPatronymic();
+    this->displaySex();
+    this->displayAge();
+    this->displayAddress();
+    std::cout << "================================" << std::endl;
+}
 
 
 Teacher::Teacher()

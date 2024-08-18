@@ -12,14 +12,7 @@ private:
 //    vector<Subject> subjects;
 public:
 
-//
-//    void displayId();
-//    void displayName();
-//    void displaySurname();
-//    void displayPatronymic();
-//    void displayAge();
-//    void displaySex();
-//    void displayAddress();
+    void displayInfo() override;
 
     Teacher();
     Teacher(int newId);

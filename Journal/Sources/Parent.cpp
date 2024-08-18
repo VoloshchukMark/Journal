@@ -15,6 +15,23 @@ void Parent::setWork(std::string newWork)
     work = newWork;
 }
 
+void Parent::displayWork()
+{
+    std::cout << "Work: " << this->getWork() << std::endl;
+}
+
+void Parent::displayInfo(){
+    std::cout << "================================" << std::endl;
+    this->displayName();
+    this->displaySurname();
+    this->displayPatronymic();
+    this->displaySex();
+    this->displayAge();
+    this->displayAddress();
+    this->displayWork();
+    std::cout << "================================" << std::endl;
+}
+
 
 Parent::Parent()
     :Parent(0, "Unknown", "Unknown", "Unknown", 0, "Unknown", "Unknown", "Unknown") {}

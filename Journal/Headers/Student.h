@@ -14,14 +14,7 @@ private:
 //    vector<double> marks;
 public:
 
-
-//    void displayId();
-//    void displayName();
-//    void displaySurname();
-//    void displayPatronymic();
-//    void displayAge();
-//    void displaySex();
-//    void displayAddress();
+    void displayInfo() override;
 
     Student();
     Student(int newId);

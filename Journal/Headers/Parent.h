@@ -16,15 +16,9 @@ public:
     std::string getWork();
 
     void setWork(std::string newWork);
-//
-//    void displayId();
-//    void displayName();
-//    void displaySurname();
-//    void displayPatronymic();
-//    void displayAge();
-//    void displaySex();
-//    void displayAddress();
+
     void displayWork();
+    void displayInfo() override;
 
     Parent();
     Parent(int newId);

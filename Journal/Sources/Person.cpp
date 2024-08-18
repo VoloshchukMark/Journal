@@ -70,6 +70,17 @@ void Person::displaySex(){
 void Person::displayAddress(){
     std::cout << "Address: " << getAddress() << std::endl;
 }
+void Person::displayInfo(){
+    std::cout << "================================" << std::endl;
+    this->displayName();
+    this->displaySurname();
+    this->displayPatronymic();
+    this->displaySex();
+    this->displayAge();
+    this->displayAddress();
+    std::cout << "================================" << std::endl;
+}
+
 
 Person::Person()
     :Person(0, "Unknown", "Unknown", "Unknown", 0, "Unknown", "Unknown") {}

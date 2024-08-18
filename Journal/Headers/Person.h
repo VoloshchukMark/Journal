@@ -37,6 +37,7 @@ public:
     virtual void displayAge();
     virtual void displaySex();
     virtual void displayAddress();
+    virtual void displayInfo();
 
     Person();
     Person(int newId);
