@@ -12,10 +12,10 @@ private:
     double general;
 public:
 
-    void addHomeWorkMark();
-    void addTestMark();
-    void addSemesterMark();
-    void calculateGeneralMark;
+    void addHomeWorkMark(double newMark);
+    void addTestMark(double newMark);
+    void addSemesterMark(double newMark);
+    void calculateGeneralMark();
 
     void displayHomeWorkMark();
     void displayTestMark();
