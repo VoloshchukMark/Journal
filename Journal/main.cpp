@@ -12,17 +12,14 @@ using namespace std;
 
 int main()
 {
-//    Student * mark = new Student(1, "Mark", "Voloshchuk", "Serhiyovich", 12, "male", "Hauwr");
+//    Student * meow = new Student(1, "Mark", "Voloshchuk", "Serhiyovich", 12, "male", "Hauwr");
 //    mark->displayInfo();
 //    Parent * sergiy = new Parent(2, "Serhiy", "Voloshchuk", "Viktorovych", 32, "male", "Hauwr", "Jobless");
 //    sergiy->displayInfo();
 //    Subject * math = new Subject("Math", "Mark Voloshchuk", 1);
 //    math->displayInfo();
-    Marks * marm = new Marks();
-    marm->addHomeWorkMark(10.0);
-    marm->addHomeWorkMark(3.0);
-    marm->addSemesterMark(12.0);
-    marm->calculateGeneralMark();
-    marm->displayHomeWorkMark();
-    marm->displayGeneralMark();
+//    Teacher * mark = new Teacher(1, "Mark", "Voloshchuk", "Victorovych", 18, "male", "Chernivtsy city");
+//    mark->addSubject("Math");
+//    mark->displayInfoOfSubjects();
+//    meow->marks.displayGeneralMark();
 }

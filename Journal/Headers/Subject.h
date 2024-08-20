@@ -25,7 +25,7 @@ public:
     void displayName();
     void displayTeacher();
     void displayIdOfTeacher();
-    void displayDescrioption();
+    void displayDescription();
     void displayInfo();
 
     Subject();

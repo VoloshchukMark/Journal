@@ -2,6 +2,7 @@
 #define STUDENT_H
 
 #include "Person.h"
+#include "Marks.h"
 
 #include <iostream>
 #include <vector>
@@ -11,10 +12,13 @@
 class Student :public Person
 {
 private:
-//    vector<double> marks;
 public:
 
+    Marks marks;
+
     void displayInfo() override;
+
+
 
     Student();
     Student(int newId);

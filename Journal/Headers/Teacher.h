@@ -2,6 +2,7 @@
 #define TEACHER_H
 
 #include "Person.h"
+#include "Subject.h"
 
 #include <iostream>
 #include <vector>
@@ -9,10 +10,13 @@
 class Teacher :public Person
 {
 private:
-//    vector<Subject> subjects;
+    std::vector<Subject> subjects;
 public:
 
     void displayInfo() override;
+
+    void addSubject(std::string newName);
+    void displayInfoOfSubjects();
 
     Teacher();
     Teacher(int newId);

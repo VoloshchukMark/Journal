@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1724170800 source:d:\study\programming\coursework\journal\journal\main.cpp
+1724173397 source:d:\study\programming\coursework\journal\journal\main.cpp
 	<iostream>
 	<string.h>
 	"./Headers/Person.h"
@@ -29,7 +29,7 @@
 1723909496 d:\study\programming\coursework\journal\journal\\person.h
 	<string>
 
-1723988002 source:d:\study\programming\coursework\journal\journal\sources\person.cpp
+1724173094 source:d:\study\programming\coursework\journal\journal\sources\person.cpp
 	"../Headers/Person.h"
 	<iostream>
 
@@ -41,8 +41,9 @@
 	"../Headers/Person.h"
 	<iostream>
 
-1723988002 d:\study\programming\coursework\journal\journal\headers\student.h
+1724173314 d:\study\programming\coursework\journal\journal\headers\student.h
 	"Person.h"
+	"Marks.h"
 	<iostream>
 	<vector>
 
@@ -56,24 +57,25 @@
 	<iostream>
 	<vector>
 
-1723988002 source:d:\study\programming\coursework\journal\journal\sources\teacher.cpp
+1724173220 source:d:\study\programming\coursework\journal\journal\sources\teacher.cpp
 	"../Headers/Teacher.h"
 	"../Headers/Person.h"
 	<iostream>
 
-1723988002 d:\study\programming\coursework\journal\journal\headers\teacher.h
+1724173095 d:\study\programming\coursework\journal\journal\headers\teacher.h
 	"Person.h"
+	"Subject.h"
 	<iostream>
 	<vector>
 
-1723990475 source:d:\study\programming\coursework\journal\journal\sources\subject.cpp
+1724173133 source:d:\study\programming\coursework\journal\journal\sources\subject.cpp
 	"../Headers/Subject.h"
 	<iostream>
 
-1723990282 d:\study\programming\coursework\journal\journal\headers\subject.h
+1724173095 d:\study\programming\coursework\journal\journal\headers\subject.h
 	<iostream>
 
-1724170668 source:d:\study\programming\coursework\journal\journal\sources\marks.cpp
+1724170819 source:d:\study\programming\coursework\journal\journal\sources\marks.cpp
 	"Marks.h"
 	<iostream>
 

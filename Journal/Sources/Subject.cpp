@@ -34,15 +34,15 @@ void Subject::displayName(){
 void Subject::displayTeacher(){
     std::cout << "Teacher: " << this->getTeacher() << std::endl;
 }
-void Subject::displayDescrioption(){
+void Subject::displayDescription(){
     std::cout << "Description: " << this->getDescription() << std::endl;
 }
 void Subject::displayInfo(){
     std::cout << "------------------------------------" << std::endl;
     this->displayName();
     this->displayTeacher();
-    this->displayDescrioption();
-    std::cout << "------------------------------------" << std::endl;
+    this->displayDescription();
+    std::cout << "------------------------------------\n" << std::endl;
 }
 
 Subject::Subject()

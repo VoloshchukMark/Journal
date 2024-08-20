@@ -78,7 +78,7 @@ void Person::displayInfo(){
     this->displaySex();
     this->displayAge();
     this->displayAddress();
-    std::cout << "================================" << std::endl;
+    std::cout << "================================\n" << std::endl;
 }
 
 
