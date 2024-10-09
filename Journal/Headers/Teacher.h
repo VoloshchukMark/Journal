@@ -19,13 +19,9 @@ public:
     void displayInfoOfSubjects();
 
     Teacher();
-    Teacher(int newId);
-    Teacher(int newId, std::string newName);
-    Teacher(int newId, std::string newName, std::string newSurname);
-    Teacher(int newId, std::string newName, std::string newSurname, std::string newPatronymic);
-    Teacher(int newId, std::string newName, std::string newSurname, std::string newPatronymic, int newAge);
-    Teacher(int newId, std::string newName, std::string newSurname, std::string newPatronymic, int newAge, std::string newSex);
     Teacher(int newId, std::string newName, std::string newSurname, std::string newPatronymic, int newAge, std::string newSex, std::string newAddress);
+
+    ~Teacher();
 };
 
 #endif // TEACHER_H
