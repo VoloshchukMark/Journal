@@ -18,18 +18,12 @@ void Student::displayInfo(){
 
 Student::Student()
     :Student(0, "Unknown", "Unknown", "Unknown", 0, "Unknown", "Unknown") {}
-Student::Student(int newId)
-    :Student(newId, "Unknown", "Unknown", "Unknown", 0, "Unknown", "Unknown") {}
-Student::Student(int newId, std::string newName)
-    :Student(newId, newName, "Unknown", "Unknown", 0, "Unknown", "Unknown") {}
-Student::Student(int newId, std::string newName, std::string newSurname)
-    :Student(newId, newName, newSurname, "Unknown", 0, "Unknown", "Unknown") {}
-Student::Student(int newId, std::string newName, std::string newSurname, std::string newPatronymic)
-    :Student(newId, newName, newSurname, newPatronymic, 0, "Unknown", "Unknown") {}
-Student::Student(int newId, std::string newName, std::string newSurname, std::string newPatronymic, int newAge)
-    :Student(newId, newName, newSurname, newPatronymic, newAge, "Unknown", "Unknown") {}
-Student::Student(int newId, std::string newName, std::string newSurname, std::string newPatronymic, int newAge, std::string newSex)
-    :Student(newId, newName, newSurname, newPatronymic, newAge, newSex, "Unknown") {}
 Student::Student(int newId, std::string newName, std::string newSurname, std::string newPatronymic, int newAge, std::string newSex, std::string newAddress)
-    :Person(newId, newName, newSurname, newPatronymic, newAge, newSex, newAddress) {}
+    :Person(newId, newName, newSurname, newPatronymic, newAge, newSex, newAddress) {
+        std::cout<< "Constructor of Student class was called!" << std::endl;
+        }
 
+Student::~Student() {
+    delete marks;
+    std::cout << "Destructor of Student class was called!"<< std::endl;
+}

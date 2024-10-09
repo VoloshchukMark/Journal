@@ -9,7 +9,7 @@ private:
     std::vector<double> home_work;
     std::vector<double> test;
     std::vector<double> semester;
-    double general;
+    double* general;
 public:
 
     void addHomeWorkMark(double newMark);
@@ -21,6 +21,11 @@ public:
     void displayTestMark();
     void displaySemesterMark();
     void displayGeneralMark();
+
+    Marks();
+    Marks(double newGeneral);
+
+    ~Marks();
 };
 
 #endif // MARKS_H

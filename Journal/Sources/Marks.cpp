@@ -15,21 +15,26 @@ void Marks::addSemesterMark(double newMark){
 }
 
 void Marks::calculateGeneralMark(){
-    general = 0;
+    if (general == nullptr) {
+        general = new double(0.0);
+    } else {
+        *general = 0.0;
+    }
+
     int counter = 0;
     for(double mark: home_work){
-        general += mark;
+        *general += mark;
         counter++;
     }
     for(double mark: test){
-        general += mark;
+        *general += mark;
         counter++;
     }
     for(double mark: semester){
-        general += mark;
+        *general += mark;
         counter++;
     }
-    general /= counter;
+    *general /= counter;
 }
 
 void Marks::displayHomeWorkMark(){
@@ -56,3 +61,20 @@ void Marks::displaySemesterMark(){
 void Marks::displayGeneralMark(){
     std::cout << "General mark: " << general << std::endl;
 }
+
+
+Marks::Marks()
+    :Marks(0.0) {}
+Marks::Marks(double newGeneral){
+    general = new double(newGeneral);
+    std::cout << "Constructor of Marks class was called!" << std::endl;
+
+    }
+
+Marks::~Marks() {
+    delete& home_work;
+    delete& test;
+    delete& semester;
+    delete general;
+    std::cout << "Destructor of Marks class was called!" << std::endl;
+    }

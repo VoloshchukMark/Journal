@@ -14,8 +14,13 @@ using namespace std;
 
 int main(){
 
+    Student* student = new Student(2, "Mark", "Voloshchuk", "Victrovych", 18, "Male", "Aoaoaoaoa");
+    student->displayInfo();
+
     Interface interface;
     interface.startMenu();
+
+    delete student;
     }
 
 

@@ -14,7 +14,7 @@ private:
     std::string* sex;
     std::string* address;
 public:
-    virtual int getId() = 0;
+    virtual int getId();
     virtual std::string getName();
     virtual std::string getSurname();
     virtual std::string getPatronymic();
@@ -37,15 +37,9 @@ public:
     virtual void displayAge();
     virtual void displaySex();
     virtual void displayAddress();
-    virtual void displayInfo();
+    virtual void displayInfo() = 0;
 
     Person();
-    Person(int newId);
-    Person(int newId, std::string newName);
-    Person(int newId, std::string newName, std::string newSurname);
-    Person(int newId, std::string newName, std::string newSurname, std::string newPatronymic);
-    Person(int newId, std::string newName, std::string newSurname, std::string newPatronymic, int newAge);
-    Person(int newId, std::string newName, std::string newSurname, std::string newPatronymic, int newAge, std::string newSex);
     Person(int newId, std::string newName, std::string newSurname, std::string newPatronymic, int newAge, std::string newSex, std::string newAddress);
 
     virtual ~Person();

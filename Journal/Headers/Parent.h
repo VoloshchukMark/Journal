@@ -10,7 +10,7 @@
 class Parent :public Person
 {
 private:
-    std::string work;
+    std::string* work;
 public:
 
     std::string getWork();
@@ -29,6 +29,8 @@ public:
     Parent(int newId, std::string newName, std::string newSurname, std::string newPatronymic, int newAge, std::string newSex);
     Parent(int newId, std::string newName, std::string newSurname, std::string newPatronymic, int newAge, std::string newSex, std::string newAddress);
     Parent(int newId, std::string newName, std::string newSurname, std::string newPatronymic, int newAge, std::string newSex, std::string newAddress, std::string newWork);
+
+    ~Parent();
 };
 
 #endif // PARENT_H

@@ -98,8 +98,16 @@ void Person::displayInfo(){
 
 Person::Person()
     :Person(0, "Unknown", "Unknown", "Unknown", 0, "Unknown", "Unknown") {}
-Person::Person(int newId, std::string newName, std::string newSurname, std::string newPatronymic, int newAge, std::string newSex, std::string newAddress)
-    :id{&newId}, name{&newName}, surname{&newSurname}, patronymic{&newPatronymic}, age{&newAge}, sex{&newSex}, address{&newAddress} {}
+Person::Person(int newId, std::string newName, std::string newSurname, std::string newPatronymic, int newAge, std::string newSex, std::string newAddress){
+    id = new int(newId);
+    name = new std::string(newName);
+    surname = new std::string(newSurname);
+    patronymic = new std::string(newPatronymic);
+    age = new int(newAge);
+    sex = new std::string(newSex);
+    address = new std::string(newAddress);
+    std::cout << "Constructor of Person class was called!" << std::endl;
+}
 
 
 Person::~Person() {
@@ -110,4 +118,5 @@ Person::~Person() {
     delete age;
     delete sex;
     delete address;
+    std::cout << "Destructor of Person class was called!" << std::endl;
 }
