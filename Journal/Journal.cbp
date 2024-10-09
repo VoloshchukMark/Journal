@@ -36,12 +36,14 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="Headers/Interface.h" />
 		<Unit filename="Headers/Marks.h" />
 		<Unit filename="Headers/Parent.h" />
 		<Unit filename="Headers/Person.h" />
 		<Unit filename="Headers/Student.h" />
 		<Unit filename="Headers/Subject.h" />
 		<Unit filename="Headers/Teacher.h" />
+		<Unit filename="Sources/Interface.cpp" />
 		<Unit filename="Sources/Marks.cpp" />
 		<Unit filename="Sources/Parent.cpp" />
 		<Unit filename="Sources/Person.cpp" />

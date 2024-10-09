@@ -6,15 +6,15 @@
 class Person
 {
 private:
-    int id;
-    std::string name;
-    std::string surname;
-    std::string patronymic;
-    int age;
-    std::string sex;
-    std::string address;
+    int* id;
+    std::string* name;
+    std::string* surname;
+    std::string* patronymic;
+    int* age;
+    std::string* sex;
+    std::string* address;
 public:
-    virtual int getId();
+    virtual int getId() = 0;
     virtual std::string getName();
     virtual std::string getSurname();
     virtual std::string getPatronymic();
@@ -22,13 +22,13 @@ public:
     virtual std::string getSex();
     virtual std::string getAddress();
 
-    virtual void setId(int newId);
-    virtual void setName(std::string newName);
-    virtual void setSurname(std::string newSurname);
-    virtual void setPatronymic(std::string newPatronymic);
-    virtual void setAge(int newAge);
-    virtual void setSex(std::string newSex);
-    virtual void setAddress(std::string newAddress);
+    virtual void setId(int& newId);
+    virtual void setName(std::string& newName);
+    virtual void setSurname(std::string& newSurname);
+    virtual void setPatronymic(std::string& newPatronymic);
+    virtual void setAge(int& newAge);
+    virtual void setSex(std::string& newSex);
+    virtual void setAddress(std::string& newAddress);
 
     virtual void displayId();
     virtual void displayName();
@@ -48,7 +48,7 @@ public:
     Person(int newId, std::string newName, std::string newSurname, std::string newPatronymic, int newAge, std::string newSex);
     Person(int newId, std::string newName, std::string newSurname, std::string newPatronymic, int newAge, std::string newSex, std::string newAddress);
 
-    virtual ~Person() {}
+    virtual ~Person();
 };
 
 #endif // PERSON_H

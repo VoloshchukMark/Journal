@@ -7,11 +7,19 @@
 #include "./Headers/Teacher.h"
 #include "./Headers/Subject.h"
 #include "./Headers/Marks.h"
+#include "./Headers/Interface.h"
+
 
 using namespace std;
 
-int main()
-{
+int main(){
+
+    Interface interface;
+    interface.startMenu();
+    }
+
+
+
 //    Student * meow = new Student(1, "Mark", "Voloshchuk", "Serhiyovich", 12, "male", "Hauwr");
 //    mark->displayInfo();
 //    Parent * sergiy = new Parent(2, "Serhiy", "Voloshchuk", "Viktorovych", 32, "male", "Hauwr", "Jobless");
@@ -22,4 +30,3 @@ int main()
 //    mark->addSubject("Math");
 //    mark->displayInfoOfSubjects();
 //    meow->marks.displayGeneralMark();
-}

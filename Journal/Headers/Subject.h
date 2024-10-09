@@ -2,6 +2,9 @@
 #define SUBJECT_H
 
 #include <iostream>
+#include <list>
+
+#include "./Student.h"
 
 class Subject
 {
@@ -11,6 +14,8 @@ private:
     int idOfTeacher;
     std::string description;
 public:
+
+    std::list<Subject> listOfStudents;
 
     std::string getName();
     std::string getTeacher();

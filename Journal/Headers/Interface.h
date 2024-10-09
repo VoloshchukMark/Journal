@@ -1,15 +1,22 @@
 #ifndef INTERFACE_H
 #define INTERFACE_H
 
+#include <iostream>
+#include <vector>
+
+#include "Student.h"
 
 class Interface
 {
-    public:
-        Interface();
+public:
 
-    protected:
+    std::vector<Student> temporaryStudents;
 
-    private:
+
+    static void startMenu();
+
+
+    Interface();
 };
 
 #endif // INTERFACE_H

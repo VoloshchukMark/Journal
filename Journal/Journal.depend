@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1724173397 source:d:\study\programming\coursework\journal\journal\main.cpp
+1727123814 source:d:\study\programming\coursework\journal\journal\main.cpp
 	<iostream>
 	<string.h>
 	"./Headers/Person.h"
@@ -8,6 +8,7 @@
 	"./Headers/Teacher.h"
 	"./Headers/Subject.h"
 	"./Headers/Marks.h"
+	"./Headers/Interface.h"
 
 1723975158 source:d:\study\programming\coursework\journal\journal\student.cpp
 	"Student.h"
@@ -29,11 +30,11 @@
 1723909496 d:\study\programming\coursework\journal\journal\\person.h
 	<string>
 
-1724173094 source:d:\study\programming\coursework\journal\journal\sources\person.cpp
+1728471088 source:d:\study\programming\coursework\journal\journal\sources\person.cpp
 	"../Headers/Person.h"
 	<iostream>
 
-1723988002 d:\study\programming\coursework\journal\journal\headers\person.h
+1728470990 d:\study\programming\coursework\journal\journal\headers\person.h
 	<string>
 
 1723988002 source:d:\study\programming\coursework\journal\journal\sources\student.cpp
@@ -41,11 +42,12 @@
 	"../Headers/Person.h"
 	<iostream>
 
-1724173314 d:\study\programming\coursework\journal\journal\headers\student.h
+1727126178 d:\study\programming\coursework\journal\journal\headers\student.h
 	"Person.h"
 	"Marks.h"
 	<iostream>
 	<vector>
+	<list>
 
 1723988002 source:d:\study\programming\coursework\journal\journal\sources\parent.cpp
 	"../Headers/Parent.h"
@@ -72,13 +74,36 @@
 	"../Headers/Subject.h"
 	<iostream>
 
-1724173095 d:\study\programming\coursework\journal\journal\headers\subject.h
+1727126178 d:\study\programming\coursework\journal\journal\headers\subject.h
 	<iostream>
+	<list>
+	"./Student.h"
 
 1724170819 source:d:\study\programming\coursework\journal\journal\sources\marks.cpp
 	"Marks.h"
 	<iostream>
 
 1724169888 d:\study\programming\coursework\journal\journal\headers\marks.h
+	<vector>
+
+1727124416 source:d:\study\programming\coursework\journal\journal\sources\interface.cpp
+	"Interface.h"
+
+1728470406 d:\study\programming\coursework\journal\journal\headers\interface.h
+	<iostream>
+	<vector>
+	"Student.h"
+
+1727126178 d:\study\programming\coursework\journal\journal\\headers\student.h
+	"Person.h"
+	"Marks.h"
+	<iostream>
+	<vector>
+	<list>
+
+1727123229 d:\study\programming\coursework\journal\journal\\headers\person.h
+	<string>
+
+1724169888 d:\study\programming\coursework\journal\journal\\headers\marks.h
 	<vector>
 

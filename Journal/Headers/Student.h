@@ -6,6 +6,7 @@
 
 #include <iostream>
 #include <vector>
+#include <list>
 //
 //using namespace std;
 
@@ -14,10 +15,11 @@ class Student :public Person
 private:
 public:
 
+
+
     Marks marks;
 
     void displayInfo() override;
-
 
 
     Student();
