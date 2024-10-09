@@ -17,29 +17,6 @@ int main(){
     Interface interface;
     interface.startMenu();
 
-
-    Student* student = new Student(2, "Mark", "Voloshchuk", "Victrovych", 18, "Male", "Aoaoaoaoa");
-    student->displayInfo();
-
-    std::cout << std::endl;
-
-    Parent* parent = new Parent(2, "Mark", "Voloshchuk", "Victrovych", 18, "Male", "Aoaoaoaoa", "Slave");
-    parent->displayInfo();
-
-    std::cout << std::endl;
-
-    Teacher* teacher = new Teacher(2, "Mark", "Voloshchuk", "Victrovych", 18, "Male", "Aoaoaoaoa");
-    teacher->displayInfo();
-
-    std::cout << std::endl;
-
-
-    delete student;
-    std::cout << std::endl;
-    delete parent;
-    std::cout << std::endl;
-    delete teacher;
-    std::cout << std::endl;
     }
 
 

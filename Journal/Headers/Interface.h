@@ -13,7 +13,12 @@ public:
     std::vector<Student> temporaryStudents;
 
 
-    static void startMenu();
+    static int startMenu();
+    static void studentInfo();
+    static void viewGrades();
+    static void teacherInfo();
+
+    static void userManual();
 
 
     Interface();

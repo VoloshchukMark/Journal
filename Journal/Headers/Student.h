@@ -21,6 +21,8 @@ public:
 
     void displayInfo() override;
 
+    void displayInfoTable();
+
 
     Student();
     Student(int newId, std::string newName, std::string newSurname, std::string newPatronymic, int newAge, std::string newSex, std::string newAddress);
