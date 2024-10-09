@@ -14,6 +14,10 @@ using namespace std;
 
 int main(){
 
+    Interface interface;
+    interface.startMenu();
+
+
     Student* student = new Student(2, "Mark", "Voloshchuk", "Victrovych", 18, "Male", "Aoaoaoaoa");
     student->displayInfo();
 
@@ -29,8 +33,6 @@ int main(){
 
     std::cout << std::endl;
 
-//    Interface interface;
-//    interface.startMenu();
 
     delete student;
     std::cout << std::endl;

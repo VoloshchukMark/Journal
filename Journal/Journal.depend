@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1728478998 source:d:\study\programming\coursework\journal\journal\main.cpp
+1728480547 source:d:\study\programming\coursework\journal\journal\main.cpp
 	<iostream>
 	<string.h>
 	"./Headers/Person.h"
@@ -86,10 +86,12 @@
 1728477885 d:\study\programming\coursework\journal\journal\headers\marks.h
 	<vector>
 
-1727124416 source:d:\study\programming\coursework\journal\journal\sources\interface.cpp
+1728480523 source:d:\study\programming\coursework\journal\journal\sources\interface.cpp
+	<iostream>
+	<windows.h>
 	"Interface.h"
 
-1728470406 d:\study\programming\coursework\journal\journal\headers\interface.h
+1728480726 d:\study\programming\coursework\journal\journal\headers\interface.h
 	<iostream>
 	<vector>
 	"Student.h"
