@@ -5,6 +5,14 @@
 #include <iostream>
 
 
+void Student::updateInfo(int newId, std::string newName,std::string newSurname, std::string newPatromymic, int newAge, std::string newSex, std::string newAddress){
+    Person::updateInfo(newId, newName, newSurname, newPatromymic, newAge, newSex, newAddress);
+    delete marks;
+    marks = new Marks();
+
+}
+
+
 void Student::displayInfo(){
     std::cout << "================================" << std::endl;
     this->displayName();

@@ -10,7 +10,10 @@ class Interface
 {
 public:
 
-    std::vector<Student> temporaryStudents;
+    std::vector<Student> baseOfStudents;
+    void saveStudents();
+    void loadStudents();
+
 
 
     static int startMenu();

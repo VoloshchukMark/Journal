@@ -29,6 +29,7 @@ public:
     virtual void setAge(int& newAge);
     virtual void setSex(std::string& newSex);
     virtual void setAddress(std::string& newAddress);
+    virtual void updateInfo(int newId, std::string newName,std::string newSurname, std::string newPatromymic, int newAge, std::string newSex, std::string newAddress);
 
     virtual void displayId();
     virtual void displayName();

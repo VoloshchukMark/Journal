@@ -62,6 +62,15 @@ void Person::setAddress(std::string& newAddress){
     }
     address = new std::string(newAddress);
 }
+void Person::updateInfo(int newId, std::string newName,std::string newSurname, std::string newPatromymic, int newAge, std::string newSex, std::string newAddress){
+    *id = newId;
+    *name = newName;
+    *surname = newSurname;
+    *patronymic = newPatromymic;
+    *age = newAge;
+    *sex = newSex;
+    *address = newAddress;
+}
 
 void Person::displayId(){
     std::cout << "ID: " << getId() << std::endl;

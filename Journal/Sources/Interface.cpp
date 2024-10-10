@@ -1,6 +1,7 @@
 #include <iostream>
 #include <iomanip>
 #include <windows.h>
+#include <fstream>
 
 #include "Interface.h"
 
@@ -28,7 +29,7 @@ int Interface::startMenu(){
         startMenu();
     }
 
-    }
+}
 
 void Interface::studentInfo() {
     system("cls");
@@ -37,6 +38,32 @@ void Interface::studentInfo() {
     std::cin.get();
     return;
 }
+
+void Interface::loadStudents() {
+    Student temporaryStudent;
+    std::cout << "meow1" << std::endl;
+    std::ifstream loadingStudents("./data/students.txt");
+    if(!loadingStudents.is_open()){std::cout << "Not opened" << std::endl;}
+    std::cout << "meow2" << std::endl;
+    if(loadingStudents.peek() != std::ifstream::traits_type::eof()){
+        do {
+            std::cout << "meow3" << std::endl;
+            std::string newName, newSurname, newPatronymic, newSex, newAddress, check;
+            int newId, newAge;
+            loadingStudents>>newId>>newName>>newSurname>>newPatronymic>>newAge>>newSex>>newAddress;
+            std::cout << "meow4" << std::endl;
+            temporaryStudent.updateInfo(newId, newName, newSurname, newPatronymic, newAge, newSex, newAddress);
+            baseOfStudents.push_back(temporaryStudent);
+            temporaryStudent.displayInfo();
+            loadingStudents>>check;
+            if(check == "!") {break;}
+        } while(!loadingStudents.eof());
+
+    return;
+    } else{
+        std::cout << "This file is empty!";}
+}
+
 
 Interface::Interface(){}
 

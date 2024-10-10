@@ -15,7 +15,8 @@ using namespace std;
 int main(){
 
     Interface interface;
-    interface.startMenu();
+    interface.loadStudents();
+//    interface.startMenu();
 
     }
 
