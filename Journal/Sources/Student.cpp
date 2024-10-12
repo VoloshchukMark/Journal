@@ -23,6 +23,9 @@ void Student::displayInfo(){
     this->displayAddress();
     std::cout << "================================" << std::endl;
 }
+void Student::displayHomeWorkGrades(){
+    marks->displayHomeWorkMark();
+}
 
 Student::Student()
     :Student(0, "Unknown", "Unknown", "Unknown", 0, "Unknown", "Unknown") {}

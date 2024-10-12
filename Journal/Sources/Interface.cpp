@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include <iomanip>
 #include <windows.h>
 #include <fstream>
@@ -63,6 +64,46 @@ void Interface::loadStudents() {
     } else{
         std::cout << "This file is empty!";}
 }
+
+void Interface::importMarks(int ID, Student* chosenStudent)
+{
+    std::ifstream importingMarks("./data/marks.txt");
+    std::cout << "File found!\n";
+    int fileID;
+    std::string itterator;
+    importingMarks>>fileID;
+    if(fileID == ID){
+        std::cout << "ID found!\n";
+        importingMarks>>itterator;
+        while(itterator != ">"){
+            if(itterator == "!"){
+                importingMarks>>itterator;
+                do{
+                    chosenStudent->marks->addHomeWorkMark(stod(itterator));
+                    importingMarks>>itterator;
+                } while(itterator != "?");
+                std::cout << "Importing homework grades is complete!\n";
+            }
+            if(itterator == "?"){
+                importingMarks>>itterator;
+                do{
+                    chosenStudent->marks->addTestMark(stod(itterator));
+                    importingMarks>>itterator;
+                } while(itterator != "#");
+                std::cout << "Importing test grades is complete!\n";
+            }
+            if(itterator == "#"){
+                importingMarks>>itterator;
+                do{
+                    chosenStudent->marks->addSemesterMark(stod(itterator));
+                    importingMarks>>itterator;
+                } while(itterator != ">");
+                std::cout << "Importing semester grades is complete!\n";
+            }
+        }
+    }
+}
+
 
 
 Interface::Interface(){}

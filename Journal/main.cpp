@@ -13,9 +13,12 @@
 using namespace std;
 
 int main(){
+    Student * meow = new Student(1, "Mark", "Voloshchuk", "Serhiyovich", 12, "male", "Hauwr");
 
-    Interface interface;
-    interface.loadStudents();
+    Interface interfaces;
+    interfaces.importMarks(1, meow);
+    meow->displayHomeWorkGrades();
+//    interface.loadStudents();
 //    interface.startMenu();
 
     }

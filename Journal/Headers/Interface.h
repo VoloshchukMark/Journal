@@ -14,6 +14,7 @@ public:
     void saveStudents();
     void loadStudents();
 
+    void importMarks(int ID, Student* chosenStudent);
 
 
     static int startMenu();

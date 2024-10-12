@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1728585681 source:d:\study\programming\coursework\journal\journal\main.cpp
+1728752028 source:d:\study\programming\coursework\journal\journal\main.cpp
 	<iostream>
 	<string.h>
 	"./Headers/Person.h"
@@ -42,7 +42,7 @@
 	"../Headers/Person.h"
 	<iostream>
 
-1728588876 d:\study\programming\coursework\journal\journal\headers\student.h
+1728752015 d:\study\programming\coursework\journal\journal\headers\student.h
 	"Person.h"
 	"Marks.h"
 	<iostream>
@@ -79,35 +79,37 @@
 	<list>
 	"./Student.h"
 
-1728484450 source:d:\study\programming\coursework\journal\journal\sources\marks.cpp
+1728751416 source:d:\study\programming\coursework\journal\journal\sources\marks.cpp
 	"Marks.h"
 	<iostream>
 
-1728484450 d:\study\programming\coursework\journal\journal\headers\marks.h
+1728751416 d:\study\programming\coursework\journal\journal\headers\marks.h
 	<vector>
 
-1728590187 source:d:\study\programming\coursework\journal\journal\sources\interface.cpp
+1728751799 source:d:\study\programming\coursework\journal\journal\sources\interface.cpp
 	<iostream>
+	<string>
 	<iomanip>
 	<windows.h>
 	<fstream>
 	"Interface.h"
 
-1728585660 d:\study\programming\coursework\journal\journal\headers\interface.h
+1728751369 d:\study\programming\coursework\journal\journal\headers\interface.h
 	<iostream>
 	<vector>
 	"Student.h"
 
-1727126178 d:\study\programming\coursework\journal\journal\\headers\student.h
+1728588876 d:\study\programming\coursework\journal\journal\\headers\student.h
 	"Person.h"
 	"Marks.h"
 	<iostream>
 	<vector>
 	<list>
 
-1727123229 d:\study\programming\coursework\journal\journal\\headers\person.h
+1728587513 d:\study\programming\coursework\journal\journal\\headers\person.h
 	<string>
 
-1724169888 d:\study\programming\coursework\journal\journal\\headers\marks.h
+1728750689 d:\study\programming\coursework\journal\journal\\headers\marks.h
 	<vector>
+	"./Headers/Student.h"
 
