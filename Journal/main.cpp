@@ -14,13 +14,16 @@ using namespace std;
 
 int main(){
     Student * meow = new Student(1, "Mark", "Voloshchuk", "Serhiyovich", 12, "male", "Hauwr");
+    Student * woof = new Student(2, "Sergey", "Voloshchuk", "Serhiyovich", 12, "male", "Hauwr");
 
-    Interface interfaces;
-    interfaces.importMarks(1, meow);
-    meow->displayHomeWorkGrades();
+    Interface* interfaces = new Interface;
+//    interfaces->importMarks();
+//    interfaces->connectMarksToStudent(meow);
+//    interfaces->connectMarksToStudent(woof);
 //    interface.loadStudents();
-//    interface.startMenu();
+    interfaces->startMenu();
 
+    delete interfaces;
     }
 
 

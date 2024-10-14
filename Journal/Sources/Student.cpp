@@ -1,3 +1,4 @@
+#include "../rang.hpp"
 #include "../Headers/Student.h"
 
 #include "../Headers/Person.h"
@@ -7,8 +8,6 @@
 
 void Student::updateInfo(int newId, std::string newName,std::string newSurname, std::string newPatromymic, int newAge, std::string newSex, std::string newAddress){
     Person::updateInfo(newId, newName, newSurname, newPatromymic, newAge, newSex, newAddress);
-    delete marks;
-    marks = new Marks();
 
 }
 
@@ -23,18 +22,15 @@ void Student::displayInfo(){
     this->displayAddress();
     std::cout << "================================" << std::endl;
 }
-void Student::displayHomeWorkGrades(){
-    marks->displayHomeWorkMark();
-}
+
 
 Student::Student()
     :Student(0, "Unknown", "Unknown", "Unknown", 0, "Unknown", "Unknown") {}
 Student::Student(int newId, std::string newName, std::string newSurname, std::string newPatronymic, int newAge, std::string newSex, std::string newAddress)
     :Person(newId, newName, newSurname, newPatronymic, newAge, newSex, newAddress) {
-        std::cout<< "Constructor of Student class was called!" << std::endl;
+        std::cout<< rang::fg::cyan << "Constructor of Student class was called!" << rang::fg::reset << std::endl;
         }
 
 Student::~Student() {
-    delete marks;
-    std::cout << "Destructor of Student class was called!"<< std::endl;
+    std::cout << rang::fg::blue << "Destructor of Student class was called!" << rang::fg::reset << std::endl;
 }

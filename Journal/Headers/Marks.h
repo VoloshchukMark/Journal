@@ -1,17 +1,24 @@
 #ifndef MARKS_H
 #define MARKS_H
 
-#include <vector>8
+#include <vector>
 
 
 class Marks
 {
 private:
+    int* idMarks;
     std::vector<double> home_work;
     std::vector<double> test;
     std::vector<double> semester;
     double* general;
 public:
+
+    void setIdMarks(int newIdMarks);
+
+    int getIdMarks();
+
+    void clearData();
 
     void addHomeWorkMark(double newMark);
     void addTestMark(double newMark);
@@ -23,9 +30,11 @@ public:
     void displaySemesterMark();
     void displayGeneralMark();
 
+    Marks(const Marks& other);
+    Marks& operator=(const Marks& other);
 
     Marks();
-    Marks(double newGeneral);
+    Marks(int newIdMarks, double newGeneral);
 
     ~Marks();
 };

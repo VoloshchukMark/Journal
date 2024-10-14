@@ -1,3 +1,4 @@
+#include "../rang.hpp"
 #include "../Headers/Person.h"
 
 #include <iostream>
@@ -115,7 +116,7 @@ Person::Person(int newId, std::string newName, std::string newSurname, std::stri
     age = new int(newAge);
     sex = new std::string(newSex);
     address = new std::string(newAddress);
-    std::cout << "Constructor of Person class was called!" << std::endl;
+    std::cout << rang::fg::cyan << "Constructor of Person class was called!" << rang::fg::reset << std::endl;
 }
 
 
@@ -127,5 +128,5 @@ Person::~Person() {
     delete age;
     delete sex;
     delete address;
-    std::cout << "Destructor of Person class was called!" << std::endl;
+    std::cout << rang::fg::cyan << "Destructor of Person class was called!" << rang::fg::reset << std::endl;
 }

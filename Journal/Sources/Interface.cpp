@@ -1,3 +1,4 @@
+#include "../rang.hpp"
 #include <iostream>
 #include <string>
 #include <iomanip>
@@ -15,7 +16,7 @@ int Interface::startMenu(){
 
     std::string decition;
     std::cout << std::endl;
-    std::cout << "Welcome!" << std::endl;
+    std::cout << rang::fg::green << "Welcome!" << rang::fg::reset << std::endl;
     std::cout << "1.Student information. \n2.View grades. \n3.Teacher info. \n" << std::endl;
     std::cout << ">";
     std::getline(std::cin, decition);
@@ -29,7 +30,6 @@ int Interface::startMenu(){
         system("cls");
         startMenu();
     }
-
 }
 
 void Interface::studentInfo() {
@@ -65,47 +65,78 @@ void Interface::loadStudents() {
         std::cout << "This file is empty!";}
 }
 
-void Interface::importMarks(int ID, Student* chosenStudent)
+void Interface::importMarks()
 {
     std::ifstream importingMarks("./data/marks.txt");
     std::cout << "File found!\n";
+    Marks marksItterator;
     int fileID;
     std::string itterator;
     importingMarks>>fileID;
-    if(fileID == ID){
+    while(!importingMarks.eof()){
+        marksItterator.setIdMarks(fileID);
         std::cout << "ID found!\n";
         importingMarks>>itterator;
         while(itterator != ">"){
             if(itterator == "!"){
                 importingMarks>>itterator;
+                std::cout << "Importing homework grades is started!\n";
                 do{
-                    chosenStudent->marks->addHomeWorkMark(stod(itterator));
+                    marksItterator.addHomeWorkMark(stod(itterator));
                     importingMarks>>itterator;
                 } while(itterator != "?");
                 std::cout << "Importing homework grades is complete!\n";
             }
             if(itterator == "?"){
                 importingMarks>>itterator;
+                std::cout << "Importing test grades is started!\n";
                 do{
-                    chosenStudent->marks->addTestMark(stod(itterator));
+                    marksItterator.addTestMark(stod(itterator));
                     importingMarks>>itterator;
                 } while(itterator != "#");
                 std::cout << "Importing test grades is complete!\n";
             }
             if(itterator == "#"){
                 importingMarks>>itterator;
+                std::cout << "Importing semester grades is started!\n";
                 do{
-                    chosenStudent->marks->addSemesterMark(stod(itterator));
+                    marksItterator.addSemesterMark(stod(itterator));
                     importingMarks>>itterator;
                 } while(itterator != ">");
                 std::cout << "Importing semester grades is complete!\n";
             }
         }
+        std::cout << itterator << std::endl;
+        std::cout << "Poop\n";
+        importingMarks>>fileID;
+        std::cout << "but why?\n";
+        baseOfMarks.push_back(marksItterator);
+        marksItterator.clearData();
+        std::cout << "Data of marksItterator was cleared!\n";
     }
+    std::cout << "Fucking cycle!!!!\n\n";
+}
+
+void Interface::connectMarksToStudent(Student* selectedStudent){
+    int idStudent = selectedStudent->getId();
+    for(Marks selectedMarks : baseOfMarks){
+        if(selectedMarks.getIdMarks() == idStudent){
+            std::cout << "Connected!\n";
+            std::cout << selectedMarks.getIdMarks() << std::endl;
+            return;
+        }
+    }
+    std::cout << "No such student!\n";
+    return;
 }
 
 
-
 Interface::Interface(){}
+
+Interface::~Interface(){
+    baseOfMarks.clear();
+    baseOfStudents.clear();
+    std::cout << rang::fg::blue << "Destructor of Interface class was called!" << rang::fg::reset << std::endl;
+}
 
 

@@ -16,14 +16,12 @@ private:
 public:
 
 
-    Marks* marks = new Marks;
-
     void updateInfo(int newId, std::string newName,std::string newSurname, std::string newPatromymic, int newAge, std::string newSex, std::string newAddress);
 
     void displayInfo() override;
 
-    void displayInfoTable();
-    void displayHomeWorkGrades();
+//    void displayInfoTable();
+//    void displayHomeWorkGrades();
 
 
     Student();

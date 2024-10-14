@@ -35,6 +35,7 @@
 		<Compiler>
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
+			<Add directory="rang" />
 		</Compiler>
 		<Unit filename="Headers/Interface.h" />
 		<Unit filename="Headers/Marks.h" />

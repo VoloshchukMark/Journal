@@ -14,7 +14,10 @@ public:
     void saveStudents();
     void loadStudents();
 
-    void importMarks(int ID, Student* chosenStudent);
+    std::vector<Marks> baseOfMarks;
+    Marks* selectedMarks = new Marks();
+    void importMarks();
+    void connectMarksToStudent(Student* selectedStudent);
 
 
     static int startMenu();
@@ -26,6 +29,7 @@ public:
 
 
     Interface();
+    ~Interface();
 };
 
 #endif // INTERFACE_H

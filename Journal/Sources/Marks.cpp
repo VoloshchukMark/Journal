@@ -1,6 +1,24 @@
+#include "../External-libraries/rang.hpp"
 #include "Marks.h"
 
 #include <iostream>
+
+void Marks::setIdMarks(int newIdMarks){
+        idMarks = new int(newIdMarks);
+}
+
+int Marks::getIdMarks(){
+    return* idMarks;
+}
+
+void Marks::clearData(){
+    home_work.clear();
+    test.clear();
+    semester.clear();
+    idMarks = new int();
+    general = new double();
+}
+
 
 void Marks::addHomeWorkMark(double newMark){
     home_work.push_back(newMark);
@@ -62,19 +80,42 @@ void Marks::displayGeneralMark(){
     std::cout << "General mark: " << general << std::endl;
 }
 
+Marks::Marks(const Marks& other) {
+        idMarks = new int(*(other.idMarks));
+        home_work = other.home_work;
+        test = other.test;
+        semester = other.semester;
+        general = new double(*(other.general));
+    }
+
+Marks& Marks::operator=(const Marks& other) {
+        if (this != &other) {
+            delete idMarks;
+            delete general;
+
+            idMarks = new int(*(other.idMarks));
+            home_work = other.home_work;
+            test = other.test;
+            semester = other.semester;
+            general = new double(*(other.general));
+        }
+        return *this;
+}
+
 
 Marks::Marks()
-    :Marks(0.0) {}
-Marks::Marks(double newGeneral){
+    :Marks(0, 0.0) {}
+Marks::Marks(int newIdMarks, double newGeneral){
+    idMarks = new int(newIdMarks);
     general = new double(newGeneral);
-    std::cout << "Constructor of Marks class was called!" << std::endl;
+    std::cout << rang::fg::cyan <<"Constructor of Marks class was called!" << rang::fg::reset << std::endl;
 
     }
 
 Marks::~Marks() {
-    delete& home_work;
-    delete& test;
-    delete& semester;
+    home_work.clear();
+    test.clear();
+    semester.clear();
     delete general;
-    std::cout << "Destructor of Marks class was called!" << std::endl;
+    std::cout << rang::fg::blue << "Destructor of Marks class was called!" << rang::style::reset << std::endl;
     }
