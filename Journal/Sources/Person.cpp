@@ -105,6 +105,16 @@ void Person::displayInfo(){
     std::cout << "================================\n" << std::endl;
 }
 
+Person::Person(const Person& other) {
+        id = new int(*other.id);
+        name = new std::string(*other.name);
+        surname = new std::string(*other.surname);
+        patronymic = new std::string(*other.patronymic);
+        age = new int(*other.age);
+        sex = new std::string(*other.sex);
+        address = new std::string(*other.address);
+    }
+
 
 Person::Person()
     :Person(0, "Unknown", "Unknown", "Unknown", 0, "Unknown", "Unknown") {}
@@ -128,5 +138,5 @@ Person::~Person() {
     delete age;
     delete sex;
     delete address;
-    std::cout << rang::fg::cyan << "Destructor of Person class was called!" << rang::fg::reset << std::endl;
+//    std::cout << rang::fg::cyan << "Destructor of Person class was called!" << rang::fg::reset << std::endl;
 }

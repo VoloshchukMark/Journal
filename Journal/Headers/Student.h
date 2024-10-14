@@ -12,7 +12,6 @@
 
 class Student : public Person
 {
-private:
 public:
 
 

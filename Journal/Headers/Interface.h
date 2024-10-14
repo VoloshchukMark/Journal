@@ -20,8 +20,8 @@ public:
     void connectMarksToStudent(Student* selectedStudent);
 
 
-    static int startMenu();
-    static void studentInfo();
+    int startMenu();
+    void studentInfo();
     static void viewGrades();
     static void teacherInfo();
 

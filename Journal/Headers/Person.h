@@ -40,6 +40,8 @@ public:
     virtual void displayAddress();
     virtual void displayInfo() = 0;
 
+    Person(const Person& other);
+
     Person();
     Person(int newId, std::string newName, std::string newSurname, std::string newPatronymic, int newAge, std::string newSex, std::string newAddress);
 

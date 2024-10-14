@@ -16,7 +16,7 @@ int Interface::startMenu(){
 
     std::string decition;
     std::cout << std::endl;
-    std::cout << rang::fg::green << "Welcome!" << rang::fg::reset << std::endl;
+    std::cout << rang::fg::green << rang::style::underline << "Welcome!" << rang::fg::reset << rang::style::reset << std::endl;
     std::cout << "1.Student information. \n2.View grades. \n3.Teacher info. \n" << std::endl;
     std::cout << ">";
     std::getline(std::cin, decition);
@@ -33,9 +33,19 @@ int Interface::startMenu(){
 }
 
 void Interface::studentInfo() {
+    loadStudents();
     system("cls");
-    std::cout << "======================================================================================" << std::endl;
-    std::cout << " ID " << std::setw(5) << "|| Full name " << std::setw(40) << " || Age " << std::setw(10) << " || Sex " << std::setw(10) << " || Adress " << std::endl;
+    std::cout << "======================================================================================================================" << std::endl;
+    std::cout << " ID " << std::setw(5) << "|| Full name " << std::setw(50) << " || Age " << std::setw(10) << " || Sex " << std::setw(15) << " || Adress " << std::endl;
+    std::cout << "----------------------------------------------------------------------------------------------------------------------" << std::endl;
+    for(Student selectedStudent : baseOfStudents){
+        std::cout << " " << selectedStudent.getId() << std::setw(6 - std::to_string(selectedStudent.getId()).size()) << "|| " << selectedStudent.getName() << " " << selectedStudent.getSurname() << " ";
+        std::cout << selectedStudent.getPatronymic() << std::setw(54 - (selectedStudent.getName().size() + selectedStudent.getSurname().size() + selectedStudent.getPatronymic().size())) << " || " << selectedStudent.getAge();
+        std::cout << std::setw(10 - std::to_string(selectedStudent.getAge()).size()) << " || " << selectedStudent.getSex();
+        std::cout << std::setw(11 - selectedStudent.getSex().size()) << " ||" <<selectedStudent.getAddress() << std::endl;
+    }
+    std::cout << "======================================================================================================================" << std::endl;
+
     std::cin.get();
     return;
 }
@@ -59,7 +69,6 @@ void Interface::loadStudents() {
             loadingStudents>>check;
             if(check == "!") {break;}
         } while(!loadingStudents.eof());
-
     return;
     } else{
         std::cout << "This file is empty!";}

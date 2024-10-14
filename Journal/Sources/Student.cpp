@@ -32,5 +32,5 @@ Student::Student(int newId, std::string newName, std::string newSurname, std::st
         }
 
 Student::~Student() {
-    std::cout << rang::fg::blue << "Destructor of Student class was called!" << rang::fg::reset << std::endl;
+//    std::cout << rang::fg::blue << "Destructor of Student class was called!" << rang::fg::reset << std::endl;
 }
