@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1728936441 source:d:\study\programming\coursework\journal\journal\main.cpp
+1728990322 source:d:\study\programming\coursework\journal\journal\main.cpp
 	<iostream>
 	<string.h>
 	"./Headers/Person.h"
@@ -90,16 +90,19 @@
 1728909441 d:\study\programming\coursework\journal\journal\headers\marks.h
 	<vector>
 
-1728939207 source:d:\study\programming\coursework\journal\journal\sources\interface.cpp
+1728990351 source:d:\study\programming\coursework\journal\journal\sources\interface.cpp
 	"../rang.hpp"
 	<iostream>
 	<string>
 	<iomanip>
 	<windows.h>
 	<fstream>
+	<vector>
+	<cstring>
+	<algorithm>
 	"Interface.h"
 
-1728937234 d:\study\programming\coursework\journal\journal\headers\interface.h
+1728987020 d:\study\programming\coursework\journal\journal\headers\interface.h
 	<iostream>
 	<vector>
 	"Student.h"

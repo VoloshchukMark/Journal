@@ -4,11 +4,15 @@
 #include <iomanip>
 #include <windows.h>
 #include <fstream>
+#include <vector>
+#include <cstring>
+#include <algorithm>
 
 #include "Interface.h"
 
 
 int Interface::startMenu(){
+    system("cls");
     std::cout << "MyJournal 0.1.3 \n" << std::endl;
     std::cout << "(Type '/?' for 'user manual'; type '/quit' to exit)" << std::endl;
 
@@ -51,28 +55,139 @@ void Interface::studentInfo() {
 }
 
 void Interface::loadStudents() {
+    baseOfStudents.clear();
     Student temporaryStudent;
-    std::cout << "meow1" << std::endl;
     std::ifstream loadingStudents("./data/students.txt");
     if(!loadingStudents.is_open()){std::cout << "Not opened" << std::endl;}
-    std::cout << "meow2" << std::endl;
     if(loadingStudents.peek() != std::ifstream::traits_type::eof()){
         do {
-            std::cout << "meow3" << std::endl;
             std::string newName, newSurname, newPatronymic, newSex, newAddress, check;
             int newId, newAge;
             loadingStudents>>newId>>newName>>newSurname>>newPatronymic>>newAge>>newSex>>newAddress;
-            std::cout << "meow4" << std::endl;
             temporaryStudent.updateInfo(newId, newName, newSurname, newPatronymic, newAge, newSex, newAddress);
             baseOfStudents.push_back(temporaryStudent);
-            temporaryStudent.displayInfo();
+//            temporaryStudent.displayInfo();
             loadingStudents>>check;
-            if(check == "!") {break;}
         } while(!loadingStudents.eof());
+        baseOfStudents.pop_back();
+//        baseOfStudents.back().displayInfo();
+//        std::cin.get();
     return;
     } else{
         std::cout << "This file is empty!";}
 }
+
+void Interface::createStudent(){
+    system("cls");
+    std::ofstream creatingStudent("data/students.txt", std::ios::app);
+    std::string newName, newSurname, newPatronymic, newSex, newAddress, check;
+    int newId, newAge;
+    if(creatingStudent.is_open()){
+       newId = (baseOfStudents.back().getId()) + 1;
+       std::cout << baseOfStudents.back().getName() << std::endl;
+       std::cout << newId << std::endl;
+       std::string uncheckedNewName, uncheckedNewSurname, uncheckedNewPatronymic, uncheckedNewAge, uncheckedNewSex, uncheckedNewAddress;
+
+       std::cout << "Enter the first name: ";
+       std::getline(std::cin, uncheckedNewName);
+       newName = nsp_check(uncheckedNewName);
+       std::cout << "Enter the last name: ";
+       std::getline(std::cin, uncheckedNewSurname);
+       newSurname = nsp_check(uncheckedNewSurname);
+       std::cout << "Enter the patronymic: ";
+       std::getline(std::cin, uncheckedNewPatronymic);
+       newPatronymic = nsp_check(uncheckedNewPatronymic);
+
+       std::cout << "Enter the age: ";
+       std::getline(std::cin, uncheckedNewAge);
+       newAge = age_check(uncheckedNewAge);
+
+       std::cout << "Choose the sex (" << rang::style::underline << "Male/Female/Other" << rang::style::reset << "): ";
+       std::getline(std::cin, uncheckedNewSex);
+       newSex = sex_check(uncheckedNewSex);
+
+        std::cout << "Write down the address (Be careful, this information will not be processed!)\n>";
+        std::getline(std::cin, uncheckedNewAddress);
+        newAddress = address_check(uncheckedNewAddress);
+
+        creatingStudent<<newId<<" "<<newName<<" "<<newSurname<<" "<<newPatronymic<<" "<<newAge<<" "<<newSex<<" "<<newAddress<<std::endl;
+        std::cout << "The information was successfully recorded!\n";
+        std::cin.get();
+       }
+//    std::cout << baseOfStudents.back().getId();
+    return;
+}
+
+std::string Interface::nsp_check(std::string item) {
+    std::vector<std::string> separatedItem;
+    char* charNewItem = new char[item.length() + 1]; //
+    std::strcpy(charNewItem, item.c_str());
+
+    char* cleanedItem = strtok(charNewItem, " ,.!?");
+    while (cleanedItem != nullptr) {
+        separatedItem.push_back(cleanedItem);
+        cleanedItem = strtok(nullptr, " ,.!? &#");
+    }
+    delete[] charNewItem;
+    std::string firstItem = separatedItem.front();
+    if(separatedItem.size() > 1){
+        std::cout << "You have inserted more than one word. We will take only the first one. Do you agree?\n";
+        std::cout << "1.Yes \n2.Rewrite\n\n>";
+        std::string decition;
+        std::cin >> decition;
+        if(decition == "1"){
+            system("cls");
+            return firstItem;
+        } else if(decition == "2"){
+            system("cls");
+            std::string newItem;
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cout << "Enter another variant: ";
+            std::getline(std::cin, newItem);
+            return nsp_check(newItem);
+        }
+
+    } else return firstItem;
+}
+int Interface::age_check(std::string uncheckedNewAge){
+    if(containsOnlyDigits(uncheckedNewAge)){
+        int checkedAge = std::stoi(uncheckedNewAge);
+        return checkedAge;
+    }else{
+        std::cout << "You have inserted non-integer value!\nTry again: ";
+        std::string anotherUncheckedNewAge;
+        std::getline(std::cin, anotherUncheckedNewAge);
+        return age_check(anotherUncheckedNewAge);
+    }
+}
+std::string Interface::sex_check(std::string uncheckedNewSex){
+        if(uncheckedNewSex == "male" || uncheckedNewSex == "Male"){return "Male";}
+        else if(uncheckedNewSex == "female" || uncheckedNewSex == "Female"){return "Female";}
+        else if(uncheckedNewSex == "other" || uncheckedNewSex == "Other"){return "Other";}
+        else{
+            std::cout << "Inserted information is wrong!\nTry again (choose between " << rang::style::underline << "Male/Female/Other" << rang::style::reset << "): ";
+            std::string anotherUncheckedNewSex;
+            std::getline(std::cin, anotherUncheckedNewSex);
+            return sex_check(anotherUncheckedNewSex);
+        }
+}
+std::string Interface::address_check(std::string uncheckedNewAddress){
+    std::string checkedNewAddress = ('"' + uncheckedNewAddress + '"');
+    std::cout << checkedNewAddress << std::endl << "Are you sure?\n";
+    std::cout << "1.Yes \n2.Rewrite\n>";
+    std::string decition;
+    std::getline(std::cin, decition);
+    if(decition == "1"){
+        return checkedNewAddress;
+    }else if(decition == "2"){
+        std::cout << "Write down the other address (Be careful, this information will not be processed!)\n>";
+        std::string otherUncheckedNewAddress;
+        std::getline(std::cin, otherUncheckedNewAddress);
+        return address_check(uncheckedNewAddress);
+    }
+    return checkedNewAddress;
+}
+
 
 void Interface::importMarks()
 {
@@ -137,6 +252,12 @@ void Interface::connectMarksToStudent(Student* selectedStudent){
     }
     std::cout << "No such student!\n";
     return;
+}
+
+
+
+bool Interface::containsOnlyDigits(const std::string& str) {
+    return std::all_of(str.begin(), str.end(), ::isdigit);
 }
 
 

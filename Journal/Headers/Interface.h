@@ -13,6 +13,11 @@ public:
     std::vector<Student> baseOfStudents;
     void saveStudents();
     void loadStudents();
+    void createStudent();
+    std::string nsp_check(std::string item);
+    int age_check(std::string uncheckedNewAge);
+    std::string sex_check(std::string uncheckedNewSex);
+    std::string address_check(std::string uncheckedNewAddress);
 
     std::vector<Marks> baseOfMarks;
     Marks* selectedMarks = new Marks();
@@ -26,6 +31,9 @@ public:
     static void teacherInfo();
 
     static void userManual();
+
+    bool containsOnlyDigits(const std::string& str);
+
 
 
     Interface();
