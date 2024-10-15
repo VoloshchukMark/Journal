@@ -77,7 +77,19 @@ void Marks::displaySemesterMark(){
     std::cout << "\n";
 }
 void Marks::displayGeneralMark(){
-    std::cout << "General mark: " << general << std::endl;
+    std::cout << "General mark: " << *this->general << std::endl;
+}
+void Marks::displayAllMarks(){
+    this->displayHomeWorkMark();
+    this->displayTestMark();
+    this->displaySemesterMark();
+    this->displayGeneralMark();
+    std::cout << std::endl;
+}
+
+void Marks::setGeneralMark(double newGeneralMark){
+    delete general;
+    general = new double(newGeneralMark);
 }
 
 Marks::Marks(const Marks& other) {

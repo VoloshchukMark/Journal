@@ -20,7 +20,7 @@ int main(){
 //    interfaces->importMarks();
 //    interfaces->connectMarksToStudent(meow);
 //    interfaces->connectMarksToStudent(woof);
-    interfaces->loadStudents();
+//    interfaces->loadStudents();
 //    interfaces->createStudent();
     interfaces->startMenu();
 

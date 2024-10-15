@@ -77,10 +77,10 @@ void Person::displayId(){
     std::cout << "ID: " << getId() << std::endl;
 }
 void Person::displayName(){
-    std::cout << "Name: " << getName() << std::endl;
+    std::cout << "First name: " << getName() << std::endl;
 }
 void Person::displaySurname(){
-    std::cout << "Surname: " << getSurname() << std::endl;
+    std::cout << "Second name: " << getSurname() << std::endl;
 }
 void Person::displayPatronymic(){
     std::cout << "Patronymic: " << getPatronymic() << std::endl;

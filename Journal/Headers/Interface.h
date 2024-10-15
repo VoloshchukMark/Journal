@@ -11,6 +11,9 @@ class Interface
 public:
 
     std::vector<Student> baseOfStudents;
+    Student* selectedStudent = new Student();
+    std::string selectStudent(std::string selectedId);
+
     void saveStudents();
     void loadStudents();
     void createStudent();
@@ -27,6 +30,7 @@ public:
 
     int startMenu();
     int studentInfo();
+    void viewStudent();
     static void viewGrades();
     static void teacherInfo();
 

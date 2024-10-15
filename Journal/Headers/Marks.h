@@ -29,6 +29,9 @@ public:
     void displayTestMark();
     void displaySemesterMark();
     void displayGeneralMark();
+    void displayAllMarks();
+
+    void setGeneralMark(double newGeneralMark);
 
     Marks(const Marks& other);
     Marks& operator=(const Marks& other);

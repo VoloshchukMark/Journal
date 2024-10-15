@@ -22,6 +22,7 @@ public:
 //    void displayInfoTable();
 //    void displayHomeWorkGrades();
 
+    Student(const Student& other);
 
     Student();
     Student(int newId, std::string newName, std::string newSurname, std::string newPatronymic, int newAge, std::string newSex, std::string newAddress);

@@ -13,7 +13,7 @@
 
 int Interface::startMenu(){
     system("cls");
-    std::cout << "MyJournal 0.1.9 \n" << std::endl;
+    std::cout << "MyJournal 0.1.10 \n" << std::endl;
     std::cout << "(Type '/?' for 'user manual'; type '/quit' to exit)" << std::endl;
 
     Sleep(500);
@@ -50,11 +50,13 @@ int Interface::studentInfo() {
     }
     std::cout << "========================================================================================================================" << std::endl << std::endl;
     Sleep(100);
-    std::cout << "Choose an action:\n3.Add Student \n6.Back\n>";
+    std::cout << "Choose an action:\n1.View student\n3.Add student \n6.Back\n>";
 
     std::string decition;
     std::getline(std::cin, decition);
-    if(decition == "3"){
+    if(decition == "1"){
+        viewStudent();
+    }else if(decition == "3"){
         createStudent();
     } else if(decition == "6"){
         return 0;
@@ -142,15 +144,15 @@ void Interface::createStudent(){
        creatingStudent.close();
 a1:    std::cout << "The information was successfully recorded!\n";
        Sleep(300);
-       std::cout << "1.Back to students information \n2.View this student\n>";
+       std::cout << "1.Back to students information\n>";
         std::string decition;
         std::getline(std::cin, decition);
         if(decition == "1"){
             return;
-        } else if(decition == "2"){
-            std::cout << "Not done yet(\n";
-            std::cin.get();
-            return;
+//        } else if(decition == "2"){
+//            std::cout << "Not done yet(\n";
+//            std::cin.get();
+//            return;
         } else{
             system("cls");
         }
@@ -225,70 +227,105 @@ std::string Interface::address_check(std::string uncheckedNewAddress){
         std::cout << "Write down the other address (Be careful, this information will not be processed!)\n>";
         std::string otherUncheckedNewAddress;
         std::getline(std::cin, otherUncheckedNewAddress);
-        return address_check(uncheckedNewAddress);
+        return address_check(otherUncheckedNewAddress);
     }
     return checkedNewAddress;
 }
 
-
-void Interface::importMarks()
-{
-    std::ifstream importingMarks("./data/marks.txt");
-    std::cout << "File found!\n";
-    Marks marksItterator;
-    int fileID;
-    std::string itterator;
-    importingMarks>>fileID;
-    while(!importingMarks.eof()){
-        marksItterator.setIdMarks(fileID);
-        std::cout << "ID found!\n";
-        importingMarks>>itterator;
-        while(itterator != ">"){
-            if(itterator == "!"){
-                importingMarks>>itterator;
-                std::cout << "Importing homework grades is started!\n";
-                do{
-                    marksItterator.addHomeWorkMark(stod(itterator));
-                    importingMarks>>itterator;
-                } while(itterator != "?");
-                std::cout << "Importing homework grades is complete!\n";
-            }
-            if(itterator == "?"){
-                importingMarks>>itterator;
-                std::cout << "Importing test grades is started!\n";
-                do{
-                    marksItterator.addTestMark(stod(itterator));
-                    importingMarks>>itterator;
-                } while(itterator != "#");
-                std::cout << "Importing test grades is complete!\n";
-            }
-            if(itterator == "#"){
-                importingMarks>>itterator;
-                std::cout << "Importing semester grades is started!\n";
-                do{
-                    marksItterator.addSemesterMark(stod(itterator));
-                    importingMarks>>itterator;
-                } while(itterator != ">");
-                std::cout << "Importing semester grades is complete!\n";
-            }
+std::string Interface::selectStudent(std::string selectedId){
+    for(Student eachStudent : baseOfStudents){
+        if(eachStudent.getId() == std::stoi(selectedId)){
+            delete selectedStudent;
+            selectedStudent = new Student(eachStudent);
+            std::cout << "Student has been selected!\n";
+            Sleep(1000);
+            return "1";
         }
-        std::cout << itterator << std::endl;
-        std::cout << "Poop\n";
-        importingMarks>>fileID;
-        std::cout << "but why?\n";
-        baseOfMarks.push_back(marksItterator);
-        marksItterator.clearData();
-        std::cout << "Data of marksItterator was cleared!\n";
     }
-    std::cout << "Fucking cycle!!!!\n\n";
+    std::cout << "Student wasn't found((((";
+    std::cin.get();
+    return 0;
 }
+void Interface::viewStudent(){
+    std::string selection;
+    std::cout << "Enter ID of the student you want to check: ";
+    std::getline(std::cin, selection);
+    std::string result = selectStudent(selection);
+    if(result == "1"){
+a2:     importMarks();
+        system("cls");
+        connectMarksToStudent(selectedStudent);
+        selectedStudent->displayInfo();
+        selectedMarks->displayAllMarks();
+        std::cout << "Action: \n1.Edit student \n2.Back \n>";
+        std::string decition;
+        std::getline(std::cin, decition);
+        if(decition == "1"){
+
+        }else if(decition == "2"){
+            delete selectedStudent;
+            return;
+        }
+        goto a2;
+    }else{return;}
+}
+
+
+//void Interface::importMarks()
+//{
+//    std::ifstream importingMarks("./data/marks.txt");
+//    std::cout << "File found!\n";
+//    Marks marksItterator;
+//    int fileID;
+//    std::string itterator;
+//    importingMarks>>fileID;
+//    while(!importingMarks.eof()){
+//        marksItterator.setIdMarks(fileID);
+//        std::cout << "ID found!\n";
+//        importingMarks>>itterator;
+//        while(itterator != ">"){
+//            if(itterator == "!"){
+//                importingMarks>>itterator;
+//                std::cout << "Importing homework grades is started!\n";
+//                do{
+//                    marksItterator.addHomeWorkMark(stod(itterator));
+//                    importingMarks>>itterator;
+//                } while(itterator != "?");
+//                std::cout << "Importing homework grades is complete!\n";
+//            }
+//            if(itterator == "?"){
+//                importingMarks>>itterator;
+//                std::cout << "Importing test grades is started!\n";
+//                do{
+//                    marksItterator.addTestMark(stod(itterator));
+//                    importingMarks>>itterator;
+//                } while(itterator != "#");
+//                std::cout << "Importing test grades is complete!\n";
+//            }
+//            if(itterator == "#"){
+//                importingMarks>>itterator;
+//                std::cout << "Importing semester grades is started!\n";
+//                do{
+//                    marksItterator.addSemesterMark(stod(itterator));
+//                    importingMarks>>itterator;
+//                } while(itterator != ">");
+//                std::cout << "Importing semester grades is complete!\n";
+//            }
+//        }
+//        std::cout << itterator << std::endl;
+//        importingMarks>>fileID;
+//        marksItterator.setGeneralMark(0.0);
+//        baseOfMarks.push_back(marksItterator);
+//        marksItterator.clearData();
+//    }
+//    return;
+//}
 
 void Interface::connectMarksToStudent(Student* selectedStudent){
     int idStudent = selectedStudent->getId();
-    for(Marks selectedMarks : baseOfMarks){
-        if(selectedMarks.getIdMarks() == idStudent){
-            std::cout << "Connected!\n";
-            std::cout << selectedMarks.getIdMarks() << std::endl;
+    for(Marks selectMarks : baseOfMarks){
+        if(selectMarks.getIdMarks() == idStudent){
+            selectedMarks = new Marks(selectMarks);
             return;
         }
     }
@@ -308,6 +345,8 @@ Interface::Interface(){}
 Interface::~Interface(){
     baseOfMarks.clear();
     baseOfStudents.clear();
+    delete selectedStudent;
+    delete selectedMarks;
     std::cout << rang::fg::blue << "Destructor of Interface class was called!" << rang::fg::reset << std::endl;
 }
 
