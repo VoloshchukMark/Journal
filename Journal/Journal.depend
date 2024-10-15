@@ -90,7 +90,7 @@
 1728909441 d:\study\programming\coursework\journal\journal\headers\marks.h
 	<vector>
 
-1728990351 source:d:\study\programming\coursework\journal\journal\sources\interface.cpp
+1729002715 source:d:\study\programming\coursework\journal\journal\sources\interface.cpp
 	"../rang.hpp"
 	<iostream>
 	<string>
@@ -102,7 +102,7 @@
 	<algorithm>
 	"Interface.h"
 
-1728987020 d:\study\programming\coursework\journal\journal\headers\interface.h
+1728992858 d:\study\programming\coursework\journal\journal\headers\interface.h
 	<iostream>
 	<vector>
 	"Student.h"

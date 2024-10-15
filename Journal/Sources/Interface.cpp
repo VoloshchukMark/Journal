@@ -13,7 +13,7 @@
 
 int Interface::startMenu(){
     system("cls");
-    std::cout << "MyJournal 0.1.3 \n" << std::endl;
+    std::cout << "MyJournal 0.1.9 \n" << std::endl;
     std::cout << "(Type '/?' for 'user manual'; type '/quit' to exit)" << std::endl;
 
     Sleep(500);
@@ -21,7 +21,7 @@ int Interface::startMenu(){
     std::string decition;
     std::cout << std::endl;
     std::cout << rang::fg::green << rang::style::underline << "Welcome!" << rang::fg::reset << rang::style::reset << std::endl;
-    std::cout << "1.Student information. \n2.View grades. \n3.Teacher info. \n" << std::endl;
+    std::cout << "1.Students information. \n2.View grades. \n3.Teacher info. \n";
     std::cout << ">";
     std::getline(std::cin, decition);
 
@@ -32,26 +32,36 @@ int Interface::startMenu(){
         }
      else {
         system("cls");
-        startMenu();
     }
+    startMenu();
 }
 
-void Interface::studentInfo() {
+int Interface::studentInfo() {
     loadStudents();
     system("cls");
-    std::cout << "======================================================================================================================" << std::endl;
-    std::cout << " ID " << std::setw(5) << "|| Full name " << std::setw(50) << " || Age " << std::setw(10) << " || Sex " << std::setw(15) << " || Adress " << std::endl;
-    std::cout << "----------------------------------------------------------------------------------------------------------------------" << std::endl;
+    std::cout << "========================================================================================================================" << std::endl;
+    std::cout << " ID " << std::setw(5) << "|| Full name " << std::setw(50) << " || Age " << std::setw(10) << " || Sex " << std::setw(16) << " || Address " << std::endl;
+    std::cout << "------------------------------------------------------------------------------------------------------------------------" << std::endl;
     for(Student selectedStudent : baseOfStudents){
         std::cout << " " << selectedStudent.getId() << std::setw(6 - std::to_string(selectedStudent.getId()).size()) << "|| " << selectedStudent.getName() << " " << selectedStudent.getSurname() << " ";
         std::cout << selectedStudent.getPatronymic() << std::setw(54 - (selectedStudent.getName().size() + selectedStudent.getSurname().size() + selectedStudent.getPatronymic().size())) << " || " << selectedStudent.getAge();
         std::cout << std::setw(10 - std::to_string(selectedStudent.getAge()).size()) << " || " << selectedStudent.getSex();
-        std::cout << std::setw(11 - selectedStudent.getSex().size()) << " ||" <<selectedStudent.getAddress() << std::endl;
+        std::cout << std::setw(12 - selectedStudent.getSex().size()) << " || " <<selectedStudent.getAddress() << std::endl;
     }
-    std::cout << "======================================================================================================================" << std::endl;
+    std::cout << "========================================================================================================================" << std::endl << std::endl;
+    Sleep(100);
+    std::cout << "Choose an action:\n3.Add Student \n6.Back\n>";
 
-    std::cin.get();
-    return;
+    std::string decition;
+    std::getline(std::cin, decition);
+    if(decition == "3"){
+        createStudent();
+    } else if(decition == "6"){
+        return 0;
+    } else{
+        system("cls");
+    }
+    studentInfo();
 }
 
 void Interface::loadStudents() {
@@ -63,7 +73,18 @@ void Interface::loadStudents() {
         do {
             std::string newName, newSurname, newPatronymic, newSex, newAddress, check;
             int newId, newAge;
-            loadingStudents>>newId>>newName>>newSurname>>newPatronymic>>newAge>>newSex>>newAddress;
+            loadingStudents>>newId>>newName>>newSurname>>newPatronymic>>newAge>>newSex;
+//            std::cout << "Basic data was successfuly imported!\n";
+            loadingStudents>>check;
+            if(check == "'"){
+                std::string wholeAddress;
+                loadingStudents>>check;
+                while(check != "'"){
+                    newAddress += (check + " ");
+                    loadingStudents>>check;
+                }
+            }
+//            std::cout << "Address was successfuly imported!\n";
             temporaryStudent.updateInfo(newId, newName, newSurname, newPatronymic, newAge, newSex, newAddress);
             baseOfStudents.push_back(temporaryStudent);
 //            temporaryStudent.displayInfo();
@@ -88,31 +109,52 @@ void Interface::createStudent(){
        std::cout << newId << std::endl;
        std::string uncheckedNewName, uncheckedNewSurname, uncheckedNewPatronymic, uncheckedNewAge, uncheckedNewSex, uncheckedNewAddress;
 
+       system("cls");
        std::cout << "Enter the first name: ";
        std::getline(std::cin, uncheckedNewName);
        newName = nsp_check(uncheckedNewName);
+       system("cls");
        std::cout << "Enter the last name: ";
        std::getline(std::cin, uncheckedNewSurname);
        newSurname = nsp_check(uncheckedNewSurname);
+       system("cls");
        std::cout << "Enter the patronymic: ";
        std::getline(std::cin, uncheckedNewPatronymic);
        newPatronymic = nsp_check(uncheckedNewPatronymic);
 
+        system("cls");
        std::cout << "Enter the age: ";
        std::getline(std::cin, uncheckedNewAge);
        newAge = age_check(uncheckedNewAge);
 
+       system("cls");
        std::cout << "Choose the sex (" << rang::style::underline << "Male/Female/Other" << rang::style::reset << "): ";
        std::getline(std::cin, uncheckedNewSex);
        newSex = sex_check(uncheckedNewSex);
 
-        std::cout << "Write down the address (Be careful, this information will not be processed!)\n>";
-        std::getline(std::cin, uncheckedNewAddress);
-        newAddress = address_check(uncheckedNewAddress);
+       system("cls");
+       std::cout << "Write down the address (Be careful, this information will not be processed!)\n>";
+       std::getline(std::cin, uncheckedNewAddress);
+       newAddress = address_check(uncheckedNewAddress);
 
-        creatingStudent<<newId<<" "<<newName<<" "<<newSurname<<" "<<newPatronymic<<" "<<newAge<<" "<<newSex<<" "<<newAddress<<std::endl;
-        std::cout << "The information was successfully recorded!\n";
-        std::cin.get();
+       system("cls");
+       creatingStudent<<newId<<" "<<newName<<" "<<newSurname<<" "<<newPatronymic<<" "<<newAge<<" "<<newSex<<" "<<newAddress<<" >"<<std::endl;
+       creatingStudent.close();
+a1:    std::cout << "The information was successfully recorded!\n";
+       Sleep(300);
+       std::cout << "1.Back to students information \n2.View this student\n>";
+        std::string decition;
+        std::getline(std::cin, decition);
+        if(decition == "1"){
+            return;
+        } else if(decition == "2"){
+            std::cout << "Not done yet(\n";
+            std::cin.get();
+            return;
+        } else{
+            system("cls");
+        }
+        goto a1;
        }
 //    std::cout << baseOfStudents.back().getId();
     return;
@@ -172,7 +214,7 @@ std::string Interface::sex_check(std::string uncheckedNewSex){
         }
 }
 std::string Interface::address_check(std::string uncheckedNewAddress){
-    std::string checkedNewAddress = ('"' + uncheckedNewAddress + '"');
+    std::string checkedNewAddress = ("' " + uncheckedNewAddress + " '");
     std::cout << checkedNewAddress << std::endl << "Are you sure?\n";
     std::cout << "1.Yes \n2.Rewrite\n>";
     std::string decition;

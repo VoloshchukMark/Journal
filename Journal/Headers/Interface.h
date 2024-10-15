@@ -26,7 +26,7 @@ public:
 
 
     int startMenu();
-    void studentInfo();
+    int studentInfo();
     static void viewGrades();
     static void teacherInfo();
 
