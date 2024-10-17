@@ -15,15 +15,15 @@ void Teacher::displayInfo(){
     std::cout << "================================" << std::endl;
 }
 
-void Teacher::addSubject(std::string newName){
-    Subject subject(newName, this->getName(), this->getId());
-    std::cout << "Write a short desctiption of this subject (up to 50 symbols):\n";
-    std::string description;
-    std::getline(std::cin, description);
-    subject.setDescription(description);
-    subjects.push_back(subject);
-    std::cout << "Subject was added successfuly!\n";
-}
+//void Teacher::addSubject(std::string newName){
+//    Subject subject(newName, this->getName(), this->getId());
+//    std::cout << "Write a short desctiption of this subject (up to 50 symbols):\n";
+//    std::string description;
+//    std::getline(std::cin, description);
+//    subject.setDescription(description);
+//    subjects.push_back(subject);
+//    std::cout << "Subject was added successfuly!\n";
+//}
 
 void Teacher::displayInfoOfSubjects(){
     for(Subject &subj : subjects){

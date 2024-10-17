@@ -4,11 +4,17 @@
 #include <iostream>
 
 void Marks::setIdMarks(int newIdMarks){
-        idMarks = new int(newIdMarks);
+    idMarks = new int(newIdMarks);
+}
+void Marks::setIdSubject(int newIdSubject){
+    idSubject = new int(newIdSubject);
 }
 
 int Marks::getIdMarks(){
     return* idMarks;
+}
+int Marks::getIdSubject(){
+    return* idSubject;
 }
 
 void Marks::clearData(){
@@ -55,29 +61,36 @@ void Marks::calculateGeneralMark(){
     *general /= counter;
 }
 
+void Marks::displayIdMarks(){
+    std::cout << "ID of grades: " << *this->idMarks << std::endl;
+}
+void Marks::displayIdSubject(){
+    std::cout << "ID of subject: " << *this->idSubject << std::endl;
+}
+
 void Marks::displayHomeWorkMark(){
-    std::cout << "Marks for homework: ";
+    std::cout << "Grades for homework: ";
     for(double mark : home_work){
         std::cout << mark << " ";
     }
     std::cout << "\n";
 }
 void Marks::displayTestMark(){
-    std::cout << "Marks for tests: ";
+    std::cout << "Grades for tests: ";
     for(double mark : test){
         std::cout << mark << " ";
     }
     std::cout << "\n";
 }
 void Marks::displaySemesterMark(){
-    std::cout << "Marks for semester: ";
+    std::cout << "Grades for semester: ";
     for(double mark : semester){
         std::cout << mark << " ";
     }
     std::cout << "\n";
 }
 void Marks::displayGeneralMark(){
-    std::cout << "General mark: " << *this->general << std::endl;
+    std::cout << "General grade: " << *this->general << std::endl;
 }
 void Marks::displayAllMarks(){
     this->displayHomeWorkMark();
@@ -98,6 +111,7 @@ Marks::Marks(const Marks& other) {
         test = other.test;
         semester = other.semester;
         general = new double(*(other.general));
+        idSubject = new int(*other.idSubject);
     }
 
 Marks& Marks::operator=(const Marks& other) {
@@ -116,10 +130,11 @@ Marks& Marks::operator=(const Marks& other) {
 
 
 Marks::Marks()
-    :Marks(0, 0.0) {}
-Marks::Marks(int newIdMarks, double newGeneral){
+    :Marks(0, 0.0, 0) {}
+Marks::Marks(int newIdMarks, double newGeneral, int newIdSubject){
     idMarks = new int(newIdMarks);
     general = new double(newGeneral);
+    idSubject = new int(newIdSubject);
     std::cout << rang::fg::cyan <<"Constructor of Marks class was called!" << rang::fg::reset << std::endl;
 
     }

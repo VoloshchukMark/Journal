@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "Student.h"
+#include "Subject.h"
 
 class Interface
 {
@@ -25,13 +26,18 @@ public:
     std::vector<Marks> baseOfMarks;
     Marks* selectedMarks = new Marks();
     void importMarks();
-    void connectMarksToStudent(Student* selectedStudent);
+    int connectMarksToStudent(Student* selectedStudent);
+
+    std::vector<Subject> baseOfSubjects;
+    Subject* selectedSubject = new Subject();
+    void importSubjects();
 
 
     int startMenu();
     int studentInfo();
     void viewStudent();
-    static void viewGrades();
+    void viewStudentSubjects();
+    void viewGrades(std::string name, int idSubject, int idMarks);
     static void teacherInfo();
 
     static void userManual();

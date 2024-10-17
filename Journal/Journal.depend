@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1729008080 source:d:\study\programming\coursework\journal\journal\main.cpp
+1729196940 source:d:\study\programming\coursework\journal\journal\main.cpp
 	<iostream>
 	<string.h>
 	"./Headers/Person.h"
@@ -30,28 +30,28 @@
 1723909496 d:\study\programming\coursework\journal\journal\\person.h
 	<string>
 
-1729010198 source:d:\study\programming\coursework\journal\journal\sources\person.cpp
+1729013207 source:d:\study\programming\coursework\journal\journal\sources\person.cpp
 	"../rang.hpp"
 	"../Headers/Person.h"
 	<iostream>
 
-1728936194 d:\study\programming\coursework\journal\journal\headers\person.h
+1729013207 d:\study\programming\coursework\journal\journal\headers\person.h
 	<string>
 
-1729010198 source:d:\study\programming\coursework\journal\journal\sources\student.cpp
+1729013207 source:d:\study\programming\coursework\journal\journal\sources\student.cpp
 	"../rang.hpp"
 	"../Headers/Student.h"
 	"../Headers/Person.h"
 	<iostream>
 
-1729008347 d:\study\programming\coursework\journal\journal\headers\student.h
+1729013207 d:\study\programming\coursework\journal\journal\headers\student.h
 	"Person.h"
 	"Marks.h"
 	<iostream>
 	<vector>
 	<list>
 
-1728908219 source:d:\study\programming\coursework\journal\journal\sources\parent.cpp
+1729013207 source:d:\study\programming\coursework\journal\journal\sources\parent.cpp
 	"../rang.hpp"
 	"../Headers/Parent.h"
 	"../Headers/Person.h"
@@ -62,7 +62,7 @@
 	<iostream>
 	<vector>
 
-1728484450 source:d:\study\programming\coursework\journal\journal\sources\teacher.cpp
+1729113589 source:d:\study\programming\coursework\journal\journal\sources\teacher.cpp
 	"../Headers/Teacher.h"
 	"../Headers/Person.h"
 	<iostream>
@@ -73,24 +73,24 @@
 	<iostream>
 	<vector>
 
-1724173133 source:d:\study\programming\coursework\journal\journal\sources\subject.cpp
+1729185840 source:d:\study\programming\coursework\journal\journal\sources\subject.cpp
 	"../Headers/Subject.h"
 	<iostream>
 
-1727126178 d:\study\programming\coursework\journal\journal\headers\subject.h
+1729185805 d:\study\programming\coursework\journal\journal\headers\subject.h
 	<iostream>
 	<list>
-	"./Student.h"
+	"./Marks.h"
 
-1729012324 source:d:\study\programming\coursework\journal\journal\sources\marks.cpp
+1729194058 source:d:\study\programming\coursework\journal\journal\sources\marks.cpp
 	"../External-libraries/rang.hpp"
 	"Marks.h"
 	<iostream>
 
-1729011419 d:\study\programming\coursework\journal\journal\headers\marks.h
+1729192442 d:\study\programming\coursework\journal\journal\headers\marks.h
 	<vector>
 
-1729011940 source:d:\study\programming\coursework\journal\journal\sources\interface.cpp
+1729197210 source:d:\study\programming\coursework\journal\journal\sources\interface.cpp
 	"../rang.hpp"
 	<iostream>
 	<string>
@@ -102,10 +102,11 @@
 	<algorithm>
 	"Interface.h"
 
-1729008668 d:\study\programming\coursework\journal\journal\headers\interface.h
+1729194511 d:\study\programming\coursework\journal\journal\headers\interface.h
 	<iostream>
 	<vector>
 	"Student.h"
+	"Subject.h"
 
 1728588876 d:\study\programming\coursework\journal\journal\\headers\student.h
 	"Person.h"
@@ -121,7 +122,7 @@
 	<vector>
 	"./Headers/Student.h"
 
-1728902356 d:\study\programming\coursework\journal\journal\external-libraries\rang.hpp
+1729013207 d:\study\programming\coursework\journal\journal\external-libraries\rang.hpp
 	<unistd.h>
 	<windows.h>
 	<io.h>
@@ -132,7 +133,7 @@
 	<cstring>
 	<iostream>
 
-1728903347 d:\study\programming\coursework\journal\journal\rang.hpp
+1729013207 d:\study\programming\coursework\journal\journal\rang.hpp
 	<unistd.h>
 	<windows.h>
 	<io.h>

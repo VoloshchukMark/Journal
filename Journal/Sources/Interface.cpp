@@ -13,7 +13,7 @@
 
 int Interface::startMenu(){
     system("cls");
-    std::cout << "MyJournal 0.1.10 \n" << std::endl;
+    std::cout << "MyJournal 0.2.1 \n" << std::endl;
     std::cout << "(Type '/?' for 'user manual'; type '/quit' to exit)" << std::endl;
 
     Sleep(500);
@@ -64,6 +64,16 @@ int Interface::studentInfo() {
         system("cls");
     }
     studentInfo();
+}
+
+void Interface::saveStudents(){
+    std::ofstream savingStudents("./data/students.txt", std::ios::trunc);
+    for(int i = 0; i < baseOfStudents.size(); i++){
+        savingStudents<<(i + 1)<<" "<<baseOfStudents[i].getName()<<" "<<baseOfStudents[i].getSurname()<<" "<<baseOfStudents[i].getPatronymic();
+        savingStudents<<" "<<baseOfStudents[i].getAge()<<" "<<baseOfStudents[i].getSex()<<" ' "<<baseOfStudents[i].getAddress()<<"' >"<<std::endl;
+    }
+    std::cout << "Saving complete!\n";
+    std::cin.get();
 }
 
 void Interface::loadStudents() {
@@ -233,8 +243,9 @@ std::string Interface::address_check(std::string uncheckedNewAddress){
 }
 
 std::string Interface::selectStudent(std::string selectedId){
+    int intSelectedId = std::stoi(selectedId);
     for(Student eachStudent : baseOfStudents){
-        if(eachStudent.getId() == std::stoi(selectedId)){
+        if(eachStudent.getId() == intSelectedId){
             delete selectedStudent;
             selectedStudent = new Student(eachStudent);
             std::cout << "Student has been selected!\n";
@@ -246,91 +257,206 @@ std::string Interface::selectStudent(std::string selectedId){
     std::cin.get();
     return 0;
 }
+
+void viewStudentSubjects();
 void Interface::viewStudent(){
     std::string selection;
     std::cout << "Enter ID of the student you want to check: ";
     std::getline(std::cin, selection);
+    if(selection.empty()){std::cout << "Error! Entered nothing!\n"; std::cin.get(); return;}
     std::string result = selectStudent(selection);
     if(result == "1"){
 a2:     importMarks();
+        importSubjects();
+        int checkConnect = connectMarksToStudent(selectedStudent);
+        if(checkConnect == 0){return;}
         system("cls");
-        connectMarksToStudent(selectedStudent);
         selectedStudent->displayInfo();
-        selectedMarks->displayAllMarks();
-        std::cout << "Action: \n1.Edit student \n2.Back \n>";
+        for(Subject thisSubject : baseOfSubjects){
+            std::cout << "*" << thisSubject.getName() << std::endl;
+        }
+        std::cout << "\n";
+        std::cout << "Action: \n1.View grades \n2.Edit student \n0.Back \n\n>";
         std::string decition;
         std::getline(std::cin, decition);
         if(decition == "1"){
-
-        }else if(decition == "2"){
-            delete selectedStudent;
+            baseOfMarks.clear();
+            baseOfSubjects.clear();
+            viewStudentSubjects();
+        }else if(decition == "0"){
+            baseOfMarks.clear();
+            baseOfSubjects.clear();
+            selectedMarks->clearData();
+            selectedSubject->clearData();
             return;
         }
+        baseOfMarks.clear();
+        baseOfSubjects.clear();
         goto a2;
     }else{return;}
+    viewStudent();
+}
+void Interface::viewStudentSubjects(){
+    baseOfMarks.clear();
+    baseOfSubjects.clear();
+    importMarks();
+    importSubjects();
+    int checkConnect = connectMarksToStudent(selectedStudent);
+    if(checkConnect == 0){return;}
+    system("cls");
+    selectedStudent->displayInfo();
+//    selectedStudent->displayId();
+//    std::cout << selectedStudent->getId();
+    for(Subject thisSubject : baseOfSubjects){
+        std::cout << thisSubject.getIdSubject() << "." << thisSubject.getName() << std::endl;
+    }
+    std::cout << "\n";
+    std::cout << "Action: \n*View grades \n*Edit student \n0.Back \n\nEnter subject ID: \n>";
+    std::string decition;
+    std::getline(std::cin, decition);
+    for(Subject thisSubject : baseOfSubjects){
+        if(thisSubject.getIdSubject() == stoi(decition)){
+            baseOfMarks.clear();
+            viewGrades(thisSubject.getName(), thisSubject.getIdSubject(), selectedStudent->getId());
+        }
+        else if(decition == "0"){
+            baseOfMarks.clear();
+            baseOfSubjects.clear();
+            return;
+        }
+    }
+}
+
+void Interface::viewGrades(std::string name, int idSubject, int idMarks){
+    importMarks();
+    std::cout << baseOfMarks.front().getIdSubject();
+    system("cls");
+    for(Marks thatOneListOfMarks : baseOfMarks){
+        if(thatOneListOfMarks.getIdMarks() == idMarks && thatOneListOfMarks.getIdSubject() == idSubject){
+            std::cout << rang::style::bold << rang::style::underline << "Subject: " << name << rang::style::reset << std::endl;
+            thatOneListOfMarks.displayAllMarks();
+            std::cin.get();
+            return;
+        }
+    }
+    std::cin.get();
 }
 
 
-//void Interface::importMarks()
-//{
-//    std::ifstream importingMarks("./data/marks.txt");
-//    std::cout << "File found!\n";
-//    Marks marksItterator;
-//    int fileID;
-//    std::string itterator;
-//    importingMarks>>fileID;
-//    while(!importingMarks.eof()){
-//        marksItterator.setIdMarks(fileID);
-//        std::cout << "ID found!\n";
-//        importingMarks>>itterator;
-//        while(itterator != ">"){
-//            if(itterator == "!"){
-//                importingMarks>>itterator;
-//                std::cout << "Importing homework grades is started!\n";
-//                do{
-//                    marksItterator.addHomeWorkMark(stod(itterator));
-//                    importingMarks>>itterator;
-//                } while(itterator != "?");
-//                std::cout << "Importing homework grades is complete!\n";
-//            }
-//            if(itterator == "?"){
-//                importingMarks>>itterator;
-//                std::cout << "Importing test grades is started!\n";
-//                do{
-//                    marksItterator.addTestMark(stod(itterator));
-//                    importingMarks>>itterator;
-//                } while(itterator != "#");
-//                std::cout << "Importing test grades is complete!\n";
-//            }
-//            if(itterator == "#"){
-//                importingMarks>>itterator;
-//                std::cout << "Importing semester grades is started!\n";
-//                do{
-//                    marksItterator.addSemesterMark(stod(itterator));
-//                    importingMarks>>itterator;
-//                } while(itterator != ">");
-//                std::cout << "Importing semester grades is complete!\n";
-//            }
-//        }
-//        std::cout << itterator << std::endl;
-//        importingMarks>>fileID;
-//        marksItterator.setGeneralMark(0.0);
-//        baseOfMarks.push_back(marksItterator);
-//        marksItterator.clearData();
-//    }
-//    return;
-//}
+void Interface::importMarks()
+{
+    std::ifstream importingMarks("./data/marks.txt");
+    std::cout << "File found!\n";
+    Marks marksItterator;
+    std::string itterator;
+    importingMarks>>itterator;
+    while(!importingMarks.eof()){
+        marksItterator.setIdSubject(stoi(itterator));
+        std::cout << "ID of Subject found!\n";
+        marksItterator.displayIdSubject();
+        importingMarks>>itterator;
+        marksItterator.setIdMarks(stoi(itterator));
+        std::cout << "ID found!\n";
+        importingMarks>>itterator;
+        while(itterator != ">"){
+            if(itterator == "!"){
+                importingMarks>>itterator;
+                std::cout << "Importing homework grades is started!\n";
+                do{
+                    marksItterator.addHomeWorkMark(stod(itterator));
+                    importingMarks>>itterator;
+                } while(itterator != "?");
+                std::cout << "Importing homework grades is complete!\n";
+            }
+            if(itterator == "?"){
+                importingMarks>>itterator;
+                std::cout << "Importing test grades is started!\n";
+                do{
+                    marksItterator.addTestMark(stod(itterator));
+                    importingMarks>>itterator;
+                } while(itterator != "#");
+                std::cout << "Importing test grades is complete!\n";
+            }
+            if(itterator == "#"){
+                importingMarks>>itterator;
+                std::cout << "Importing semester grades is started!\n";
+                do{
+                    marksItterator.addSemesterMark(stod(itterator));
+                    importingMarks>>itterator;
+                } while(itterator != ">");
+                std::cout << "Importing semester grades is complete!\n";
+            }
+        }
+        importingMarks>>itterator;
+        marksItterator.setGeneralMark(0.0);
+        baseOfMarks.push_back(marksItterator);
+        marksItterator.clearData();
+    }
+    return;
+}
 
-void Interface::connectMarksToStudent(Student* selectedStudent){
+int Interface::connectMarksToStudent(Student* selectedStudent){
     int idStudent = selectedStudent->getId();
     for(Marks selectMarks : baseOfMarks){
         if(selectMarks.getIdMarks() == idStudent){
             selectedMarks = new Marks(selectMarks);
-            return;
+            return 1;
         }
     }
-    std::cout << "No such student!\n";
-    return;
+    system("cls");
+    std::cout << "Error! This student don't have any grades! Back to the list.\n";
+    std::cin.get();
+    return 0;
+}
+
+void Interface::importSubjects(){
+    std::ifstream importingSubjects("./data/subjects.txt");
+    if(!importingSubjects.is_open()){std::cout << "File wasn't found!\n"; std::cin.get(); return;}
+    Subject subjectsitterator;
+    int idSubject;
+    std::string itterator, newSubjectName, newTeacherName, newDescription;
+    importingSubjects>>itterator;
+    while(!importingSubjects.eof()){
+        idSubject = stoi(itterator);
+        subjectsitterator.setIdSubject(idSubject);
+        importingSubjects>>itterator;
+        if(itterator == "'"){
+            importingSubjects>>itterator;
+            do{
+                newSubjectName += itterator + " ";
+                importingSubjects>>itterator;
+            }while(itterator != "'");
+        }
+        subjectsitterator.setName(newSubjectName);
+        newSubjectName.clear();
+        importingSubjects>>itterator;
+        int newIdTeacher = std::stoi(itterator);
+        subjectsitterator.setIdTeacher(newIdTeacher);
+        importingSubjects>>itterator;
+        if(itterator == "'"){
+            importingSubjects>>itterator;
+            do{
+                newTeacherName += itterator + " ";
+                importingSubjects>>itterator;
+            }while(itterator != "'");
+        }
+        subjectsitterator.setTeacher(newTeacherName);
+        newTeacherName.clear();
+        if(itterator == "'"){
+            importingSubjects>>itterator;
+            do{
+                newDescription += itterator + " ";
+                importingSubjects>>itterator;
+            }while(itterator != "'");
+        }
+        subjectsitterator.setDescription(newDescription);
+        newDescription.clear();
+        baseOfSubjects.push_back(subjectsitterator);
+        std::cout << "Subject has been imported!" << std::endl;
+        importingSubjects>>itterator;
+        subjectsitterator.clearData();
+    }
+
 }
 
 
@@ -345,8 +471,10 @@ Interface::Interface(){}
 Interface::~Interface(){
     baseOfMarks.clear();
     baseOfStudents.clear();
+    baseOfSubjects.clear();
     delete selectedStudent;
     delete selectedMarks;
+    delete selectedSubject;
     std::cout << rang::fg::blue << "Destructor of Interface class was called!" << rang::fg::reset << std::endl;
 }
 

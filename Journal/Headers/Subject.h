@@ -4,39 +4,48 @@
 #include <iostream>
 #include <list>
 
-#include "./Student.h"
+#include "./Marks.h"
 
 class Subject
 {
 private:
-    std::string name;
-    std::string teacher;
-    int idOfTeacher;
-    std::string description;
+    int* idSubject;
+    std::string* name;
+    int* idTeacher;
+    std::string* teacher;
+    std::string* description;
 public:
 
-    std::list<Subject> listOfStudents;
 
+
+    int getIdSubject();
     std::string getName();
     std::string getTeacher();
-    int getIdOfTeacher();
+    int getIdTeacher();
     std::string getDescription();
 
+    void setIdSubject(int newIdSubject);
     void setName(std::string newName);
     void setTeacher(std::string newTeacher);
-    void setIdOfTeacher(int newIdOfTeacher);
+    void setIdTeacher(int newIdTeacher);
     void setDescription(std::string newDescription);
 
+    void displayIdSubject();
     void displayName();
     void displayTeacher();
-    void displayIdOfTeacher();
+    void displayIdTeacher();
     void displayDescription();
     void displayInfo();
 
+    void clearData();
+
+    Subject(const Subject& other);
+
+
     Subject();
-    Subject(std::string newName);
-    Subject(std::string newName, std::string newTeacher);
-    Subject(std::string newName, std::string newTeacher, int newIdOfTeacher);
+    Subject(int newidSubject, std::string newName, int newIdTeacher, std::string newTeacher, std::string newDescription);
+
+    ~Subject();
 };
 
 #endif // SUBJECT_H

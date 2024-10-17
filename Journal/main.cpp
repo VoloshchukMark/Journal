@@ -17,6 +17,8 @@ int main(){
     Student * woof = new Student(2, "Sergey", "Voloshchuk", "Serhiyovich", 12, "male", "Hauwr");
 
     Interface* interfaces = new Interface;
+    interfaces->loadStudents();
+    interfaces->saveStudents();
 //    interfaces->importMarks();
 //    interfaces->connectMarksToStudent(meow);
 //    interfaces->connectMarksToStudent(woof);

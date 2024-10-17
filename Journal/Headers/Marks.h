@@ -12,11 +12,14 @@ private:
     std::vector<double> test;
     std::vector<double> semester;
     double* general;
+    int* idSubject;
 public:
 
     void setIdMarks(int newIdMarks);
+    void setIdSubject(int newIdSubject);
 
     int getIdMarks();
+    int getIdSubject();
 
     void clearData();
 
@@ -25,6 +28,8 @@ public:
     void addSemesterMark(double newMark);
     void calculateGeneralMark();
 
+    void displayIdMarks();
+    void displayIdSubject();
     void displayHomeWorkMark();
     void displayTestMark();
     void displaySemesterMark();
@@ -37,7 +42,7 @@ public:
     Marks& operator=(const Marks& other);
 
     Marks();
-    Marks(int newIdMarks, double newGeneral);
+    Marks(int newIdMarks, double newGeneral, int newIdSubject);
 
     ~Marks();
 };
