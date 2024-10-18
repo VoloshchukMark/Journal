@@ -20,8 +20,12 @@ public:
 
     int getIdMarks();
     int getIdSubject();
+    std::vector<double> getHomeWorkGrades() const;
+    std::vector<double> getTestGrades() const;
+    std::vector<double> getSemesterGrades() const;
 
     void clearData();
+
 
     void addHomeWorkMark(double newMark);
     void addTestMark(double newMark);
@@ -40,6 +44,13 @@ public:
 
     Marks(const Marks& other);
     Marks& operator=(const Marks& other);
+
+    Marks(Marks&& other) noexcept
+        : idMarks(other.idMarks), home_work(std::move(other.home_work)), test(std::move(other.test)), semester(std::move(other.semester)), general(other.general), idSubject(other.idSubject) {
+        other.idMarks = nullptr;
+        other.general = nullptr;
+        other.idSubject = nullptr;
+    }
 
     Marks();
     Marks(int newIdMarks, double newGeneral, int newIdSubject);

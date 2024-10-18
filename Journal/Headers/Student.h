@@ -23,6 +23,15 @@ public:
 //    void displayHomeWorkGrades();
 
     Student(const Student& other);
+    Student& operator=(const Student& other) {
+        if (this == &other) return *this;
+        Person::operator=(other);
+        return *this;
+    }
+
+    Student(Student&& other) noexcept : Person(std::move(other)) {
+    }
+
 
     Student();
     Student(int newId, std::string newName, std::string newSurname, std::string newPatronymic, int newAge, std::string newSex, std::string newAddress);

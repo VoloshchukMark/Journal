@@ -13,7 +13,7 @@
 
 int Interface::startMenu(){
     system("cls");
-    std::cout << "MyJournal 0.2.1 \n" << std::endl;
+    std::cout << "MyJournal 0.2.2 \n" << std::endl;
     std::cout << "(Type '/?' for 'user manual'; type '/quit' to exit)" << std::endl;
 
     Sleep(500);
@@ -36,6 +36,7 @@ int Interface::startMenu(){
     startMenu();
 }
 
+
 int Interface::studentInfo() {
     loadStudents();
     system("cls");
@@ -50,12 +51,14 @@ int Interface::studentInfo() {
     }
     std::cout << "========================================================================================================================" << std::endl << std::endl;
     Sleep(100);
-    std::cout << "Choose an action:\n1.View student\n3.Add student \n6.Back\n>";
+    std::cout << "Choose an action:\n1.View student information \n2.Erase student information \n3.Add student information \n6.Back\n>";
 
     std::string decition;
     std::getline(std::cin, decition);
     if(decition == "1"){
         viewStudent();
+    }else if(decition == "2"){
+        eraseStudent();
     }else if(decition == "3"){
         createStudent();
     } else if(decition == "6"){
@@ -69,11 +72,11 @@ int Interface::studentInfo() {
 void Interface::saveStudents(){
     std::ofstream savingStudents("./data/students.txt", std::ios::trunc);
     for(int i = 0; i < baseOfStudents.size(); i++){
-        savingStudents<<(i + 1)<<" "<<baseOfStudents[i].getName()<<" "<<baseOfStudents[i].getSurname()<<" "<<baseOfStudents[i].getPatronymic();
-        savingStudents<<" "<<baseOfStudents[i].getAge()<<" "<<baseOfStudents[i].getSex()<<" ' "<<baseOfStudents[i].getAddress()<<"' >"<<std::endl;
+        savingStudents<<(i + 1)<<" "<<baseOfStudents[i].getName()<<" "<<baseOfStudents[i].getSurname()<<" "
+                      <<baseOfStudents[i].getPatronymic()<<" "<<baseOfStudents[i].getAge()<<" "
+                      <<baseOfStudents[i].getSex()<<" ' "<<baseOfStudents[i].getAddress()<<"' >"<<std::endl;
+
     }
-    std::cout << "Saving complete!\n";
-    std::cin.get();
 }
 
 void Interface::loadStudents() {
@@ -171,6 +174,49 @@ a1:    std::cout << "The information was successfully recorded!\n";
 //    std::cout << baseOfStudents.back().getId();
     return;
 }
+
+void Interface::eraseStudent() {
+    importMarks();
+    std::cout << "Enter the ID of the student whose data you want to erase: ";
+    std::string doomedStudent;
+    std::getline(std::cin, doomedStudent);
+    if (!containsOnlyDigits(doomedStudent)) {
+        std::cout << "Error! ID consist only from digits!";
+        std::cin.get();
+        baseOfMarks.clear();
+        return;
+    }
+
+    int studentIdToErase = std::stoi(doomedStudent);
+    for (auto it = baseOfStudents.begin(); it != baseOfStudents.end(); ++it) {
+        if (it->getId() == studentIdToErase) {
+            std::cout << "You sure you want to erase data about student " << it->getName() << " " << it->getSurname() << "?\n";
+            std::cout << "1.Yes \n2.Back \n>";
+            std::string decision;
+            std::getline(std::cin, decision);
+            if (decision == "1") {
+                eraseMarks(stoi(decision));
+                baseOfStudents.erase(it);
+                saveStudents();
+                std::cout << "Student info has been deleted successfully! \nBack to the student list...";
+                std::cin.get();
+                baseOfMarks.clear();
+                return;
+            } else if (decision == "2") {
+                baseOfMarks.clear();
+                return;
+            } else {
+                std::cout << "Wrong insertion!\n\n";
+                std::cin.get();
+                baseOfMarks.clear();
+                return;
+            }
+        }
+    }
+    std::cout << "Student wasn't found!\n";
+    std::cin.get();
+}
+
 
 std::string Interface::nsp_check(std::string item) {
     std::vector<std::string> separatedItem;
@@ -346,45 +392,45 @@ void Interface::viewGrades(std::string name, int idSubject, int idMarks){
 void Interface::importMarks()
 {
     std::ifstream importingMarks("./data/marks.txt");
-    std::cout << "File found!\n";
+//    std::cout << "File found!\n";
     Marks marksItterator;
     std::string itterator;
     importingMarks>>itterator;
     while(!importingMarks.eof()){
         marksItterator.setIdSubject(stoi(itterator));
-        std::cout << "ID of Subject found!\n";
+//        std::cout << "ID of Subject found!\n";
         marksItterator.displayIdSubject();
         importingMarks>>itterator;
         marksItterator.setIdMarks(stoi(itterator));
-        std::cout << "ID found!\n";
+//        std::cout << "ID found!\n";
         importingMarks>>itterator;
         while(itterator != ">"){
             if(itterator == "!"){
                 importingMarks>>itterator;
-                std::cout << "Importing homework grades is started!\n";
+//                std::cout << "Importing homework grades is started!\n";
                 do{
                     marksItterator.addHomeWorkMark(stod(itterator));
                     importingMarks>>itterator;
                 } while(itterator != "?");
-                std::cout << "Importing homework grades is complete!\n";
+//                std::cout << "Importing homework grades is complete!\n";
             }
             if(itterator == "?"){
                 importingMarks>>itterator;
-                std::cout << "Importing test grades is started!\n";
+//                std::cout << "Importing test grades is started!\n";
                 do{
                     marksItterator.addTestMark(stod(itterator));
                     importingMarks>>itterator;
                 } while(itterator != "#");
-                std::cout << "Importing test grades is complete!\n";
+//                std::cout << "Importing test grades is complete!\n";
             }
             if(itterator == "#"){
                 importingMarks>>itterator;
-                std::cout << "Importing semester grades is started!\n";
+//                std::cout << "Importing semester grades is started!\n";
                 do{
                     marksItterator.addSemesterMark(stod(itterator));
                     importingMarks>>itterator;
                 } while(itterator != ">");
-                std::cout << "Importing semester grades is complete!\n";
+//                std::cout << "Importing semester grades is complete!\n";
             }
         }
         importingMarks>>itterator;
@@ -393,6 +439,47 @@ void Interface::importMarks()
         marksItterator.clearData();
     }
     return;
+}
+
+void Interface::saveMarks(){
+    std::ofstream savingMarks("./data/marks.txt", std::ios::trunc);
+    for(Marks thatOneListOfMarks : baseOfMarks){
+        savingMarks<<thatOneListOfMarks.getIdSubject()<<" "<<thatOneListOfMarks.getIdMarks()<<" ! ";
+        std::vector<double> thatOneBaseOfHomeWorkGrades = thatOneListOfMarks.getHomeWorkGrades();
+        for(double homeworkGrades : thatOneBaseOfHomeWorkGrades){
+            savingMarks<<homeworkGrades<<" ";
+        }
+        savingMarks<<"? ";
+        std::vector<double> thatOneBaseOfTestGrades = thatOneListOfMarks.getTestGrades();
+        for(double testGrades : thatOneBaseOfTestGrades){
+            savingMarks<<testGrades<<" ";
+        }
+        savingMarks<<"# ";
+        std::vector<double> thatOneBaseOfSemesterGrades = thatOneListOfMarks.getSemesterGrades();
+        for(double semesterGrades : thatOneBaseOfSemesterGrades){
+            savingMarks<<semesterGrades<<" ";
+        }
+        savingMarks<<">"<<std::endl;
+    }
+//    std::cout << "Saving Marks is completed!\n";
+//    std::cin.get();
+}
+
+void Interface::eraseMarks(int idDoomedMarks){
+//    std::cout << "Start erasing!\n";
+    for (auto it = baseOfMarks.begin(); it != baseOfMarks.end(); ++it){
+        if(it->getIdMarks() == idDoomedMarks){
+            it = baseOfMarks.erase(it);
+            it = baseOfMarks.begin();
+        }
+    }
+    for (auto it = baseOfMarks.begin(); it != baseOfMarks.end(); ++it){
+        if(it->getIdMarks() > idDoomedMarks){
+            it->setIdMarks(it->getIdMarks() - 1);
+        }
+    }
+
+    saveMarks();
 }
 
 int Interface::connectMarksToStudent(Student* selectedStudent){

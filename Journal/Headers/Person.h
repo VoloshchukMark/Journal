@@ -41,6 +41,18 @@ public:
     virtual void displayInfo() = 0;
 
     Person(const Person& other);
+    Person& operator=(const Person& other) {
+        if (this == &other) return *this;
+        *id = *other.id;
+        *name = *other.name;
+        *surname = *other.surname;
+        *patronymic = *other.patronymic;
+        *age = *other.age;
+        *sex = *other.sex;
+        *address = *other.address;
+        return *this;
+    }
+    Person(Person&& other) noexcept;
 
     Person();
     Person(int newId, std::string newName, std::string newSurname, std::string newPatronymic, int newAge, std::string newSex, std::string newAddress);

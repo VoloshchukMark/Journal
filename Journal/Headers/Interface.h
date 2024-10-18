@@ -18,6 +18,7 @@ public:
     void saveStudents();
     void loadStudents();
     void createStudent();
+    void eraseStudent();
     std::string nsp_check(std::string item);
     int age_check(std::string uncheckedNewAge);
     std::string sex_check(std::string uncheckedNewSex);
@@ -26,11 +27,14 @@ public:
     std::vector<Marks> baseOfMarks;
     Marks* selectedMarks = new Marks();
     void importMarks();
+    void saveMarks();
+    void eraseMarks(int idDoomedMarks);
     int connectMarksToStudent(Student* selectedStudent);
 
     std::vector<Subject> baseOfSubjects;
     Subject* selectedSubject = new Subject();
     void importSubjects();
+    void saveSubjects();
 
 
     int startMenu();

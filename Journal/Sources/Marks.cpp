@@ -16,6 +16,15 @@ int Marks::getIdMarks(){
 int Marks::getIdSubject(){
     return* idSubject;
 }
+std::vector<double> Marks::getHomeWorkGrades() const{
+    return home_work;
+}
+std::vector<double> Marks::getTestGrades() const{
+    return test;
+}
+std::vector<double> Marks::getSemesterGrades() const{
+    return semester;
+}
 
 void Marks::clearData(){
     home_work.clear();

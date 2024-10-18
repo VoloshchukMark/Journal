@@ -115,6 +115,17 @@ Person::Person(const Person& other) {
         address = new std::string(*other.address);
     }
 
+Person::Person(Person&& other) noexcept : id(other.id), name(other.name), surname(other.surname), patronymic(other.patronymic), age(other.age), sex(other.sex), address(other.address) {
+        other.id = nullptr;
+        other.name = nullptr;
+        other.surname = nullptr;
+        other.patronymic = nullptr;
+        other.age = nullptr;
+        other.sex = nullptr;
+        other.address = nullptr;
+    }
+
+
 
 Person::Person()
     :Person(0, "Unknown", "Unknown", "Unknown", 0, "Unknown", "Unknown") {}
