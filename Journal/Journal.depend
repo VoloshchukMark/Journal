@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1729256957 source:d:\study\programming\coursework\journal\journal\main.cpp
+1729275207 source:d:\study\programming\coursework\journal\journal\main.cpp
 	<iostream>
 	<string.h>
 	"./Headers/Person.h"
@@ -30,26 +30,27 @@
 1723909496 d:\study\programming\coursework\journal\journal\\person.h
 	<string>
 
-1729247969 source:d:\study\programming\coursework\journal\journal\sources\person.cpp
+1729260247 source:d:\study\programming\coursework\journal\journal\sources\person.cpp
 	"../rang.hpp"
 	"../Headers/Person.h"
 	<iostream>
 
-1729247956 d:\study\programming\coursework\journal\journal\headers\person.h
+1729260247 d:\study\programming\coursework\journal\journal\headers\person.h
 	<string>
 
-1729013207 source:d:\study\programming\coursework\journal\journal\sources\student.cpp
+1729278115 source:d:\study\programming\coursework\journal\journal\sources\student.cpp
 	"../rang.hpp"
 	"../Headers/Student.h"
 	"../Headers/Person.h"
 	<iostream>
 
-1729248866 d:\study\programming\coursework\journal\journal\headers\student.h
+1729278104 d:\study\programming\coursework\journal\journal\headers\student.h
 	"Person.h"
 	"Marks.h"
 	<iostream>
 	<vector>
 	<list>
+	<functional>
 
 1729013207 source:d:\study\programming\coursework\journal\journal\sources\parent.cpp
 	"../rang.hpp"
@@ -90,7 +91,7 @@
 1729250884 d:\study\programming\coursework\journal\journal\headers\marks.h
 	<vector>
 
-1729257213 source:d:\study\programming\coursework\journal\journal\sources\interface.cpp
+1729283162 source:d:\study\programming\coursework\journal\journal\sources\interface.cpp
 	"../rang.hpp"
 	<iostream>
 	<string>
@@ -101,10 +102,12 @@
 	<cstring>
 	<algorithm>
 	"Interface.h"
+	"BubbleSort.h"
 
-1729251604 d:\study\programming\coursework\journal\journal\headers\interface.h
+1729283877 d:\study\programming\coursework\journal\journal\headers\interface.h
 	<iostream>
 	<vector>
+	<algorithm>
 	"Student.h"
 	"Subject.h"
 
@@ -143,4 +146,9 @@
 	<cstdlib>
 	<cstring>
 	<iostream>
+
+1729283199 d:\study\programming\coursework\journal\journal\external-libraries\bubblesort.h
+	<vector>
+	<iostream>
+	<algorithm>
 

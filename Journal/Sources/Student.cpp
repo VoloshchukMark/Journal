@@ -23,7 +23,7 @@ void Student::displayInfo(){
     std::cout << "================================" << std::endl;
 }
 
-Student::Student(const Student& other) :Person(other) {}
+
 
 Student::Student()
     :Student(0, "Unknown", "Unknown", "Unknown", 0, "Unknown", "Unknown") {}

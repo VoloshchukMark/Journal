@@ -5,10 +5,10 @@
 
 
 
-int Person::getId(){
+int Person::getId() const{
     return *id;
 }
-std::string Person::getName(){
+std::string Person::getName() const{
     return *name;
 }
 std::string Person::getSurname(){

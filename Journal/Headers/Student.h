@@ -7,8 +7,11 @@
 #include <iostream>
 #include <vector>
 #include <list>
+#include <functional>
 //
 //using namespace std;
+
+
 
 class Student : public Person
 {
@@ -19,19 +22,19 @@ public:
 
     void displayInfo() override;
 
-//    void displayInfoTable();
-//    void displayHomeWorkGrades();
-
-    Student(const Student& other);
+    Student(const Student& other) : Person(other) {}
     Student& operator=(const Student& other) {
         if (this == &other) return *this;
         Person::operator=(other);
         return *this;
     }
-
-    Student(Student&& other) noexcept : Person(std::move(other)) {
+    Student(Student&& other) noexcept : Person(std::move(other)) {}
+    Student& operator=(Student&& other) noexcept {
+        if (this != &other) {
+            Person::operator=(std::move(other));
+        }
+        return *this;
     }
-
 
     Student();
     Student(int newId, std::string newName, std::string newSurname, std::string newPatronymic, int newAge, std::string newSex, std::string newAddress);

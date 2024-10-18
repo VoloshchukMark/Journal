@@ -14,8 +14,8 @@ private:
     std::string* sex;
     std::string* address;
 public:
-    virtual int getId();
-    virtual std::string getName();
+    virtual int getId() const;
+    virtual std::string getName() const;
     virtual std::string getSurname();
     virtual std::string getPatronymic();
     virtual int getAge();
@@ -53,6 +53,34 @@ public:
         return *this;
     }
     Person(Person&& other) noexcept;
+    Person& operator=(Person&& other) noexcept {
+        if (this != &other) {
+            delete id;
+            delete name;
+            delete surname;
+            delete patronymic;
+            delete age;
+            delete sex;
+            delete address;
+
+            id = other.id;
+            name = other.name;
+            surname = other.surname;
+            patronymic = other.patronymic;
+            age = other.age;
+            sex = other.sex;
+            address = other.address;
+
+            other.id = nullptr;
+            other.name = nullptr;
+            other.surname = nullptr;
+            other.patronymic = nullptr;
+            other.age = nullptr;
+            other.sex = nullptr;
+            other.address = nullptr;
+        }
+        return *this;
+    }
 
     Person();
     Person(int newId, std::string newName, std::string newSurname, std::string newPatronymic, int newAge, std::string newSex, std::string newAddress);

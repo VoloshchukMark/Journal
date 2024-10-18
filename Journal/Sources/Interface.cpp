@@ -9,11 +9,13 @@
 #include <algorithm>
 
 #include "Interface.h"
+#include "BubbleSort.h"
+
 
 
 int Interface::startMenu(){
     system("cls");
-    std::cout << "MyJournal 0.2.2 \n" << std::endl;
+    std::cout << "MyJournal 0.2.4 \n" << std::endl;
     std::cout << "(Type '/?' for 'user manual'; type '/quit' to exit)" << std::endl;
 
     Sleep(500);
@@ -29,16 +31,21 @@ int Interface::startMenu(){
         return 0;
     }else if(decition == "1"){
         studentInfo();
-        }
-     else {
+    }else if(decition == "2"){
+        gradesInfo();
+    }else {
         system("cls");
     }
     startMenu();
 }
 
+void sortStudents();
+void compareById();
+void compareByName();
+void bubbleSort();
 
 int Interface::studentInfo() {
-    loadStudents();
+    if(shouldLoad){loadStudents();}
     system("cls");
     std::cout << "========================================================================================================================" << std::endl;
     std::cout << " ID " << std::setw(5) << "|| Full name " << std::setw(50) << " || Age " << std::setw(10) << " || Sex " << std::setw(16) << " || Address " << std::endl;
@@ -51,19 +58,21 @@ int Interface::studentInfo() {
     }
     std::cout << "========================================================================================================================" << std::endl << std::endl;
     Sleep(100);
-    std::cout << "Choose an action:\n1.View student information \n2.Erase student information \n3.Add student information \n6.Back\n>";
+    std::cout << "Choose an action:\n1.View student information \n2.Add student information \n3.Erase student information \n4.Sort list\n5.Back\n>";
 
     std::string decition;
     std::getline(std::cin, decition);
     if(decition == "1"){
         viewStudent();
     }else if(decition == "2"){
-        eraseStudent();
-    }else if(decition == "3"){
         createStudent();
-    } else if(decition == "6"){
+    }else if(decition == "3"){
+        eraseStudent();
+    }else if(decition == "4"){
+        sortStudents();
+    }else if(decition == "5"){
         return 0;
-    } else{
+    }else{
         system("cls");
     }
     studentInfo();
@@ -77,6 +86,17 @@ void Interface::saveStudents(){
                       <<baseOfStudents[i].getSex()<<" ' "<<baseOfStudents[i].getAddress()<<"' >"<<std::endl;
 
     }
+}
+
+void Interface::gradesInfo(){
+    loadStudents();
+    importMarks();
+    importSubjects();
+    system("cls");
+    std::cout << "================| " << baseOfSubjects[0].getName() << " |===============================================================================================" << std::endl;
+    std::cout << "------------------------------------------------------------------------------------------------------------------------" << std::endl;
+    std::cin.get();
+
 }
 
 void Interface::loadStudents() {
@@ -114,6 +134,8 @@ void Interface::loadStudents() {
 }
 
 void Interface::createStudent(){
+    baseOfStudents.clear();
+    loadStudents();
     system("cls");
     std::ofstream creatingStudent("data/students.txt", std::ios::app);
     std::string newName, newSurname, newPatronymic, newSex, newAddress, check;
@@ -160,6 +182,7 @@ a1:    std::cout << "The information was successfully recorded!\n";
        std::cout << "1.Back to students information\n>";
         std::string decition;
         std::getline(std::cin, decition);
+        shouldLoad = true;
         if(decition == "1"){
             return;
 //        } else if(decition == "2"){
@@ -176,6 +199,8 @@ a1:    std::cout << "The information was successfully recorded!\n";
 }
 
 void Interface::eraseStudent() {
+    baseOfStudents.clear();
+    loadStudents();
     importMarks();
     std::cout << "Enter the ID of the student whose data you want to erase: ";
     std::string doomedStudent;
@@ -199,6 +224,7 @@ void Interface::eraseStudent() {
                 baseOfStudents.erase(it);
                 saveStudents();
                 std::cout << "Student info has been deleted successfully! \nBack to the student list...";
+                shouldLoad = true;
                 std::cin.get();
                 baseOfMarks.clear();
                 return;
@@ -215,6 +241,80 @@ void Interface::eraseStudent() {
     }
     std::cout << "Student wasn't found!\n";
     std::cin.get();
+}
+
+
+void Interface::sortStudents(){
+    bool increase = true;
+s:  system("cls");
+    std::cout << "Sort by (";
+    if(increase){
+        std::cout << rang::style::underline << "Increase" << rang::style::reset;
+    }else{ std::cout << rang::style::underline << "Decrease" << rang::style::reset;}
+    std::cout << "): \n1.ID \n2.Name \n3.Surname \n4.Age \n5.Sex \n6.Address \n7.Switch sort direction \n8.Back \n\n>";
+    std::string decition;
+    std::getline(std::cin, decition);
+    system("cls");
+    if(decition.empty()) {std::cout << "Error! Empty insertion! Back to the list..."; std::cin.get(); return;}
+    if(!containsOnlyDigits(decition)) {std::cout << "Error! Insertion must contain only digits! Back to the list..."; std::cin.get(); return;}
+    if(decition == "1" && increase){
+        bubbleSortInc(baseOfStudents, "i");
+        shouldLoad = false;
+        return;
+    }else if(decition == "1" && !increase){
+        bubbleSortDec(baseOfStudents, "i");
+        shouldLoad = false;
+        return;
+    }else if(decition == "2" && increase){
+        bubbleSortInc(baseOfStudents, "n");
+        shouldLoad = false;
+        return;
+    }else if(decition == "2" && !increase){
+        bubbleSortDec(baseOfStudents, "n");
+        shouldLoad = false;
+        return;
+    }else if(decition == "3" && increase){
+        bubbleSortInc(baseOfStudents, "sn");
+        shouldLoad = false;
+        return;
+    }else if(decition == "3" && !increase){
+        bubbleSortDec(baseOfStudents, "sn");
+        shouldLoad = false;
+        return;
+    }else if(decition == "4" && increase){
+        bubbleSortInc(baseOfStudents, "ag");
+        shouldLoad = false;
+        return;
+    }else if(decition == "4" && !increase){
+        bubbleSortDec(baseOfStudents, "ag");
+        shouldLoad = false;
+        return;
+    }else if(decition == "5" && increase){
+        bubbleSortInc(baseOfStudents, "s");
+        shouldLoad = false;
+        return;
+    }else if(decition == "5" && !increase){
+        bubbleSortDec(baseOfStudents, "s");
+        shouldLoad = false;
+        return;
+    }else if(decition == "6" && increase){
+        bubbleSortInc(baseOfStudents, "ad");
+        shouldLoad = false;
+        return;
+    }else if(decition == "6" && !increase){
+        bubbleSortDec(baseOfStudents, "ad");
+        shouldLoad = false;
+        return;
+    }else if(decition == "7" && increase){
+        increase = false;
+        goto s;
+    }else if(decition == "7" && !increase){
+        increase = true;
+        goto s;
+    }else if(decition == "8"){
+        return;
+    }
+    goto s;
 }
 
 
@@ -551,6 +651,25 @@ void Interface::importSubjects(){
 bool Interface::containsOnlyDigits(const std::string& str) {
     return std::all_of(str.begin(), str.end(), ::isdigit);
 }
+
+//    template<typename T>
+//    void bubbleSort(std::vector<T> container, char mode){
+//        for(size_t i = 0; i < container.size(); ++i){
+//            for (size_t j = 0; j < container.size() - i - 1; ++j) {
+//                bool shouldSwap = false;
+//                if(mode == 'i'){
+//                    shouldSwap == container[j].getId() > container[j + 1].getId();
+//                }else if(mode == 'n'){
+//                    shouldSwap == container[j].getName() > container[j + 1].getName();
+//                }
+//                if(shouldSwap){
+//                    std::swap(container[j], container[j + 1]);
+//                }
+//            }
+//        }
+//    }
+
+
 
 
 Interface::Interface(){}
