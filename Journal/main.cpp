@@ -6,7 +6,7 @@
 #include "./Headers/Student.h"
 #include "./Headers/Teacher.h"
 #include "./Headers/Subject.h"
-#include "./Headers/Marks.h"
+#include "./Headers/Grades.h"
 #include "./Headers/Interface.h"
 
 

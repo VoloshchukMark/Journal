@@ -4,7 +4,7 @@
 #include <iostream>
 #include <list>
 
-#include "./Marks.h"
+#include "./Grades.h"
 
 class Subject
 {

@@ -32,12 +32,12 @@ public:
     std::string sex_check(std::string uncheckedNewSex);
     std::string address_check(std::string uncheckedNewAddress);
 
-    std::vector<Marks> baseOfMarks;
-    Marks* selectedMarks = new Marks();
-    void importMarks();
-    void saveMarks();
-    void eraseMarks(int idDoomedMarks);
-    int connectMarksToStudent(Student* selectedStudent);
+    std::vector<Grades> baseOfGrades;
+    Grades* selectedGrades = new Grades();
+    void importGrades();
+    void saveGrades();
+    void eraseGrades(int idDoomedGrades);
+    int connectGradesToStudent(Student* selectedStudent);
 
     std::vector<Subject> baseOfSubjects;
     Subject* selectedSubject = new Subject();
@@ -50,7 +50,7 @@ public:
     void viewStudent();
     void viewStudentSubjects();
     void gradesInfo(int idSubject, int newPage);
-    void viewGrades(std::string name, int idSubject, int idMarks);
+    void viewGrades(std::string name, int idSubject, int idGrades);
     static void teacherInfo();
 
     static void userManual();

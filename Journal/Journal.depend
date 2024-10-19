@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1729275207 source:d:\study\programming\coursework\journal\journal\main.cpp
+1729352848 source:d:\study\programming\coursework\journal\journal\main.cpp
 	<iostream>
 	<string.h>
 	"./Headers/Person.h"
@@ -7,7 +7,7 @@
 	"./Headers/Student.h"
 	"./Headers/Teacher.h"
 	"./Headers/Subject.h"
-	"./Headers/Marks.h"
+	"./Headers/Grades.h"
 	"./Headers/Interface.h"
 
 1723975158 source:d:\study\programming\coursework\journal\journal\student.cpp
@@ -44,9 +44,8 @@
 	"../Headers/Person.h"
 	<iostream>
 
-1729278104 d:\study\programming\coursework\journal\journal\headers\student.h
+1729352684 d:\study\programming\coursework\journal\journal\headers\student.h
 	"Person.h"
-	"Marks.h"
 	<iostream>
 	<vector>
 	<list>
@@ -78,20 +77,20 @@
 	"../Headers/Subject.h"
 	<iostream>
 
-1729185805 d:\study\programming\coursework\journal\journal\headers\subject.h
+1729352843 d:\study\programming\coursework\journal\journal\headers\subject.h
 	<iostream>
 	<list>
-	"./Marks.h"
+	"./Grades.h"
 
 1729346070 source:d:\study\programming\coursework\journal\journal\sources\marks.cpp
 	"../External-libraries/rang.hpp"
 	"Marks.h"
 	<iostream>
 
-1729250884 d:\study\programming\coursework\journal\journal\headers\marks.h
+1729352684 d:\study\programming\coursework\journal\journal\headers\marks.h
 	<vector>
 
-1729351051 source:d:\study\programming\coursework\journal\journal\sources\interface.cpp
+1729353698 source:d:\study\programming\coursework\journal\journal\sources\interface.cpp
 	"../rang.hpp"
 	<iostream>
 	<string>
@@ -104,7 +103,7 @@
 	"Interface.h"
 	"BubbleSort.h"
 
-1729350827 d:\study\programming\coursework\journal\journal\headers\interface.h
+1729352860 d:\study\programming\coursework\journal\journal\headers\interface.h
 	<iostream>
 	<vector>
 	<algorithm>
@@ -151,4 +150,12 @@
 	<vector>
 	<iostream>
 	<algorithm>
+
+1729353501 d:\study\programming\coursework\journal\journal\headers\grades.h
+	<vector>
+
+1729353562 source:d:\study\programming\coursework\journal\journal\sources\grades.cpp
+	"../External-libraries/rang.hpp"
+	"Grades.h"
+	<iostream>
 
