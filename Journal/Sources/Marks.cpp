@@ -153,5 +153,5 @@ Marks::~Marks() {
     test.clear();
     semester.clear();
     delete general;
-    std::cout << rang::fg::blue << "Destructor of Marks class was called!" << rang::style::reset << std::endl;
+//    std::cout << rang::fg::blue << "Destructor of Marks class was called!" << rang::style::reset << std::endl;
     }

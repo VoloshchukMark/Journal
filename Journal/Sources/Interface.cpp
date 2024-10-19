@@ -15,7 +15,7 @@
 
 int Interface::startMenu(){
     system("cls");
-    std::cout << "MyJournal 0.2.4 \n" << std::endl;
+    std::cout << "MyJournal 0.3.1 \n" << std::endl;
     std::cout << "(Type '/?' for 'user manual'; type '/quit' to exit)" << std::endl;
 
     Sleep(500);
@@ -32,7 +32,7 @@ int Interface::startMenu(){
     }else if(decition == "1"){
         studentInfo();
     }else if(decition == "2"){
-        gradesInfo(2);
+        gradesInfo(1);
     }else {
         system("cls");
     }
@@ -89,6 +89,7 @@ void Interface::saveStudents(){
 }
 
 void Interface::gradesInfo(int idSubject){
+    int page = 1;
     loadStudents();
     importMarks();
     importSubjects();
@@ -101,9 +102,27 @@ void Interface::gradesInfo(int idSubject){
     std::cout << "-----------------------------------++--------------------------------------------------------------------------------" << std::endl;
     for(Student thatOneStudent : baseOfStudents){
         std::cout << " " << thatOneStudent.getName() << " " << thatOneStudent.getSurname() << " " << thatOneStudent.getPatronymic()
-                  <<std::setw(35 - (thatOneStudent.getName().size() + thatOneStudent.getSurname().size() + thatOneStudent.getPatronymic().size()))
-                  <<"|| " << std::endl;
-        std::cout << "-----------------------------------++--------------------------------------------------------------------------------" << std::endl;
+                  <<std::setw(34 - (thatOneStudent.getName().size() + thatOneStudent.getSurname().size() + thatOneStudent.getPatronymic().size()))
+                  <<"||";
+        for(Marks thatOneListOfMarks : baseOfMarks){
+            if(thatOneListOfMarks.getIdSubject() == idSubject && thatOneListOfMarks.getIdMarks() == thatOneStudent.getId()){
+                std::vector<double> homeWorkGrades = thatOneListOfMarks.getHomeWorkGrades();
+                for(int i = (page * 10) - 10; i < (page * 10); i++){
+                    std::cout << " " << homeWorkGrades[i] << std::setw(11 - std::to_string(homeWorkGrades[i]).size()) << " |";
+                }
+                std::cout << "|";
+                std::vector<double> testGrades = thatOneListOfMarks.getTestGrades();
+                for(int i = (page * 3) - 3; i < (page * 3); i++){
+                    std::cout << " " << testGrades[i] << std::setw(11 - std::to_string(testGrades[i]).size()) << " |";
+                }
+                std::cout << "|";
+                std::vector<double> semesterGrades = thatOneListOfMarks.getSemesterGrades();
+                std::cout << "     " << semesterGrades[page - 1] << std::setw(14 - std::to_string(semesterGrades[page - 1]).size()) << " |";
+                std::cout << "|";
+            }
+        }
+
+        std::cout << "\n-----------------------------------++--------------------------------------------------------------------------------" << std::endl;
     }
     std::cin.get();
 
@@ -157,31 +176,37 @@ void Interface::createStudent(){
        std::string uncheckedNewName, uncheckedNewSurname, uncheckedNewPatronymic, uncheckedNewAge, uncheckedNewSex, uncheckedNewAddress;
 
        system("cls");
-       std::cout << "Enter the first name: ";
+       std::cout << "(Write '<' to go back to the list)\nEnter the first name: ";
        std::getline(std::cin, uncheckedNewName);
+       if(uncheckedNewName == "<"){goto cncl;}
        newName = nsp_check(uncheckedNewName);
        system("cls");
-       std::cout << "Enter the last name: ";
+       std::cout << "(Write '<' to go back to the list)\nEnter the last name: ";
        std::getline(std::cin, uncheckedNewSurname);
+       if(uncheckedNewSurname == "<"){goto cncl;}
        newSurname = nsp_check(uncheckedNewSurname);
        system("cls");
-       std::cout << "Enter the patronymic: ";
+       std::cout << "(Write '<' to go back to the list)\nEnter the patronymic: ";
        std::getline(std::cin, uncheckedNewPatronymic);
+       if(uncheckedNewPatronymic == "<"){goto cncl;}
        newPatronymic = nsp_check(uncheckedNewPatronymic);
 
         system("cls");
-       std::cout << "Enter the age: ";
+       std::cout << "(Write '<' to go back to the list)\nEnter the age: ";
        std::getline(std::cin, uncheckedNewAge);
+       if(uncheckedNewAge == "<"){goto cncl;}
        newAge = age_check(uncheckedNewAge);
 
        system("cls");
-       std::cout << "Choose the sex (" << rang::style::underline << "Male/Female/Other" << rang::style::reset << "): ";
+       std::cout << "(Write '<' to go back to the list)\nChoose the sex (" << rang::style::underline << "Male/Female/Other" << rang::style::reset << "): ";
        std::getline(std::cin, uncheckedNewSex);
+       if(uncheckedNewSex == "<"){goto cncl;}
        newSex = sex_check(uncheckedNewSex);
 
        system("cls");
-       std::cout << "Write down the address (Be careful, this information will not be processed!)\n>";
+       std::cout << "(Write '<' to go back to the list)\nWrite down the address (Be careful, this information will not be processed!)\n>";
        std::getline(std::cin, uncheckedNewAddress);
+       if(uncheckedNewAddress == "<"){goto cncl;}
        newAddress = address_check(uncheckedNewAddress);
 
        system("cls");
@@ -189,23 +214,11 @@ void Interface::createStudent(){
        creatingStudent.close();
 a1:    std::cout << "The information was successfully recorded!\n";
        Sleep(300);
-       std::cout << "1.Back to students information\n>";
-        std::string decition;
-        std::getline(std::cin, decition);
-        shouldLoad = true;
-        if(decition == "1"){
-            return;
-//        } else if(decition == "2"){
-//            std::cout << "Not done yet(\n";
-//            std::cin.get();
-//            return;
-        } else{
-            system("cls");
-        }
-        goto a1;
-       }
-//    std::cout << baseOfStudents.back().getId();
-    return;
+       std::cout << "Back to students information...";
+       std::cin.get();
+cncl: shouldLoad = true;
+       return;
+    }
 }
 
 void Interface::eraseStudent() {
