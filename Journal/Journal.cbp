@@ -15,6 +15,7 @@
 					<Add option="-g" />
 					<Add directory="./" />
 					<Add directory="Headers" />
+					<Add directory="External-Libraries" />
 				</Compiler>
 			</Target>
 			<Target title="Release">
@@ -26,6 +27,7 @@
 					<Add option="-O2" />
 					<Add directory="./" />
 					<Add directory="Headers" />
+					<Add directory="External-Libraries" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -37,6 +39,7 @@
 			<Add option="-fexceptions" />
 			<Add directory="rang" />
 		</Compiler>
+		<Unit filename="External-Libraries/BubbleSort.h" />
 		<Unit filename="Headers/Interface.h" />
 		<Unit filename="Headers/Marks.h" />
 		<Unit filename="Headers/Parent.h" />

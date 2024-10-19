@@ -49,7 +49,7 @@ public:
     int studentInfo();
     void viewStudent();
     void viewStudentSubjects();
-    void gradesInfo();
+    void gradesInfo(int idSubject);
     void viewGrades(std::string name, int idSubject, int idMarks);
     static void teacherInfo();
 

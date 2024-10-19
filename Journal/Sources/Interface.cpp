@@ -32,7 +32,7 @@ int Interface::startMenu(){
     }else if(decition == "1"){
         studentInfo();
     }else if(decition == "2"){
-        gradesInfo();
+        gradesInfo(2);
     }else {
         system("cls");
     }
@@ -47,16 +47,16 @@ void bubbleSort();
 int Interface::studentInfo() {
     if(shouldLoad){loadStudents();}
     system("cls");
-    std::cout << "========================================================================================================================" << std::endl;
+    std::cout << "=======================================================================================================================" << std::endl;
     std::cout << " ID " << std::setw(5) << "|| Full name " << std::setw(50) << " || Age " << std::setw(10) << " || Sex " << std::setw(16) << " || Address " << std::endl;
-    std::cout << "------------------------------------------------------------------------------------------------------------------------" << std::endl;
+    std::cout << "----++------------------------------------------------------++--------++----------++-----------------------------------" << std::endl;
     for(Student selectedStudent : baseOfStudents){
         std::cout << " " << selectedStudent.getId() << std::setw(6 - std::to_string(selectedStudent.getId()).size()) << "|| " << selectedStudent.getName() << " " << selectedStudent.getSurname() << " ";
         std::cout << selectedStudent.getPatronymic() << std::setw(54 - (selectedStudent.getName().size() + selectedStudent.getSurname().size() + selectedStudent.getPatronymic().size())) << " || " << selectedStudent.getAge();
         std::cout << std::setw(10 - std::to_string(selectedStudent.getAge()).size()) << " || " << selectedStudent.getSex();
         std::cout << std::setw(12 - selectedStudent.getSex().size()) << " || " <<selectedStudent.getAddress() << std::endl;
     }
-    std::cout << "========================================================================================================================" << std::endl << std::endl;
+    std::cout << "=======================================================================================================================" << std::endl << std::endl;
     Sleep(100);
     std::cout << "Choose an action:\n1.View student information \n2.Add student information \n3.Erase student information \n4.Sort list\n5.Back\n>";
 
@@ -88,13 +88,23 @@ void Interface::saveStudents(){
     }
 }
 
-void Interface::gradesInfo(){
+void Interface::gradesInfo(int idSubject){
     loadStudents();
     importMarks();
     importSubjects();
     system("cls");
-    std::cout << "================| " << baseOfSubjects[0].getName() << " |===============================================================================================" << std::endl;
-    std::cout << "------------------------------------------------------------------------------------------------------------------------" << std::endl;
+    std::cout << "================|\0" << rang::style::underline << " " << baseOfSubjects[idSubject - 1].getName() << rang::style::reset << "|";
+    for(int i = 0; i < 98 - baseOfSubjects[idSubject - 1].getName().size(); i++){
+        std::cout << "=";
+    }
+    std::cout << "\n";
+    std::cout << "-----------------------------------++--------------------------------------------------------------------------------" << std::endl;
+    for(Student thatOneStudent : baseOfStudents){
+        std::cout << " " << thatOneStudent.getName() << " " << thatOneStudent.getSurname() << " " << thatOneStudent.getPatronymic()
+                  <<std::setw(35 - (thatOneStudent.getName().size() + thatOneStudent.getSurname().size() + thatOneStudent.getPatronymic().size()))
+                  <<"|| " << std::endl;
+        std::cout << "-----------------------------------++--------------------------------------------------------------------------------" << std::endl;
+    }
     std::cin.get();
 
 }
@@ -220,7 +230,7 @@ void Interface::eraseStudent() {
             std::string decision;
             std::getline(std::cin, decision);
             if (decision == "1") {
-                eraseMarks(stoi(decision));
+                eraseMarks(stoi(doomedStudent));
                 baseOfStudents.erase(it);
                 saveStudents();
                 std::cout << "Student info has been deleted successfully! \nBack to the student list...";
@@ -567,8 +577,11 @@ void Interface::saveMarks(){
 
 void Interface::eraseMarks(int idDoomedMarks){
 //    std::cout << "Start erasing!\n";
+    std::cout << "Doomed marks ID is: " << idDoomedMarks << std::endl;
     for (auto it = baseOfMarks.begin(); it != baseOfMarks.end(); ++it){
+        std::cout << "Checking marks with ID of: " << it->getIdMarks() << std::endl;
         if(it->getIdMarks() == idDoomedMarks){
+            std::cout << "Erasing marks with ID of: " << it->getIdMarks() << std::endl;
             it = baseOfMarks.erase(it);
             it = baseOfMarks.begin();
         }
