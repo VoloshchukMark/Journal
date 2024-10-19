@@ -49,13 +49,14 @@ public:
     int studentInfo();
     void viewStudent();
     void viewStudentSubjects();
-    void gradesInfo(int idSubject);
+    void gradesInfo(int idSubject, int newPage);
     void viewGrades(std::string name, int idSubject, int idMarks);
     static void teacherInfo();
 
     static void userManual();
 
     bool containsOnlyDigits(const std::string& str);
+    void clearAllBases();
 
     Interface();
     ~Interface();

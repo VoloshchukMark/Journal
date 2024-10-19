@@ -15,24 +15,23 @@
 
 int Interface::startMenu(){
     system("cls");
-    std::cout << "MyJournal 0.3.1 \n" << std::endl;
-    std::cout << "(Type '/?' for 'user manual'; type '/quit' to exit)" << std::endl;
+    std::cout << "MyJournal 0.3.2 \n" << std::endl;
+    std::cout << "(Type '/?' for 'user manual';" << std::endl;
 
     Sleep(500);
 
     std::string decition;
     std::cout << std::endl;
     std::cout << rang::fg::green << rang::style::underline << "Welcome!" << rang::fg::reset << rang::style::reset << std::endl;
-    std::cout << "1.Students information. \n2.View grades. \n3.Teacher info. \n";
-    std::cout << ">";
+    std::cout << "1.Students information. \n2.View grades. \n3.Teacher info. \n0.Exit \n>";
     std::getline(std::cin, decition);
 
-    if(decition == "/quit"){
-        return 0;
-    }else if(decition == "1"){
+    if(decition == "1"){
         studentInfo();
     }else if(decition == "2"){
-        gradesInfo(1);
+        gradesInfo(1, 1);
+    }else if(decition == "0"){
+        return 0;
     }else {
         system("cls");
     }
@@ -88,17 +87,18 @@ void Interface::saveStudents(){
     }
 }
 
-void Interface::gradesInfo(int idSubject){
-    int page = 1;
+void Interface::gradesInfo(int idSubject, int newPage){
+    int page = newPage;
+    clearAllBases();
     loadStudents();
     importMarks();
     importSubjects();
     system("cls");
-    std::cout << "================|\0" << rang::style::underline << " " << baseOfSubjects[idSubject - 1].getName() << rang::style::reset << "|";
+    std::cout << rang::style::bold << "================|\0" << rang::style::underline << " " << baseOfSubjects[idSubject - 1].getName() << rang::style::reset << rang::style::bold << "|";
     for(int i = 0; i < 98 - baseOfSubjects[idSubject - 1].getName().size(); i++){
         std::cout << "=";
     }
-    std::cout << "\n";
+    std::cout << rang::style::reset << "\n";
     std::cout << "-----------------------------------++--------------------------------------------------------------------------------" << std::endl;
     for(Student thatOneStudent : baseOfStudents){
         std::cout << " " << thatOneStudent.getName() << " " << thatOneStudent.getSurname() << " " << thatOneStudent.getPatronymic()
@@ -123,6 +123,23 @@ void Interface::gradesInfo(int idSubject){
         }
 
         std::cout << "\n-----------------------------------++--------------------------------------------------------------------------------" << std::endl;
+    }
+    std::cout << rang::style::bold << "=====================================================================================================================\n" << rang::bg::reset;
+    std::cout << "< " << page << " > \n(Enter the 'arrows' to navigate through pages) \n\n";
+    std::cout << "Choose an action:\n0.Back \n>";
+    std::string decition;
+    std::getline(std::cin, decition);
+    if(decition == "<"){
+        clearAllBases();
+        gradesInfo(idSubject, page - 1);
+        return;
+    }else if(decition == ">"){
+        clearAllBases();
+        gradesInfo(idSubject, page + 1);
+        return;
+    }else if(decition == "0"){
+        clearAllBases();
+        return;
     }
     std::cin.get();
 
@@ -678,24 +695,12 @@ bool Interface::containsOnlyDigits(const std::string& str) {
     return std::all_of(str.begin(), str.end(), ::isdigit);
 }
 
-//    template<typename T>
-//    void bubbleSort(std::vector<T> container, char mode){
-//        for(size_t i = 0; i < container.size(); ++i){
-//            for (size_t j = 0; j < container.size() - i - 1; ++j) {
-//                bool shouldSwap = false;
-//                if(mode == 'i'){
-//                    shouldSwap == container[j].getId() > container[j + 1].getId();
-//                }else if(mode == 'n'){
-//                    shouldSwap == container[j].getName() > container[j + 1].getName();
-//                }
-//                if(shouldSwap){
-//                    std::swap(container[j], container[j + 1]);
-//                }
-//            }
-//        }
-//    }
-
-
+void Interface::clearAllBases(){
+    baseOfMarks.clear();
+    baseOfStudents.clear();
+    baseOfSubjects.clear();
+    return;
+}
 
 
 Interface::Interface(){}
