@@ -26,6 +26,11 @@ std::vector<double> Grades::getSemesterGrades() const{
     return semester;
 }
 
+
+
+//    void editTestGrades(std::vector<double> insertedGrades, int coordinate);
+//    void editSemesterGrades(std::vector<double> insertedGrades, int coordinate);
+
 void Grades::clearData(){
     home_work.clear();
     test.clear();
@@ -47,28 +52,11 @@ void Grades::addSemesterGrade(double newGrade){
     semester.push_back(newGrade);
 }
 
-//void Grades::calculateGeneralGrade(){
-//    if (general == nullptr) {
-//        general = new double(0.0);
-//    } else {
-//        *general = 0.0;
-//    }
-//
-//    int counter = 0;
-//    for(double grade: home_work){
-//        *general += grade;
-//        counter++;
-//    }
-//    for(double gr: test){
-//        *general += mark;
-//        counter++;
-//    }
-//    for(double mark: semester){
-//        *general += mark;
-//        counter++;
-//    }
-//    *general /= counter;
-//}
+void Grades::setGrades(char type, std::vector<double> newGrades){
+    if(type == 'h'){home_work = newGrades;}
+    else if(type == 't'){test = newGrades;}
+    else if(type == 's'){semester = newGrades;}
+}
 
 void Grades::displayIdGrades(){
     std::cout << "ID of grades: " << *this->idGrades << std::endl;

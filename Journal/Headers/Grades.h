@@ -24,13 +24,18 @@ public:
     std::vector<double> getTestGrades() const;
     std::vector<double> getSemesterGrades() const;
 
+
+//    void editTestGrades(std::vector<double> insertedGrades, int coordinate);
+//    void editSemesterGrades(std::vector<double> insertedGrades, int coordinate);
+
     void clearData();
 
 
     void addHomeWorkGrade(double newGrade);
     void addTestGrade(double newGrade);
     void addSemesterGrade(double newGrade);
-    void calculateGeneralGrade();
+
+    void setGrades(char type, std::vector<double> newHomeWorkGrades);
 
     void displayIdGrades();
     void displayIdSubject();

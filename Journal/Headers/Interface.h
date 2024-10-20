@@ -37,7 +37,9 @@ public:
     void importGrades();
     void saveGrades();
     void eraseGrades(int idDoomedGrades);
+    void displayGradesToEdit(std::string nameOfGradesList, std::vector<double> gradesForEdit);
     int connectGradesToStudent(Student* selectedStudent);
+    std::vector<double> changeGrade(std::vector<double> insertedGrades, int coordinate, double newValue);
 
     std::vector<Subject> baseOfSubjects;
     Subject* selectedSubject = new Subject();
@@ -49,7 +51,9 @@ public:
     int studentInfo();
     void viewStudent();
     void viewStudentSubjects();
+    void selectSubject();
     void gradesInfo(int idSubject, int newPage);
+    void editGrades(int idSubject, int idGrades);
     void viewGrades(std::string name, int idSubject, int idGrades);
     static void teacherInfo();
 

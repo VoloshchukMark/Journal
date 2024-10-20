@@ -90,9 +90,10 @@
 1729352684 d:\study\programming\coursework\journal\journal\headers\marks.h
 	<vector>
 
-1729353698 source:d:\study\programming\coursework\journal\journal\sources\interface.cpp
+1729431484 source:d:\study\programming\coursework\journal\journal\sources\interface.cpp
 	"../rang.hpp"
 	<iostream>
+	<sstream>
 	<string>
 	<iomanip>
 	<windows.h>
@@ -103,7 +104,7 @@
 	"Interface.h"
 	"BubbleSort.h"
 
-1729352860 d:\study\programming\coursework\journal\journal\headers\interface.h
+1729430392 d:\study\programming\coursework\journal\journal\headers\interface.h
 	<iostream>
 	<vector>
 	<algorithm>
@@ -151,10 +152,10 @@
 	<iostream>
 	<algorithm>
 
-1729353501 d:\study\programming\coursework\journal\journal\headers\grades.h
+1729432352 d:\study\programming\coursework\journal\journal\headers\grades.h
 	<vector>
 
-1729353562 source:d:\study\programming\coursework\journal\journal\sources\grades.cpp
+1729432352 source:d:\study\programming\coursework\journal\journal\sources\grades.cpp
 	"../External-libraries/rang.hpp"
 	"Grades.h"
 	<iostream>
