@@ -90,7 +90,7 @@
 1729352684 d:\study\programming\coursework\journal\journal\headers\marks.h
 	<vector>
 
-1729453099 source:d:\study\programming\coursework\journal\journal\sources\interface.cpp
+1729458755 source:d:\study\programming\coursework\journal\journal\sources\interface.cpp
 	"../rang.hpp"
 	<iostream>
 	<sstream>
@@ -155,7 +155,7 @@
 1729441597 d:\study\programming\coursework\journal\journal\headers\grades.h
 	<vector>
 
-1729441543 source:d:\study\programming\coursework\journal\journal\sources\grades.cpp
+1729455088 source:d:\study\programming\coursework\journal\journal\sources\grades.cpp
 	"../External-libraries/rang.hpp"
 	"Grades.h"
 	<iostream>

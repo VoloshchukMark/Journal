@@ -125,7 +125,6 @@ Grades& Grades::operator=(const Grades& other) {
         return *this;
 }
 
-// Конструктор переміщення
 Grades::Grades(Grades&& other) noexcept
     : idGrades(other.idGrades), home_work(std::move(other.home_work)), test(std::move(other.test)), semester(std::move(other.semester)), general(other.general), idSubject(other.idSubject) {
     other.idGrades = nullptr;
@@ -133,7 +132,6 @@ Grades::Grades(Grades&& other) noexcept
     other.idSubject = nullptr;
 }
 
-// Оператор присвоєння переміщення
 Grades& Grades::operator=(Grades&& other) noexcept {
     if (this != &other) {
         delete idGrades;

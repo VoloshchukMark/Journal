@@ -20,13 +20,11 @@ int Interface::startMenu(){
     std::cout << "(Type '/?' for 'user manual';" << std::endl;
 
     Sleep(500);
-    importGrades();
-    sortGrades();
 
     std::string decition;
     std::cout << std::endl;
     std::cout << rang::fg::green << rang::style::underline << "Welcome!" << rang::fg::reset << rang::style::reset << std::endl;
-    std::cout << "1.Students information. \n2.View grades. \n3.Teacher info. \n0.Exit \n>";
+    std::cout << "1.Students information \n2.View grades \n3.Teacher info \n0.Exit \n>";
     std::getline(std::cin, decition);
 
     if(decition == "1"){
@@ -98,10 +96,11 @@ void Interface::selectSubject(){
     for(Subject thatOneSubject : baseOfSubjects){
         std::cout << thatOneSubject.getIdSubject() << "." << thatOneSubject.getName() << std::endl;
     }
-    std::cout << "Choose the subject: \n>";
+    std::cout << "0.Go back \n\nChoose the subject: \n>";
     std::string decition;
     std::getline(std::cin, decition);
     if(!decition.empty()){
+        if(decition == "0"){return;}
         for(Subject thatOneSubject : baseOfSubjects){
             if(thatOneSubject.getIdSubject() == stoi(decition)){
                 gradesInfo(stoi(decition), 1);
@@ -109,7 +108,7 @@ void Interface::selectSubject(){
             }
         }
     }
-    std::cout << "Error! No such Subject ID! Back to menu...";
+    std::cout << "Error! No such Subject ID!";
     std::cin.get();
     clearAllBases();
     return;
@@ -123,14 +122,17 @@ void Interface::gradesInfo(int idSubject, int newPage){
     importSubjects();
     system("cls");
     std::cout << rang::style::bold << "================|\0" << rang::style::underline << " " << baseOfSubjects[idSubject - 1].getName() << rang::style::reset << rang::style::bold << "|";
-    for(int i = 0; i < 98 - baseOfSubjects[idSubject - 1].getName().size(); i++){
+    for(int i = 0; i < 100 - baseOfSubjects[idSubject - 1].getName().size(); i++){
         std::cout << "=";
     }
     std::cout << rang::style::reset << "\n";
-    std::cout << "-----------------------------------++--------------------------------------------------------------------------------" << std::endl;
+    std::cout << rang::style::underline;
+    std::cout << "ID " << std::setw(5) << "|| Full name " << std::setw(38) << " || Home work " << std::setw(46) << " || Test " << std::setw(19) << " ||Semest.||" << std::endl;
     for(Student thatOneStudent : baseOfStudents){
+//        std::cout << "---++------------------------------------++-------------------------------------------------++--------------++-------++" << std::endl;
+        std::cout << " " << thatOneStudent.getId() << std::setw(4 - std::to_string(thatOneStudent.getId()).size()) << "||";
         std::cout << " " << thatOneStudent.getName() << " " << thatOneStudent.getSurname() << " " << thatOneStudent.getPatronymic()
-                  <<std::setw(34 - (thatOneStudent.getName().size() + thatOneStudent.getSurname().size() + thatOneStudent.getPatronymic().size()))
+                  <<std::setw(35 - (thatOneStudent.getName().size() + thatOneStudent.getSurname().size() + thatOneStudent.getPatronymic().size()))
                   <<"||";
         for(Grades thatOneListOfGrades : baseOfGrades){
             if(thatOneListOfGrades.getIdSubject() == idSubject && thatOneListOfGrades.getIdGrades() == thatOneStudent.getId()){
@@ -145,14 +147,15 @@ void Interface::gradesInfo(int idSubject, int newPage){
                 }
                 std::cout << "|";
                 std::vector<double> semesterGrades = thatOneListOfGrades.getSemesterGrades();
-                std::cout << "     " << semesterGrades[page - 1] << std::setw(14 - std::to_string(semesterGrades[page - 1]).size()) << " |";
-                std::cout << "|";
+                std::cout << "   " << semesterGrades[page - 1] << std::setw(12 - std::to_string(semesterGrades[page - 1]).size()) << " |";
+                std::cout << "|\n";
             }
         }
 
-        std::cout << "\n-----------------------------------++--------------------------------------------------------------------------------" << std::endl;
+//        std::cout << "\n---++------------------------------------++-------------------------------------------------++--------------++-------++" << std::endl;
     }
-    std::cout << rang::style::bold << "=====================================================================================================================\n" << rang::bg::reset;
+    std::cout << rang::style::reset;
+    std::cout << rang::style::bold << "=======================================================================================================================\n" << rang::bg::reset;
     std::cout << "(Enter the 'arrows' to navigate through pages)\n< " << page << " >\n\n";
     std::cout << "Choose an action:\n1.Edit grades \n2.Change subject \n0.Back \n>";
     std::string decition;
@@ -228,9 +231,13 @@ ahah:       system("cls");
             std::getline(std::cin, decition);
             if(decition == "1"){}
             else if(decition == "2"){
-                baseOfGrades[idGrades - 1].setGrades('h', homeWorkGrades);
-                baseOfGrades[idGrades - 1].setGrades('t', testGrades);
-                baseOfGrades[idGrades - 1].setGrades('s', semesterGrades);
+                for(Grades anotherOneGrade : baseOfGrades){
+                    if(anotherOneGrade.getIdGrades() == idGrades && anotherOneGrade.getIdSubject() == idSubject){
+                        baseOfGrades[(idGrades - 1) + ((idSubject - 1) * baseOfGrades.back().getIdGrades())].setGrades('h', homeWorkGrades);
+                        baseOfGrades[(idGrades - 1) + ((idSubject - 1) * baseOfGrades.back().getIdGrades())].setGrades('t', testGrades);
+                        baseOfGrades[(idGrades - 1) + ((idSubject - 1) * baseOfGrades.back().getIdGrades())].setGrades('s', semesterGrades);
+                    }
+                }
                 saveGrades();
                 gradesInfo(idSubject, 1);
                 return;
@@ -343,9 +350,11 @@ void Interface::eraseStudent() {
     baseOfStudents.clear();
     loadStudents();
     importGrades();
-    std::cout << "Enter the ID of the student whose data you want to erase: ";
+    std::cout << "Enter the ID of the student whose data you want to erase (Write '<' to cancel): ";
     std::string doomedStudent;
     std::getline(std::cin, doomedStudent);
+    if(doomedStudent.empty()){std::cout << "Error! Empty insertion! Back to the list..."; std::cin.get(); return;}
+    if(doomedStudent == "<"){return;}
     if (!containsOnlyDigits(doomedStudent)) {
         std::cout << "Error! ID consist only from digits!";
         std::cin.get();
@@ -747,7 +756,6 @@ void Interface::sortGrades(){
     baseOfGrades.clear();
     importGrades();
     importSubjects();
-    system("cls");
     for(int i = 0; i < baseOfGrades.size() - 1; i++){
 //        std::cout << i << " " << baseOfGrades.size() << std::endl;
         for(int j = (i + 1); j < baseOfGrades.size(); ++j){
@@ -758,7 +766,6 @@ void Interface::sortGrades(){
             }
         }
     }
-    std::cout << "borb\n";
     for(int i = 0; i < baseOfGrades.size() - 1; i++){
         for(int j = i; j < baseOfGrades.size() - 1; j++){
             if(baseOfGrades[j].getIdSubject() > baseOfGrades[j+1].getIdSubject()){
