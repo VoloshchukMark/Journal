@@ -50,12 +50,18 @@ public:
     Grades(const Grades& other);
     Grades& operator=(const Grades& other);
 
-    Grades(Grades&& other) noexcept
-        : idGrades(other.idGrades), home_work(std::move(other.home_work)), test(std::move(other.test)), semester(std::move(other.semester)), general(other.general), idSubject(other.idSubject) {
-        other.idGrades = nullptr;
-        other.general = nullptr;
-        other.idSubject = nullptr;
-    }
+    // Конструктор переміщення
+    Grades(Grades&& other) noexcept;
+
+    // Оператор присвоєння переміщення
+    Grades& operator=(Grades&& other) noexcept;
+
+//    Grades(Grades&& other) noexcept;
+//        : idGrades(other.idGrades), home_work(std::move(other.home_work)), test(std::move(other.test)), semester(std::move(other.semester)), general(other.general), idSubject(other.idSubject) {
+//        other.idGrades = nullptr;
+//        other.general = nullptr;
+//        other.idSubject = nullptr;
+//    }
 
     Grades();
     Grades(int newIdGrades, double newGeneral, int newIdSubject);

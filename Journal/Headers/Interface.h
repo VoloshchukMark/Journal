@@ -37,6 +37,7 @@ public:
     void importGrades();
     void saveGrades();
     void eraseGrades(int idDoomedGrades);
+    void sortGrades();
     void displayGradesToEdit(std::string nameOfGradesList, std::vector<double> gradesForEdit);
     int connectGradesToStudent(Student* selectedStudent);
     std::vector<double> changeGrade(std::vector<double> insertedGrades, int coordinate, double newValue);

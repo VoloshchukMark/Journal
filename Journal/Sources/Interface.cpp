@@ -16,10 +16,12 @@
 
 int Interface::startMenu(){
     system("cls");
-    std::cout << "MyJournal 0.3.3 \n" << std::endl;
+    std::cout << "MyJournal 0.3.4 \n" << std::endl;
     std::cout << "(Type '/?' for 'user manual';" << std::endl;
 
     Sleep(500);
+    importGrades();
+    sortGrades();
 
     std::string decition;
     std::cout << std::endl;
@@ -738,6 +740,32 @@ void Interface::eraseGrades(int idDoomedGrades){
         }
     }
 
+    saveGrades();
+}
+
+void Interface::sortGrades(){
+    baseOfGrades.clear();
+    importGrades();
+    importSubjects();
+    system("cls");
+    for(int i = 0; i < baseOfGrades.size() - 1; i++){
+//        std::cout << i << " " << baseOfGrades.size() << std::endl;
+        for(int j = (i + 1); j < baseOfGrades.size(); ++j){
+//            std::cout << "Shy dontcha work?\n";
+            if(baseOfGrades[i].getIdGrades() > baseOfGrades[j].getIdGrades()){
+                std::swap(baseOfGrades[i], baseOfGrades[j]);
+//                std::cout << "puk\n";
+            }
+        }
+    }
+    std::cout << "borb\n";
+    for(int i = 0; i < baseOfGrades.size() - 1; i++){
+        for(int j = i; j < baseOfGrades.size() - 1; j++){
+            if(baseOfGrades[j].getIdSubject() > baseOfGrades[j+1].getIdSubject()){
+                std::swap(baseOfGrades[j], baseOfGrades[j+1]);
+            }
+        }
+    }
     saveGrades();
 }
 

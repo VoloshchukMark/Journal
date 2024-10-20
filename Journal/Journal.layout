@@ -2,19 +2,41 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Debug" />
-	<File name="External-Libraries\BubbleSort.h" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2236" topLine="15" />
-		</Cursor>
-	</File>
 	<File name="Headers\Parent.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="1141" topLine="9" />
 		</Cursor>
 	</File>
-	<File name="Headers\Grades.h" open="1" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Sources\Interface.cpp" open="1" top="1" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="551" topLine="0" />
+			<Cursor1 position="346" topLine="0" />
+		</Cursor>
+		<Folding>
+			<Collapse line="46" />
+			<Collapse line="81" />
+			<Collapse line="91" />
+			<Collapse line="115" />
+			<Collapse line="459" />
+			<Collapse line="490" />
+			<Collapse line="501" />
+			<Collapse line="512" />
+			<Collapse line="529" />
+			<Collapse line="547" />
+			<Collapse line="592" />
+			<Collapse line="631" />
+			<Collapse line="648" />
+			<Collapse line="723" />
+			<Collapse line="743" />
+			<Collapse line="768" />
+			<Collapse line="787" />
+			<Collapse line="838" />
+			<Collapse line="842" />
+			<Collapse line="852" />
+		</Folding>
+	</File>
+	<File name="Sources\Teacher.cpp" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="846" topLine="6" />
 		</Cursor>
 	</File>
 	<File name="Headers\Teacher.h" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -22,42 +44,14 @@
 			<Cursor1 position="519" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="Headers\Subject.h" open="1" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="98" topLine="4" />
-		</Cursor>
-	</File>
-	<File name="Sources\Interface.cpp" open="1" top="1" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="9641" topLine="126" />
-		</Cursor>
-		<Folding>
-			<Collapse line="45" />
-			<Collapse line="80" />
-			<Collapse line="90" />
-			<Collapse line="222" />
-			<Collapse line="256" />
-			<Collapse line="315" />
-			<Collapse line="361" />
-			<Collapse line="435" />
-			<Collapse line="466" />
-			<Collapse line="477" />
-			<Collapse line="488" />
-		</Folding>
-	</File>
 	<File name="Headers\Person.h" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="84" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="Sources\Person.cpp" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Headers\Interface.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="85" topLine="27" />
-		</Cursor>
-	</File>
-	<File name="main.cpp" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="228" topLine="3" />
+			<Cursor1 position="1187" topLine="30" />
 		</Cursor>
 	</File>
 	<File name="Sources\Subject.cpp" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -65,19 +59,29 @@
 			<Cursor1 position="1656" topLine="45" />
 		</Cursor>
 	</File>
+	<File name="Sources\Grades.cpp" open="1" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1389" topLine="40" />
+		</Cursor>
+	</File>
+	<File name="External-Libraries\BubbleSort.h" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2236" topLine="15" />
+		</Cursor>
+	</File>
+	<File name="Sources\Person.cpp" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="85" topLine="27" />
+		</Cursor>
+	</File>
+	<File name="Headers\Grades.h" open="1" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="948" topLine="24" />
+		</Cursor>
+	</File>
 	<File name="Headers\Student.h" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="59" topLine="1" />
-		</Cursor>
-	</File>
-	<File name="Headers\Interface.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1517" topLine="23" />
-		</Cursor>
-	</File>
-	<File name="Sources\Teacher.cpp" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="846" topLine="6" />
 		</Cursor>
 	</File>
 	<File name="Sources\Parent.cpp" open="0" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -85,14 +89,19 @@
 			<Cursor1 position="1390" topLine="6" />
 		</Cursor>
 	</File>
+	<File name="Headers\Subject.h" open="1" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="98" topLine="4" />
+		</Cursor>
+	</File>
 	<File name="Sources\Student.cpp" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="723" topLine="2" />
 		</Cursor>
 	</File>
-	<File name="Sources\Grades.cpp" open="1" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="main.cpp" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="615" topLine="6" />
+			<Cursor1 position="228" topLine="3" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>
