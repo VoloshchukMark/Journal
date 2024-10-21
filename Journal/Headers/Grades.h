@@ -18,7 +18,7 @@ public:
     void setIdGrades(int newIdGrades);
     void setIdSubject(int newIdSubject);
 
-    int getIdGrades();
+    int getId();
     int getIdSubject();
     std::vector<double> getHomeWorkGrades() const;
     std::vector<double> getTestGrades() const;
@@ -43,7 +43,7 @@ public:
     void displayTestGrades();
     void displaySemesterGrades();
     void displayGeneralGrades();
-    void displayAllGrades();
+    void displayInfo();
 
     void setGeneralGrade(double newGeneralMark);
 

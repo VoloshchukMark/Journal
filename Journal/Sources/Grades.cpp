@@ -10,7 +10,7 @@ void Grades::setIdSubject(int newIdSubject){
     idSubject = new int(newIdSubject);
 }
 
-int Grades::getIdGrades(){
+int Grades::getId(){
     return* idGrades;
 }
 int Grades::getIdSubject(){
@@ -89,7 +89,7 @@ void Grades::displaySemesterGrades(){
 void Grades::displayGeneralGrades(){
     std::cout << "General grade: " << *this->general << std::endl;
 }
-void Grades::displayAllGrades(){
+void Grades::displayInfo(){
     this->displayHomeWorkGrades();
     this->displayTestGrades();
     this->displaySemesterGrades();

@@ -7,6 +7,9 @@
 
 #include "Student.h"
 #include "Subject.h"
+#include "Parent.h"
+#include "Teacher.h"
+#include "Grades.h"
 
 
 //bool compareByName(const Student& a, const Student& b) {
@@ -22,11 +25,7 @@ public:
     Student* selectedStudent = new Student();
     std::string selectStudent(std::string selectedId);
 
-    void saveStudents();
-    void loadStudents();
     void createStudent();
-    void eraseStudent();
-    void sortStudents();
     std::string nsp_check(std::string item);
     int age_check(std::string uncheckedNewAge);
     std::string sex_check(std::string uncheckedNewSex);
@@ -34,10 +33,7 @@ public:
 
     std::vector<Grades> baseOfGrades;
     Grades* selectedGrades = new Grades();
-    void importGrades();
-    void saveGrades();
     void eraseGrades(int idDoomedGrades);
-    void sortGrades();
     void displayGradesToEdit(std::string nameOfGradesList, std::vector<double> gradesForEdit);
     int connectGradesToStudent(Student* selectedStudent);
     std::vector<double> changeGrade(std::vector<double> insertedGrades, int coordinate, double newValue);
@@ -45,7 +41,6 @@ public:
     std::vector<Subject> baseOfSubjects;
     Subject* selectedSubject = new Subject();
 
-    void importSubjects();
     void saveSubjects();
 
 
@@ -63,6 +58,16 @@ public:
 
     bool containsOnlyDigits(const std::string& str);
     void clearAllBases();
+
+    template<typename T>
+    void sortItems(std::vector<T>& baseOfItems);
+    void sortItems(std::vector<Grades>& baseOfItems);
+    template<typename T>
+    void saveBasesOfItems(std::vector<T>& baseOfItems);
+    template<typename T>
+    void loadItems(std::vector<T>& baseOfItems);
+    template<typename L>
+    void eraseItem(std::vector<L>& baseOfItems, std::string idDoomedItem);
 
     Interface();
     ~Interface();
