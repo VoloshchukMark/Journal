@@ -25,18 +25,7 @@ void Teacher::displayInfo(){
 //    std::cout << "Subject was added successfuly!\n";
 //}
 
-void Teacher::displayInfoOfSubjects(){
-    for(Subject &subj : subjects){
-        subj.displayInfo();
-    }
-}
 
-Teacher::Teacher()
-    :Teacher(0, "Unknown", "Unknown", "Unknown", 0, "Unknown", "Unknown") {}
-Teacher::Teacher(int newId, std::string newName, std::string newSurname, std::string newPatronymic, int newAge, std::string newSex, std::string newAddress)
-    :Person(newId, newName, newSurname, newPatronymic, newAge, newSex, newAddress) {
-        std::cout << "Constructor of Teacher class was called!" << std::endl;
-        }
 
 Teacher::~Teacher() {
     std::cout << "Destructor of Teacher class was called!" << std::endl;

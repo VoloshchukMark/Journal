@@ -44,6 +44,7 @@ public:
 
     std::vector<Subject> baseOfSubjects;
     Subject* selectedSubject = new Subject();
+
     void importSubjects();
     void saveSubjects();
 
@@ -56,9 +57,9 @@ public:
     void gradesInfo(int idSubject, int newPage);
     void editGrades(int idSubject, int idGrades);
     void viewGrades(std::string name, int idSubject, int idGrades);
-    static void teacherInfo();
+    void teacherInfo();
 
-    static void userManual();
+    void userManual();
 
     bool containsOnlyDigits(const std::string& str);
     void clearAllBases();

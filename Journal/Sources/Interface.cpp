@@ -31,6 +31,8 @@ int Interface::startMenu(){
         studentInfo();
     }else if(decition == "2"){
         selectSubject();
+    }else if(decition == "3"){
+        teacherInfo();
     }else if(decition == "0"){
         return 0;
     }else {
@@ -121,15 +123,15 @@ void Interface::gradesInfo(int idSubject, int newPage){
     importGrades();
     importSubjects();
     system("cls");
-    std::cout << rang::style::bold << "================|\0" << rang::style::underline << " " << baseOfSubjects[idSubject - 1].getName() << rang::style::reset << rang::style::bold << "|";
-    for(int i = 0; i < 100 - baseOfSubjects[idSubject - 1].getName().size(); i++){
+    std::cout << rang::style::bold << rang::style::underline << "================[ " << baseOfSubjects[idSubject - 1].getName() << "]";
+    for(int i = 0; i < 99 - baseOfSubjects[idSubject - 1].getName().size(); i++){
         std::cout << "=";
     }
-    std::cout << rang::style::reset << "\n";
-    std::cout << rang::style::underline;
-    std::cout << "ID " << std::setw(5) << "|| Full name " << std::setw(38) << " || Home work " << std::setw(46) << " || Test " << std::setw(19) << " ||Semest.||" << std::endl;
+    std::cout << rang::style::reset << "=";
+    std::cout << "\n" << rang::style::underline << "ID " << std::setw(5) << "|| Full name " << std::setw(38) << " || Home work " << std::setw(46)
+              << " || Test " << std::setw(18) << " ||Semest.|" << rang::style::reset << "|" << std::endl;
     for(Student thatOneStudent : baseOfStudents){
-//        std::cout << "---++------------------------------------++-------------------------------------------------++--------------++-------++" << std::endl;
+        std::cout << rang::style::underline;
         std::cout << " " << thatOneStudent.getId() << std::setw(4 - std::to_string(thatOneStudent.getId()).size()) << "||";
         std::cout << " " << thatOneStudent.getName() << " " << thatOneStudent.getSurname() << " " << thatOneStudent.getPatronymic()
                   <<std::setw(35 - (thatOneStudent.getName().size() + thatOneStudent.getSurname().size() + thatOneStudent.getPatronymic().size()))
@@ -148,7 +150,7 @@ void Interface::gradesInfo(int idSubject, int newPage){
                 std::cout << "|";
                 std::vector<double> semesterGrades = thatOneListOfGrades.getSemesterGrades();
                 std::cout << "   " << semesterGrades[page - 1] << std::setw(12 - std::to_string(semesterGrades[page - 1]).size()) << " |";
-                std::cout << "|\n";
+                std::cout << rang::style::reset << "|" << std::endl;
             }
         }
 
@@ -190,6 +192,41 @@ void Interface::gradesInfo(int idSubject, int newPage){
         return;
     }
     gradesInfo(idSubject, newPage);
+}
+
+void Interface::teacherInfo(){
+    importSubjects();
+    system("cls");
+    std::cout << "=======================================================================================================================" << std::endl;
+    std::cout << " ID " << std::setw(5) << "|| Name " << std::setw(38) << " || T ID" << std::setw(10) << " || Teacher " << std::setw(29) << " || Description " << std::endl;
+    std::cout << "----++-------------------------------------++------++-----------------------++-----------------------------------------" << std::endl;
+
+    for(Subject selectedSubject : baseOfSubjects){
+        std::cout << " " << selectedSubject.getIdSubject() << std::setw(6 - std::to_string(selectedSubject.getIdSubject()).size()) << "|| " << selectedSubject.getName()
+                  << std::setw(39 - (selectedSubject.getName().size())) << " || " << selectedSubject.getIdTeacher()
+                  << std::setw(8 - std::to_string(selectedSubject.getIdTeacher()).size()) << " || " << selectedSubject.getTeacher()
+                  << std::setw(25 - selectedSubject.getTeacher().size()) << " || ";
+                  //39
+    std::stringstream descriprion(selectedSubject.getDescription());
+    std::string word, wholeWord;
+    if(selectedSubject.getDescription().size() > 39){
+        int counter = 0;
+        descriprion>>word;
+        word += " ";
+        counter += word.size();
+        while(counter < 30){
+            wholeWord += word;
+            descriprion>>word;
+            word += " ";
+            counter += word.size();
+        }
+        std::cout << wholeWord << "...\n";
+    }else{ std::cout << selectedSubject.getDescription() << std::endl; }
+    }
+    std::cout << "=======================================================================================================================" << std::endl << std::endl;
+
+    Sleep(100);
+    std::cin.get();
 }
 
 void Interface::editGrades(int idSubject, int idGrades){
@@ -654,6 +691,7 @@ void Interface::viewGrades(std::string name, int idSubject, int idGrades){
     }
     std::cin.get();
 }
+
 
 
 void Interface::importGrades()
