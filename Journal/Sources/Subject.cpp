@@ -1,6 +1,9 @@
 #include "../Headers/Subject.h"
 
 #include <iostream>
+#include <string>
+#include <sstream>
+#include <iomanip>
 
 
 int Subject::getIdSubject(){
@@ -38,20 +41,45 @@ void Subject::setDescription(std::string newDescription){
 
 
 void Subject::displayName(){
-    std::cout << "Name: " << getName() << std::endl;
+    std::cout << "Name:        " << getName() << std::endl;
 }
 void Subject::displayTeacher(){
-    std::cout << "Teacher: " << getTeacher() << std::endl;
+    std::cout << "Teacher:     " << getTeacher() << std::endl;
 }
-void Subject::displayDescription(){
-    std::cout << "Description: " << getDescription() << std::endl;
+void Subject::displayDescription() {
+    std::cout << "Description: ";
+    if (description->size() > 80) {
+        std::stringstream wholeDescription(*description);
+        std::string word;
+        std::string line;
+
+        while (wholeDescription >> word) {
+            if (line.size() + word.size() + 1 > 80) {
+                std::cout << line << std::endl;
+                std::cout << "             ";
+                line.clear();
+            }
+            if (!line.empty()) {
+                line += " ";
+            }
+            line += word;
+        }
+
+        if (!line.empty()) {
+            std::cout << line << std::endl;
+        }
+    } else {
+        std::cout << *description << std::endl;
+        }
 }
+
+
 void Subject::displayInfo(){
-    std::cout << "======================================" << std::endl;
+    std::cout << "==============================================================================================" << std::endl;
     this->displayName();
     this->displayTeacher();
     this->displayDescription();
-    std::cout << "======================================" << std::endl;
+    std::cout << "==============================================================================================" << std::endl;
 }
 
 void Subject::clearData(){
@@ -62,12 +90,21 @@ void Subject::clearData(){
     description = new std::string();
 }
 
-Subject::Subject(const Subject& other) {
-    idSubject = new int(*other.idSubject);
-    idTeacher = new int(*other.idTeacher);
-    name = new std::string(*other.name);
-    teacher = new std::string(*other.teacher);
-    description = new std::string(*other.description);
+Subject::Subject(const Subject& other)
+    : idSubject(new int(*other.idSubject)),
+      name(new std::string(*other.name)),
+      idTeacher(new int(*other.idTeacher)),
+      teacher(new std::string(*other.teacher)),
+      description(new std::string(*other.description)) {}
+
+Subject& Subject::operator=(const Subject& other) {
+    if (this == &other) return *this;
+    *idSubject = *other.idSubject;
+    *name = *other.name;
+    *idTeacher = *other.idTeacher;
+    *teacher = *other.teacher;
+    *description = *other.description;
+    return *this;
 }
 
 

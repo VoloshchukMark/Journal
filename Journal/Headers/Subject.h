@@ -2,7 +2,6 @@
 #define SUBJECT_H
 
 #include <iostream>
-#include <list>
 
 #include "./Grades.h"
 
@@ -40,6 +39,9 @@ public:
     void clearData();
 
     Subject(const Subject& other);
+
+    // Оператор присвоєння копіювання
+    Subject& operator=(const Subject& other);
 
 
     Subject();

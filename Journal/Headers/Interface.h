@@ -31,9 +31,12 @@ public:
     std::string sex_check(std::string uncheckedNewSex);
     std::string address_check(std::string uncheckedNewAddress);
 
+    void createSubject();
+    std::string info_check(std::string item);
+
+
     std::vector<Grades> baseOfGrades;
     Grades* selectedGrades = new Grades();
-    void eraseGrades(int idDoomedGrades);
     void displayGradesToEdit(std::string nameOfGradesList, std::vector<double> gradesForEdit);
     int connectGradesToStudent(Student* selectedStudent);
     std::vector<double> changeGrade(std::vector<double> insertedGrades, int coordinate, double newValue);
@@ -43,6 +46,7 @@ public:
 
     void saveSubjects();
 
+    void equalization();
 
     int startMenu();
     int studentInfo();
@@ -52,7 +56,8 @@ public:
     void gradesInfo(int idSubject, int newPage);
     void editGrades(int idSubject, int idGrades);
     void viewGrades(std::string name, int idSubject, int idGrades);
-    void teacherInfo();
+    void subjectInfo();
+    void viewSubject();
 
     void userManual();
 
@@ -62,12 +67,13 @@ public:
     template<typename T>
     void sortItems(std::vector<T>& baseOfItems);
     void sortItems(std::vector<Grades>& baseOfItems);
+    void sortItems(std::vector<Subject>& baseOfItems);
     template<typename T>
     void saveBasesOfItems(std::vector<T>& baseOfItems);
     template<typename T>
     void loadItems(std::vector<T>& baseOfItems);
     template<typename L>
-    void eraseItem(std::vector<L>& baseOfItems, std::string idDoomedItem);
+    void eraseItem(std::vector<L>& baseOfItems, std::string idDoomedItem, std::string typeOfId);
 
     Interface();
     ~Interface();
