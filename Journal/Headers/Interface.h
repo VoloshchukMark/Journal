@@ -20,11 +20,18 @@
 class Interface
 {
 public:
+    //Bases and selected objects
     bool shouldLoad = true;
     std::vector<Student> baseOfStudents;
     Student* selectedStudent = new Student();
-    std::string selectStudent(std::string selectedId);
+    std::vector<Grades> baseOfGrades;
+    Grades* selectedGrades = new Grades();
+    std::vector<Subject> baseOfSubjects;
+    Subject* selectedSubject = new Subject();
+    std::vector<Teacher> baseOfTeachers;
+    Teacher* selectedTeacher = new Teacher();
 
+    //Create functions
     void createStudent();
     std::string nsp_check(std::string item);
     int age_check(std::string uncheckedNewAge);
@@ -34,36 +41,43 @@ public:
     void createSubject();
     std::string info_check(std::string item);
 
+    void createTeacher(std::string shortName);
+    //-----------------------------------------
 
-    std::vector<Grades> baseOfGrades;
-    Grades* selectedGrades = new Grades();
+    //Edit functions
+    void editGrades(int idSubject, int idGrades);
     void displayGradesToEdit(std::string nameOfGradesList, std::vector<double> gradesForEdit);
     int connectGradesToStudent(Student* selectedStudent);
     std::vector<double> changeGrade(std::vector<double> insertedGrades, int coordinate, double newValue);
 
-    std::vector<Subject> baseOfSubjects;
-    Subject* selectedSubject = new Subject();
 
-    void saveSubjects();
-
+    //General functions
     void equalization();
-
-    int startMenu();
-    int studentInfo();
-    void viewStudent();
-    void viewStudentSubjects();
-    void selectSubject();
-    void gradesInfo(int idSubject, int newPage);
-    void editGrades(int idSubject, int idGrades);
-    void viewGrades(std::string name, int idSubject, int idGrades);
-    void subjectInfo();
-    void viewSubject();
-
     void userManual();
-
     bool containsOnlyDigits(const std::string& str);
     void clearAllBases();
 
+    //Start menu functions
+    int startMenu();
+    int studentInfo();
+    void gradesInfo(int idSubject, int newPage);
+    void subjectInfo();
+    void teacherInfo();
+
+    //View object functions
+    void viewStudent();
+    void viewStudentSubjects();
+    void viewGrades(std::string name, int idSubject, int idGrades);
+    void viewSubject();
+    void viewTeacher(int idTeacher);
+
+
+    //Uhhh, function-selectors, I guess?
+    bool selectStudent(std::string selectedId);
+    void selectSubject();
+
+
+    //Template functions
     template<typename T>
     void sortItems(std::vector<T>& baseOfItems);
     void sortItems(std::vector<Grades>& baseOfItems);

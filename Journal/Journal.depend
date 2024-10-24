@@ -62,12 +62,13 @@
 	<iostream>
 	<vector>
 
-1729521632 source:d:\study\programming\coursework\journal\journal\sources\teacher.cpp
+1729675654 source:d:\study\programming\coursework\journal\journal\sources\teacher.cpp
+	"../rang.hpp"
 	"../Headers/Teacher.h"
 	"../Headers/Person.h"
 	<iostream>
 
-1729521632 d:\study\programming\coursework\journal\journal\headers\teacher.h
+1729609433 d:\study\programming\coursework\journal\journal\headers\teacher.h
 	"Person.h"
 	"Subject.h"
 	<iostream>
@@ -92,7 +93,7 @@
 1729352684 d:\study\programming\coursework\journal\journal\headers\marks.h
 	<vector>
 
-1729602783 source:d:\study\programming\coursework\journal\journal\sources\interface.cpp
+1729763217 source:d:\study\programming\coursework\journal\journal\sources\interface.cpp
 	"../rang.hpp"
 	<iostream>
 	<sstream>
@@ -107,7 +108,7 @@
 	"Interface.h"
 	"BubbleSort.h"
 
-1729603655 d:\study\programming\coursework\journal\journal\headers\interface.h
+1729680003 d:\study\programming\coursework\journal\journal\headers\interface.h
 	<iostream>
 	<vector>
 	<algorithm>

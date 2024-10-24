@@ -17,7 +17,7 @@
 
 int Interface::startMenu(){
     system("cls");
-    std::cout << "MyJournal 0.3.6 \n" << std::endl;
+    std::cout << "MyJournal 0.3.7 \n" << std::endl;
     std::cout << "(Type '/?' for 'user manual';" << std::endl;
 
     Sleep(500);
@@ -68,7 +68,7 @@ int Interface::studentInfo() {
     }else if(decition == "2"){
         createStudent();
     }else if(decition == "3"){
-        eraseItem(baseOfGrades, "", "");
+        eraseItem(baseOfStudents, "", "");
     }else if(decition == "4"){
         sortItems(baseOfStudents);
     }else if(decition == "5"){
@@ -84,7 +84,7 @@ template<typename T>
 void Interface::saveBasesOfItems(std::vector<T>& baseOfItems){
     if(typeid(baseOfItems.front()) == typeid(Student)){
         std::ofstream savingStudents("./data/students.txt", std::ios::trunc);
-        for(int i = 0; i < baseOfStudents.size(); i++){
+        for(int i = 0; i < static_cast<int>(baseOfStudents.size()); i++){
             savingStudents<<(i + 1)<<" "<<baseOfStudents[i].getName()<<" "<<baseOfStudents[i].getSurname()<<" "
                           <<baseOfStudents[i].getPatronymic()<<" "<<baseOfStudents[i].getAge()<<" "
                           <<baseOfStudents[i].getSex()<<" ' "<<baseOfStudents[i].getAddress()<<"' >"<<std::endl;
@@ -111,12 +111,27 @@ void Interface::saveBasesOfItems(std::vector<T>& baseOfItems){
             savingGrades<<">"<<std::endl;
         }
     }else if(typeid(baseOfItems.front()) == typeid(Subject)){
+        loadItems(baseOfTeachers);
+        int idOfTeacher;
         std::ofstream savingSubject("./data/subjects.txt", std::ios::trunc);
-        for(int i = 0; i < baseOfSubjects.size(); i++){
-            std::cout << "Saving...\n";
-            savingSubject<<(i + 1)<<" ' "<<baseOfSubjects[i].getName()<<" ' "<<baseOfSubjects[i].getIdTeacher()<<" ' "<<baseOfSubjects[i].getTeacher()<<" ' "
+        for(int i = 0; i < static_cast<int>(baseOfSubjects.size()); i++){
+            for(Teacher thatOneTeacher : baseOfTeachers){
+                if(baseOfSubjects[i].getName() == thatOneTeacher.getShortName()){
+                    idOfTeacher == thatOneTeacher.getId();
+                }
+            }
+            savingSubject<<(i + 1)<<" ' "<<baseOfSubjects[i].getName()<<" ' "<<idOfTeacher<<" ' "<<baseOfSubjects[i].getTeacher()<<" ' "
                           <<baseOfSubjects[i].getDescription()<<" ' "<<std::endl;
         }
+    }else if(typeid(baseOfItems.front()) == typeid(Teacher)){
+        std::ofstream savingTeachers("./data/teachers.txt", std::ios::trunc);
+        for(int i = 0; i < baseOfTeachers.size(); i++){
+            savingTeachers<<(i + 1)<<" "<<baseOfTeachers[i].getName()<<" "<<baseOfTeachers[i].getSurname()<<" "
+                          <<baseOfTeachers[i].getPatronymic()<<" ' "<<baseOfTeachers[i].getShortName()<<" ' "<<baseOfTeachers[i].getAge()<<" "
+                          <<baseOfTeachers[i].getSex()<<" >"<<std::endl;
+
+        }
+        savingTeachers.close();
     }
 }
 
@@ -154,7 +169,7 @@ void Interface::gradesInfo(int idSubject, int newPage){
     sortItems(baseOfGrades);
     system("cls");
     std::cout << rang::style::bold << rang::style::underline << "================[ " << baseOfSubjects[idSubject - 1].getName() << "]";
-    for(int i = 0; i < 99 - baseOfSubjects[idSubject - 1].getName().size(); i++){
+    for(size_t i = 0; i < 99 - baseOfSubjects[idSubject - 1].getName().size(); i++){
         std::cout << "=";
     }
     std::cout << rang::style::reset << "=";
@@ -203,7 +218,7 @@ void Interface::gradesInfo(int idSubject, int newPage){
         gradesInfo(idSubject, page - 1);
         return;
     }else if(decition == ">"){
-        if(baseOfGrades[0].getHomeWorkGrades().size() == (page * 10)){
+        if(static_cast<int>(baseOfGrades[0].getHomeWorkGrades().size()) == static_cast<int>(page * 10)){
             gradesInfo(idSubject, page);
             return;
         }
@@ -276,6 +291,7 @@ void Interface::subjectInfo(){
 }
 
 void Interface::viewSubject(){
+    selectedSubject = nullptr;
     clearAllBases();
     loadItems(baseOfSubjects);
     std::string selection;
@@ -287,6 +303,12 @@ void Interface::viewSubject(){
             delete selectedSubject;
             selectedSubject = new Subject(thatOneSubject);
         }
+    }
+    if(selectedSubject == nullptr){
+        std::cout << "Wrong insertion! Back to list...\n";
+        std::cin.get();
+        clearAllBases();
+        return;
     }
 a3: system("cls");
     selectedSubject->displayInfo();
@@ -302,6 +324,7 @@ a3: system("cls");
             selectedSubject->clearData();
             clearAllBases();
             shouldLoad = true;
+            delete selectedSubject;
             return;
         }
     }else{
@@ -330,7 +353,7 @@ ahah:       system("cls");
             std::stringstream separator(insertion);
             std::string index, coordinate;
             separator>>index>>coordinate;
-            std::cout << "[" << index << "]" << std::endl;
+//            std::cout << "[" << index << "]" << std::endl;
             if(index != "!" && index != "?" && index != "#"){std::cout << "No such index!\n"; std::cin.get(); goto ahah;}
             std::cout << "Insert new value: ";
             std::string newValue;
@@ -351,11 +374,11 @@ ahah:       system("cls");
             std::getline(std::cin, decition);
             if(decition == "1"){}
             else if(decition == "2"){
-                for(Grades anotherOneGrade : baseOfGrades){
-                    if(anotherOneGrade.getId() == idGrades && anotherOneGrade.getIdSubject() == idSubject){
-                        baseOfGrades[(idGrades - 1) + ((idSubject - 1) * baseOfGrades.back().getId())].setGrades('h', homeWorkGrades);
-                        baseOfGrades[(idGrades - 1) + ((idSubject - 1) * baseOfGrades.back().getId())].setGrades('t', testGrades);
-                        baseOfGrades[(idGrades - 1) + ((idSubject - 1) * baseOfGrades.back().getId())].setGrades('s', semesterGrades);
+                for(size_t i = 0; i < static_cast<int>(baseOfGrades.size()); i++){
+                    if(baseOfGrades[i].getId() == idGrades && baseOfGrades[i].getIdSubject() == idSubject){
+                        baseOfGrades[i].setGrades('h', homeWorkGrades);
+                        baseOfGrades[i].setGrades('t', testGrades);
+                        baseOfGrades[i].setGrades('s', semesterGrades);
                     }
                 }
                 saveBasesOfItems(baseOfGrades);
@@ -490,7 +513,6 @@ void Interface::loadItems(std::vector<T>& baseOfItems){
                 }while(itterator != "'");
             }
             subjectsitterator.setTeacher(newTeacherName);
-            newTeacherName.clear();
             if(itterator == "'"){
                 importingSubjects>>itterator;
                 do{
@@ -499,11 +521,55 @@ void Interface::loadItems(std::vector<T>& baseOfItems){
                 }while(itterator != "'");
             }
             subjectsitterator.setDescription(newDescription);
+            loadItems(baseOfTeachers);
+//            std::cout << "[" << newTeacherName << "]\n";
+            for(Teacher thatOneTeacher : baseOfTeachers){
+                if(newTeacherName == thatOneTeacher.getShortName()){
+                    subjectsitterator.setIdTeacher(thatOneTeacher.getId());
+//                    std::cout << "[" << subjectsitterator.getIdTeacher() << "] | [" << thatOneTeacher.getId() << "]\n";
+//                    std::cin.get();
+
+                }
+            }
+            newTeacherName.clear();
             newDescription.clear();
             baseOfSubjects.push_back(subjectsitterator);
             importingSubjects>>itterator;
             subjectsitterator.clearData();
         }
+    }
+    else if(typeid(T) == typeid(Teacher)){
+        baseOfTeachers.clear();
+        Teacher temporaryTeacher;
+        std::ifstream loadingTeachers("./data/teachers.txt");
+        if(!loadingTeachers.is_open()){std::cout << "Not opened" << std::endl;}
+        if(loadingTeachers.peek() != std::ifstream::traits_type::eof()){
+            do {
+                std::string newName, newSurname, newPatronymic, newShortName, newSex, check;
+                int newId, newAge;
+                loadingTeachers>>newId>>newName>>newSurname>>newPatronymic;
+                loadingTeachers>>check;
+                if(check == "'"){
+                    loadingTeachers>>check;
+                    while(check != "'"){
+                        newShortName += (check + " ");
+                        loadingTeachers>>check;
+                    }
+                }
+                loadingTeachers>>newAge>>newSex>>check;
+//                std::cout << "Basic data was successfuly imported!\n";
+                temporaryTeacher.updateInfo(newId, newName, newSurname, newPatronymic, newAge, newSex, newShortName);
+                baseOfTeachers.push_back(temporaryTeacher);
+//                temporaryTeacher.displayInfo();
+            } while(!loadingTeachers.eof());
+            baseOfTeachers.pop_back();
+            loadingTeachers.close();
+//            std::cout << "Attention!\n";
+//            baseOfTeachers.back().displayInfo();
+//            std::cin.get();
+        return;
+        } else{
+            std::cout << "This file is empty!";}
     }
     else {
         std::cout << "Damn\n";
@@ -520,9 +586,13 @@ void Interface::createStudent(){
     std::string newName, newSurname, newPatronymic, newSex, newAddress, check;
     int newId, newAge;
     if(creatingStudent.is_open()){
+        if(!baseOfStudents.empty()){
+            newId = (baseOfStudents.back().getId()) + 1;
+
+        }else{newId = 1;}
        newId = (baseOfStudents.back().getId()) + 1;
-       std::cout << baseOfStudents.back().getName() << std::endl;
-       std::cout << newId << std::endl;
+//       std::cout << baseOfStudents.back().getName() << std::endl;
+//       std::cout << newId << std::endl;
        std::string uncheckedNewName, uncheckedNewSurname, uncheckedNewPatronymic, uncheckedNewAge, uncheckedNewSex, uncheckedNewAddress;
 
        system("cls");
@@ -530,16 +600,19 @@ void Interface::createStudent(){
        std::getline(std::cin, uncheckedNewName);
        if(uncheckedNewName == "<"){goto cncl;}
        newName = nsp_check(uncheckedNewName);
+       if(newName == "<"){return;}
        system("cls");
        std::cout << "(Write '<' to go back to the list)\nEnter the last name: ";
        std::getline(std::cin, uncheckedNewSurname);
        if(uncheckedNewSurname == "<"){goto cncl;}
        newSurname = nsp_check(uncheckedNewSurname);
+       if(newSurname == "<"){return;}
        system("cls");
        std::cout << "(Write '<' to go back to the list)\nEnter the patronymic: ";
        std::getline(std::cin, uncheckedNewPatronymic);
        if(uncheckedNewPatronymic == "<"){goto cncl;}
        newPatronymic = nsp_check(uncheckedNewPatronymic);
+       if(newPatronymic == "<"){return;}
 
         system("cls");
        std::cout << "(Write '<' to go back to the list)\nEnter the age: ";
@@ -558,11 +631,12 @@ void Interface::createStudent(){
        std::getline(std::cin, uncheckedNewAddress);
        if(uncheckedNewAddress == "<"){goto cncl;}
        newAddress = address_check(uncheckedNewAddress);
+       if(newAddress == "<"){return;}
 
        system("cls");
        creatingStudent<<newId<<" "<<newName<<" "<<newSurname<<" "<<newPatronymic<<" "<<newAge<<" "<<newSex<<" "<<newAddress<<" >"<<std::endl;
        creatingStudent.close();
-a1:    std::cout << "The information was successfully recorded!\n";
+       std::cout << "The information was successfully recorded!\n";
        Sleep(300);
        std::cout << "Back to students information...";
        std::cin.get();
@@ -671,9 +745,30 @@ void Interface::eraseItem(std::vector<L>& baseOfItems, std::string idDoomedItem,
                 std::string decision;
                 std::getline(std::cin, decision);
                 if (decision == "1") {
+                    loadItems(baseOfTeachers);
+                    std::string shortNameOfTeacher = it->getTeacher();
                     eraseItem(baseOfGrades, idDoomedItem, "subjects");
                     baseOfSubjects.erase(it);
+                    std::cout << shortNameOfTeacher << "- Teacher's short name!\n";;
+                    std::cin.get();
+                    int subjectCount = 0;
+                    for(Subject thatoneSubject : baseOfSubjects){
+                        if(thatoneSubject.getTeacher() == shortNameOfTeacher)
+                        {
+                            subjectCount++;
+                        }
+                    }
+                    if(subjectCount == 0){
+                        for(Teacher thatOneTeacher : baseOfTeachers){
+                            if(thatOneTeacher.getShortName() == shortNameOfTeacher){
+                                std::cout << thatOneTeacher.getShortName() << std::endl;
+                                eraseItem(baseOfTeachers, std::to_string(thatOneTeacher.getId()), "");
+                            }
+                        }
+                    }
+                    std::cout << "Saving changes in 'subjects.txt'...\n";
                     saveBasesOfItems(baseOfSubjects);
+                    std::cout << "Saving is completed!\n";
                     std::cout << "Subject info has been deleted successfully! \nBack to the student list...";
                     shouldLoad = true;
                     std::cin.get();
@@ -692,6 +787,21 @@ void Interface::eraseItem(std::vector<L>& baseOfItems, std::string idDoomedItem,
         }
         std::cout << "Student wasn't found!\n";
         std::cin.get();
+    }
+    else if(typeid(L) == typeid(Teacher)){
+        std::cout << "Deleting teacher!...\n";
+        std::cin.get();
+
+        int teacherIdToErase = std::stoi(idDoomedItem);
+        for (auto it = baseOfTeachers.begin(); it != baseOfTeachers.end(); ++it) {
+            if (it->getId() == teacherIdToErase) {
+                baseOfTeachers.erase(it);
+                saveBasesOfItems(baseOfTeachers);
+                std::cout << "Teacher info has been deleted successfully! \n";
+                std::cin.get();
+                return;
+            }
+        }
     }
 }
 
@@ -777,9 +887,9 @@ void Interface::sortItems(std::vector<Grades>& baseOfItems){
         baseOfGrades.clear();
         loadItems(baseOfGrades);
         loadItems(baseOfSubjects);
-        for(int i = 0; i < baseOfGrades.size() - 1; i++){
+        for(int i = 0; i < static_cast<int>(baseOfGrades.size()) - 1; i++){
     //        std::cout << i << " " << baseOfGrades.size() << std::endl;
-            for(int j = (i + 1); j < baseOfGrades.size(); ++j){
+            for(int j = (i + 1); j < static_cast<int>(baseOfGrades.size()); ++j){
     //            std::cout << "Shy dontcha work?\n";
                 if(baseOfGrades[i].getId() > baseOfGrades[j].getId()){
                     std::swap(baseOfGrades[i], baseOfGrades[j]);
@@ -787,8 +897,8 @@ void Interface::sortItems(std::vector<Grades>& baseOfItems){
                 }
             }
         }
-        for(int i = 0; i < baseOfGrades.size() - 1; i++){
-            for(int j = i; j < baseOfGrades.size() - 1; j++){
+        for(int i = 0; i < static_cast<int>(baseOfGrades.size()) - 1; i++){
+            for(int j = i; j < static_cast<int>(baseOfGrades.size()) - 1; j++){
                 if(baseOfGrades[j].getIdSubject() > baseOfGrades[j+1].getIdSubject()){
                     std::swap(baseOfGrades[j], baseOfGrades[j+1]);
                 }
@@ -880,24 +990,41 @@ std::string Interface::nsp_check(std::string item) {
         std::cout << "You have inserted more than one word. We will take only the first one. Do you agree?\n";
         std::cout << "1.Yes \n2.Rewrite\n\n>";
         std::string decition;
-        std::cin >> decition;
+        std::getline(std::cin, decition);
         if(decition == "1"){
             system("cls");
             return firstItem;
-        } else if(decition == "2"){
+        }else if(decition == "2"){
             system("cls");
             std::string newItem;
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             std::cout << "Enter another variant: ";
             std::getline(std::cin, newItem);
             return nsp_check(newItem);
-        }
+        }else if(decition == "<"){return "<";}
 
     } else return firstItem;
 }
 int Interface::age_check(std::string uncheckedNewAge){
     if(containsOnlyDigits(uncheckedNewAge)){
+        if(uncheckedNewAge.empty()){
+            std::cout << "Age value cannot be empty! Try again: ";
+            std::string newValue;
+            std::getline(std::cin, newValue);
+            return age_check(newValue);
+        }
         int checkedAge = std::stoi(uncheckedNewAge);
+        if(checkedAge < 6){
+            std::cout << "Age value is too low! Try again: ";
+            std::string newValue;
+            std::getline(std::cin, newValue);
+            return age_check(newValue);
+        }else if(checkedAge > 99){
+            std::cout << "Age value is too high! Try again: ";
+            std::string newValue;
+            std::getline(std::cin, newValue);
+            return age_check(newValue);
+        }
         return checkedAge;
     }else{
         std::cout << "You have inserted non-integer value!\nTry again: ";
@@ -918,20 +1045,28 @@ std::string Interface::sex_check(std::string uncheckedNewSex){
         }
 }
 std::string Interface::address_check(std::string uncheckedNewAddress){
-    std::string checkedNewAddress = ("' " + uncheckedNewAddress + " '");
-    std::cout << checkedNewAddress << std::endl << "Are you sure?\n";
-    std::cout << "1.Yes \n2.Rewrite\n>";
-    std::string decition;
-    std::getline(std::cin, decition);
-    if(decition == "1"){
+    if(uncheckedNewAddress.empty()){
+        std::cout << "Address cannot be empty! Try again \n>";
+        std::string newValue;
+        std::getline(std::cin, newValue);
+        return address_check(newValue);
+    }else{
+        if(uncheckedNewAddress == "<"){return "<";}
+        std::string checkedNewAddress = ("' " + uncheckedNewAddress + " '");
+        std::cout << checkedNewAddress << std::endl << "Are you sure?\n";
+        std::cout << "1.Yes \n2.Rewrite\n>";
+        std::string decition;
+        std::getline(std::cin, decition);
+        if(decition == "1"){
+            return checkedNewAddress;
+        }else if(decition == "2"){
+            std::cout << "Write down the other address (Be careful, this information will not be processed!)\n>";
+            std::string otherUncheckedNewAddress;
+            std::getline(std::cin, otherUncheckedNewAddress);
+            return address_check(otherUncheckedNewAddress);
+        }
         return checkedNewAddress;
-    }else if(decition == "2"){
-        std::cout << "Write down the other address (Be careful, this information will not be processed!)\n>";
-        std::string otherUncheckedNewAddress;
-        std::getline(std::cin, otherUncheckedNewAddress);
-        return address_check(otherUncheckedNewAddress);
     }
-    return checkedNewAddress;
 }
 
 std::string info_check(std::string item);
@@ -942,61 +1077,180 @@ void Interface::createSubject(){
     std::ofstream creatingSubject("data/subjects.txt", std::ios::app);
     std::string newName, newTeacher, newDescription, check;
     int newIdSubject, newIdTeacher;
+    bool newTeacherInfo = true;
     if(creatingSubject.is_open()){
-       newIdSubject = (baseOfSubjects.back().getIdSubject()) + 1;
-       newIdTeacher = (baseOfSubjects.back().getIdTeacher()) + 1;
+        if(!baseOfSubjects.empty()){
+            newIdSubject = (baseOfSubjects.back().getIdSubject()) + 1;
+        }
+        else{newIdSubject = 1;}
 //       std::cout << baseOfSubjects.back().getName() << std::endl;
 //       std::cout << newId << std::endl;
-       std::string uncheckedNewName, uncheckedNewTeacher, uncheckedNewDescription;
+        std::string uncheckedNewName, uncheckedNewTeacher, uncheckedNewDescription;
 
-       system("cls");
-       std::cout << "(Write '<' to go back to the list)\nEnter the name of the subject: ";
-       std::getline(std::cin, uncheckedNewName);
-       if(uncheckedNewName == "<"){goto cncl;}
-       newName = info_check(uncheckedNewName);
-       if(newName == "<"){goto cncl;}
-       system("cls");
-       std::cout << "(Write '<' to go back to the list)\nEnter the teacher's full name (Example: Voloshchuk M. V.): ";
-       std::getline(std::cin, uncheckedNewTeacher);
-       if(uncheckedNewTeacher == "<"){goto cncl;}
-       newTeacher = info_check(uncheckedNewTeacher);
-       if(newTeacher == "<"){goto cncl;}
-       system("cls");
-       std::cout << "(Write '<' to go back to the list)\nEnter the description of the subject: ";
-       std::getline(std::cin, uncheckedNewDescription);
-       if(uncheckedNewDescription == "<"){goto cncl;}
-       newDescription = info_check(uncheckedNewDescription);
-       if(newDescription == "<"){goto cncl;}
+        system("cls");
+        std::cout << "(Write '<' to go back to the list)\nEnter the name of the subject: ";
+        std::getline(std::cin, uncheckedNewName);
+        if(uncheckedNewName == "<"){return;}
+        newName = info_check(uncheckedNewName);
+        if(newName == "<"){return;}
 
-       system("cls");
-       creatingSubject<<newIdSubject<< " ' " << newName << " ' " << newIdTeacher << " ' "
-                      << newTeacher <<  " ' " << newDescription << " '"<<std::endl;
-       creatingSubject.close();
-       baseOfSubjects.clear();
-a1:    std::cout << "The information was successfully recorded!\n";
-       Sleep(300);
-       std::cout << "Back to subjects information...";
-       std::cin.get();
-cncl: shouldLoad = true;
-       return;
+        system("cls");
+        std::cout << "(Write '<' to go back to the list)\nEnter the teacher's full name (Example: Voloshchuk M. V.): ";
+        std::getline(std::cin, uncheckedNewTeacher);
+        if(uncheckedNewTeacher == "<"){return;}
+        newTeacher = info_check(uncheckedNewTeacher);
+        if(newTeacher == "<"){return;}
+        for(Subject thatOneSubject : baseOfSubjects){
+            if(thatOneSubject.getTeacher() == newTeacher + " "){
+                newTeacherInfo = false;
+                newIdTeacher = (thatOneSubject.getIdTeacher());
+            }
+        }
+
+        system("cls");
+        std::cout << "(Write '<' to go back to the list)\nEnter the description of the subject: ";
+        std::getline(std::cin, uncheckedNewDescription);
+        if(uncheckedNewDescription == "<"){return;}
+        newDescription = info_check(uncheckedNewDescription);
+        if(newDescription == "<"){return;}
+
+        system("cls");
+        if(newTeacherInfo){
+            for(Subject thatOneSubject : baseOfSubjects){
+                if(thatOneSubject.getIdTeacher() >= newIdTeacher)
+                newIdTeacher = thatOneSubject.getIdTeacher() + 1;
+            }
+        }
+
+
+        system("cls");
+        creatingSubject<<newIdSubject<< " ' " << newName << " ' " << newIdTeacher << " ' "
+                       << newTeacher <<  " ' " << newDescription << " '"<<std::endl;
+        creatingSubject.close();
+        baseOfSubjects.clear();
+        std::cout << "The information was successfully recorded!\n";
+        Sleep(300);
+        if(newTeacherInfo){
+newT:       std::cin.get();
+            system("cls");
+            std::cout << "We have noticed that " << newTeacher << " is not recorded in the database. \nWould you like to add him/her to the database?\n"
+                      << "1.Yes \n2.Later\n>";
+            std::string decition;
+            std::getline(std::cin, decition);
+            if(!decition.empty()){
+                if(decition == "1"){
+                    createTeacher(newTeacher);
+                    std::cout << "[" << newTeacher << "]\n";
+                    std::cin.get();
+                    loadItems(baseOfSubjects);
+                    for(Subject thatOneSubject : baseOfSubjects){
+                        std::cout << "[" << thatOneSubject.getTeacher() << "]\n";
+                        std::cin.get();
+                        if(thatOneSubject.getTeacher() == newTeacher + " "){
+                            loadItems(baseOfTeachers);
+                            for(Teacher thatOneTeacher : baseOfTeachers){
+                            std::cout << "[" << thatOneTeacher.getShortName() << "]\n";
+                            std::cin.get();
+                                if(thatOneTeacher.getShortName() == newTeacher + " "){
+                                    thatOneSubject.setIdTeacher(thatOneTeacher.getId());
+                                }
+                            }
+                            baseOfTeachers.clear();
+                        }
+                    }
+                }else if(decition == "2"){
+                    std::cout << "Okay...\nBut you can always do it in subject information menu.";
+                    std::cin.get();
+                }
+            }else if(decition != "1" && decition != "2"){
+                std::cout << "Wrong insertion!\n";
+                std::cin.get();
+                goto newT;
+            }
+        }else {
+            std::cout << "Back to subjects information...";
+            std::cin.get();
+        }
+    shouldLoad = true;
+        return;
     }
 }
 std::string Interface::info_check(std::string item){
+    if(item.empty()){
+        std::cout << "Insertion cannot be empty!\n";
+        std::cin.get();
+        return "<";
+    }
     std::cout << "' " << item << " ' is that the right insertion? (write '<' to cancel)\n1.Yes \n2.Rewrite \n>";
     std::string decition;
     std::getline(std::cin, decition);
-    if(decition == "1" || decition == "<"){
+    if(decition == "1"){
         return item;
     }else if(decition == "2"){
         std::cout << "\nEnter another variant (write '<' to cancel): ";
         std::string anotherNewName;
         std::getline(std::cin, anotherNewName);
         return info_check(anotherNewName);
-    }
+    }else if(decition == "<"){return "<";}
     info_check(item);
 }
 
-std::string Interface::selectStudent(std::string selectedId){
+void Interface::createTeacher(std::string shortName){
+    baseOfTeachers.clear();
+    loadItems(baseOfTeachers);
+    system("cls");
+    std::ofstream creatingTeacher("data/teacher.txt", std::ios::app);
+    std::string newName, newSurname, newPatronymic, newShortName, newSex, check;
+    int newId, newAge;
+    newShortName = shortName;
+    if(creatingTeacher.is_open()){
+       if(!baseOfTeachers.empty()){
+            newId = (baseOfTeachers.back().getId()) + 1;
+       }else{newId = 1;}
+       std::cout << "[" << newId << "]\n";
+       std::string uncheckedNewName, uncheckedNewSurname, uncheckedNewPatronymic, uncheckedNewShortName, uncheckedNewAge, uncheckedNewSex;
+
+       system("cls");
+       std::cout << "(Write '<' to go back to the list)\nEnter the first name: ";
+       std::getline(std::cin, uncheckedNewName);
+       if(uncheckedNewName == "<"){goto cncl;}
+       newName = nsp_check(uncheckedNewName);
+       system("cls");
+       std::cout << "(Write '<' to go back to the list)\nEnter the last name: ";
+       std::getline(std::cin, uncheckedNewSurname);
+       if(uncheckedNewSurname == "<"){goto cncl;}
+       newSurname = nsp_check(uncheckedNewSurname);
+       system("cls");
+       std::cout << "(Write '<' to go back to the list)\nEnter the patronymic: ";
+       std::getline(std::cin, uncheckedNewPatronymic);
+       if(uncheckedNewPatronymic == "<"){goto cncl;}
+       newPatronymic = nsp_check(uncheckedNewPatronymic);
+
+        system("cls");
+       std::cout << "(Write '<' to go back to the list)\nEnter the age: ";
+       std::getline(std::cin, uncheckedNewAge);
+       if(uncheckedNewAge == "<"){goto cncl;}
+       newAge = age_check(uncheckedNewAge);
+
+       system("cls");
+       std::cout << "(Write '<' to go back to the list)\nChoose the sex (" << rang::style::underline << "Male/Female/Other" << rang::style::reset << "): ";
+       std::getline(std::cin, uncheckedNewSex);
+       if(uncheckedNewSex == "<"){goto cncl;}
+       newSex = sex_check(uncheckedNewSex);
+
+       system("cls");
+       creatingTeacher<<newId<<" "<<newName<<" "<<newSurname<<" "<<newPatronymic<<" ' "<<newShortName<<" ' "<<newAge<<" "<<newSex<<" >"<<std::endl;
+       creatingTeacher.close();
+       std::cout << "The information was successfully recorded!\n";
+       Sleep(300);
+       std::cout << "Back to students information...";
+       std::cin.get();
+cncl: shouldLoad = true;
+       return;
+    }
+}
+
+bool Interface::selectStudent(std::string selectedId){
     loadItems(baseOfStudents);
     for(Student eachStudent : baseOfStudents){
         if(eachStudent.getId() == stoi(selectedId)){
@@ -1004,13 +1258,13 @@ std::string Interface::selectStudent(std::string selectedId){
             selectedStudent = new Student(eachStudent);
             std::cout << "Student has been selected!\n";
             Sleep(1000);
-            return "1";
+            return true;
         }
     }
     std::cout << "Student wasn't found((((";
     baseOfStudents.clear();
     std::cin.get();
-    return 0;
+    return false;
 }
 
 void viewStudentSubjects();
@@ -1020,8 +1274,8 @@ void Interface::viewStudent(){
     std::cout << "Enter ID of the student you want to check: ";
     std::getline(std::cin, selection);
     if(selection.empty()){std::cout << "Error! Entered nothing!\n"; std::cin.get(); return;}
-    std::string result = selectStudent(selection);
-    if(result == "1"){
+    bool result = selectStudent(selection);
+    if(result){
 a2:     baseOfGrades.clear();
         baseOfSubjects.clear();
         loadItems(baseOfGrades);
@@ -1164,6 +1418,7 @@ void Interface::clearAllBases(){
     baseOfGrades.clear();
     baseOfStudents.clear();
     baseOfSubjects.clear();
+    baseOfTeachers.clear();
     return;
 }
 
