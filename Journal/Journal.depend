@@ -30,12 +30,12 @@
 1723909496 d:\study\programming\coursework\journal\journal\\person.h
 	<string>
 
-1729521632 source:d:\study\programming\coursework\journal\journal\sources\person.cpp
+1729805075 source:d:\study\programming\coursework\journal\journal\sources\person.cpp
 	"../rang.hpp"
 	"../Headers/Person.h"
 	<iostream>
 
-1729521632 d:\study\programming\coursework\journal\journal\headers\person.h
+1729805081 d:\study\programming\coursework\journal\journal\headers\person.h
 	<string>
 
 1729521632 source:d:\study\programming\coursework\journal\journal\sources\student.cpp
@@ -44,7 +44,7 @@
 	"../Headers/Person.h"
 	<iostream>
 
-1729521632 d:\study\programming\coursework\journal\journal\headers\student.h
+1729803515 d:\study\programming\coursework\journal\journal\headers\student.h
 	"Person.h"
 	<iostream>
 	<vector>
@@ -74,7 +74,7 @@
 	<iostream>
 	<vector>
 
-1729603261 source:d:\study\programming\coursework\journal\journal\sources\subject.cpp
+1729795818 source:d:\study\programming\coursework\journal\journal\sources\subject.cpp
 	"../Headers/Subject.h"
 	<iostream>
 	<string>
@@ -93,7 +93,7 @@
 1729352684 d:\study\programming\coursework\journal\journal\headers\marks.h
 	<vector>
 
-1729763217 source:d:\study\programming\coursework\journal\journal\sources\interface.cpp
+1729852517 source:d:\study\programming\coursework\journal\journal\sources\interface.cpp
 	"../rang.hpp"
 	<iostream>
 	<sstream>
@@ -108,7 +108,7 @@
 	"Interface.h"
 	"BubbleSort.h"
 
-1729680003 d:\study\programming\coursework\journal\journal\headers\interface.h
+1729856534 d:\study\programming\coursework\journal\journal\headers\interface.h
 	<iostream>
 	<vector>
 	<algorithm>
@@ -160,10 +160,10 @@
 	<algorithm>
 	<typeinfo>
 
-1729528109 d:\study\programming\coursework\journal\journal\headers\grades.h
+1729783028 d:\study\programming\coursework\journal\journal\headers\grades.h
 	<vector>
 
-1729528109 source:d:\study\programming\coursework\journal\journal\sources\grades.cpp
+1729783201 source:d:\study\programming\coursework\journal\journal\sources\grades.cpp
 	"../External-libraries/rang.hpp"
 	"Grades.h"
 	<iostream>

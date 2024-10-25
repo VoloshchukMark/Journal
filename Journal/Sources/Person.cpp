@@ -48,7 +48,7 @@ void Person::setPatronymic(std::string& newPatronymic){
     }
     patronymic = new std::string(newPatronymic);
 }
-void Person::setAge(int& newAge){
+void Person::setAge(int newAge){
     age = new int(newAge);
 }
 void Person::setSex(std::string& newSex){

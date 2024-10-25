@@ -83,6 +83,11 @@ void Subject::displayInfo(){
 }
 
 void Subject::clearData(){
+    delete idSubject;
+    delete name;
+    delete idTeacher;
+    delete teacher;
+    delete description;
     idSubject = new int();
     name = new std::string();
     idTeacher = new int();

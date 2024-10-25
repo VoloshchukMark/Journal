@@ -42,9 +42,16 @@ public:
     std::string info_check(std::string item);
 
     void createTeacher(std::string shortName);
+
+    void createBlankGrades(int idSubject);
+    void createAndAddBlankGrades(int idSubject);
+    void removeExistantGradesPage(int idSubject);
     //-----------------------------------------
 
     //Edit functions
+    void editStudent();
+    void editSubject();
+    void editTeacher();
     void editGrades(int idSubject, int idGrades);
     void displayGradesToEdit(std::string nameOfGradesList, std::vector<double> gradesForEdit);
     int connectGradesToStudent(Student* selectedStudent);

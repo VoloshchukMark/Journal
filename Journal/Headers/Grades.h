@@ -11,7 +11,6 @@ private:
     std::vector<double> home_work;
     std::vector<double> test;
     std::vector<double> semester;
-    double* general;
     int* idSubject;
 public:
 
@@ -41,11 +40,8 @@ public:
     void displayIdSubject();
     void displayHomeWorkGrades();
     void displayTestGrades();
-    void displaySemesterGrades();
-    void displayGeneralGrades();
-    void displayInfo();
+    void displaySemesterGrades();    void displayInfo();
 
-    void setGeneralGrade(double newGeneralMark);
 
     Grades(const Grades& other);
     Grades& operator=(const Grades& other);
@@ -64,7 +60,8 @@ public:
 //    }
 
     Grades();
-    Grades(int newIdGrades, double newGeneral, int newIdSubject);
+    Grades(int newIdGrades, int newIdSubject);
+    Grades(int newIdGrades, int newIdSubject, std::vector<double> newHomeworkGrades, std::vector<double> newTestGrades, std::vector<double> newSemesterGrades);
 
     ~Grades();
 };

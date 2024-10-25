@@ -36,7 +36,7 @@ void Grades::clearData(){
     test.clear();
     semester.clear();
     idGrades = new int();
-    general = new double();
+    idSubject = new int();
 }
 
 
@@ -86,67 +86,52 @@ void Grades::displaySemesterGrades(){
     }
     std::cout << "\n";
 }
-void Grades::displayGeneralGrades(){
-    std::cout << "General grade: " << *this->general << std::endl;
-}
 void Grades::displayInfo(){
     this->displayHomeWorkGrades();
     this->displayTestGrades();
     this->displaySemesterGrades();
-    this->displayGeneralGrades();
     std::cout << std::endl;
 }
 
-void Grades::setGeneralGrade(double newGeneralGrade){
-    delete general;
-    general = new double(newGeneralGrade);
-}
 
 Grades::Grades(const Grades& other) {
         idGrades = new int(*(other.idGrades));
         home_work = other.home_work;
         test = other.test;
         semester = other.semester;
-        general = new double(*(other.general));
-        idSubject = new int(*other.idSubject);
+         idSubject = new int(*other.idSubject);
     }
 
 Grades& Grades::operator=(const Grades& other) {
         if (this != &other) {
             delete idGrades;
-            delete general;
 
             idGrades = new int(*(other.idGrades));
             home_work = other.home_work;
             test = other.test;
             semester = other.semester;
-            general = new double(*(other.general));
         }
         return *this;
 }
 
 Grades::Grades(Grades&& other) noexcept
-    : idGrades(other.idGrades), home_work(std::move(other.home_work)), test(std::move(other.test)), semester(std::move(other.semester)), general(other.general), idSubject(other.idSubject) {
+    : idGrades(other.idGrades), home_work(std::move(other.home_work)), test(std::move(other.test)), semester(std::move(other.semester)), idSubject(other.idSubject) {
     other.idGrades = nullptr;
-    other.general = nullptr;
     other.idSubject = nullptr;
 }
 
 Grades& Grades::operator=(Grades&& other) noexcept {
     if (this != &other) {
         delete idGrades;
-        delete general;
         delete idSubject;
 
         idGrades = other.idGrades;
         home_work = std::move(other.home_work);
         test = std::move(other.test);
         semester = std::move(other.semester);
-        general = other.general;
         idSubject = other.idSubject;
 
         other.idGrades = nullptr;
-        other.general = nullptr;
         other.idSubject = nullptr;
     }
     return *this;
@@ -154,19 +139,23 @@ Grades& Grades::operator=(Grades&& other) noexcept {
 
 
 Grades::Grades()
-    :Grades(0, 0.0, 0) {}
-Grades::Grades(int newIdGrades, double newGeneral, int newIdSubject){
+    :Grades(0, 0) {}
+Grades::Grades(int newIdGrades, int newIdSubject){
     idGrades = new int(newIdGrades);
-    general = new double(newGeneral);
     idSubject = new int(newIdSubject);
     std::cout << rang::fg::cyan <<"Constructor of Grades class was called!" << rang::fg::reset << std::endl;
-
+    }
+Grades::Grades(int newIdGrades, int newIdSubject, std::vector<double> newHomeworkGrades, std::vector<double> newTestGrades, std::vector<double> newSemesterGrades)
+    :Grades(newIdGrades, newIdSubject){
+        home_work = newHomeworkGrades;
+        test = newTestGrades;
+        semester = newSemesterGrades;
+        std::cout << rang::fg::cyan <<"Constructor of Grades class was called!" << rang::fg::reset << std::endl;
     }
 
 Grades::~Grades() {
     home_work.clear();
     test.clear();
     semester.clear();
-    delete general;
 //    std::cout << rang::fg::blue << "Destructor of Grades class was called!" << rang::style::reset << std::endl;
     }
