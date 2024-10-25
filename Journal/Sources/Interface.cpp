@@ -1,4 +1,5 @@
 #include "../rang.hpp"
+#include <../External-Libraries/variant.hpp>
 #include <iostream>
 #include <sstream>
 #include <string>
@@ -16,8 +17,9 @@
 
 
 int Interface::startMenu(){
+    clearAllBases();
     system("cls");
-    std::cout << "MyJournal 0.3.7 \n" << std::endl;
+    std::cout << "MyJournal 0.3.8  \n" << std::endl;
     std::cout << "(Type '/?' for 'user manual';" << std::endl;
 
     Sleep(500);
@@ -136,10 +138,12 @@ void Interface::saveBasesOfItems(std::vector<T>& baseOfItems){
         for(int i = 0; i < static_cast<int>(baseOfSubjects.size()); i++){
             idOfTeacher = 0;
             std::string leftName = baseOfSubjects[i].getTeacher();
-            leftName.pop_back();
+            if(leftName.back() == ' '){ leftName.pop_back(); }
             for(Teacher thatOneTeacher : baseOfTeachers){
             std::string rightName = thatOneTeacher.getShortName();
             rightName.pop_back();
+            std::cout << "[" << leftName << "|" << rightName << "]\n";
+                    std::cin.get();
                 if(leftName == rightName){
                     idOfTeacher = thatOneTeacher.getId();
                 }
@@ -367,7 +371,15 @@ void Interface::viewSubject(){
         clearAllBases();
         return;
     }
-a3: system("cls");
+a3: baseOfSubjects.clear();
+    loadItems(baseOfSubjects);
+    for(Subject thatOneSubject : baseOfSubjects){
+        if(thatOneSubject.getIdSubject() == stoi(selection)){
+            selectedSubject = nullptr;
+            selectedSubject = new Subject(thatOneSubject);
+        }
+    }
+    system("cls");
     selectedSubject->displayInfo();
     std::cout << "\n";
     std::cout << "Action: \n1.View information about teacher \n2.Edit subject \n0.Back \n\n>";
@@ -377,7 +389,7 @@ a3: system("cls");
         if(decition == "1"){
             viewTeacher(selectedSubject->getIdTeacher());
         }else if(decition == "2"){
-            editSubject();
+            editItem(baseOfSubjects);
         }else if(decition == "0"){
             selectedGrades->clearData();
             selectedSubject->clearData();
@@ -393,6 +405,7 @@ a3: system("cls");
     }
     goto a3;
 }
+
 void Interface::viewTeacher(int idTeacher){
     loadItems(baseOfTeachers);
     for(Teacher thatOneTeacher : baseOfTeachers){
@@ -406,18 +419,35 @@ void Interface::viewTeacher(int idTeacher){
     std::cout << "Action: \n1.Edit teacher \n0.Back \n\n>";
     std::string decition;
     std::getline(std::cin, decition);
-    if(decition == "0"){
+    if(decition == "1"){
+        editItem(baseOfTeachers);
+    }else if(decition == "0"){
         delete selectedTeacher;
         baseOfTeachers.clear();
         return;
     }
+    viewTeacher(idTeacher);
+    return;
 }
 
-void Interface::editStudent(){
+template<typename T>
+void Interface::editItem(std::vector<T>& baseOfItem) {
     system("cls");
-    selectedStudent->displayInfo();
-    std::cout << "\nSelect attribute you want to change:\n";
-    std::cout << "1.Name \n2.Surname \n3.Patronymic \n4.Age \n5.Sex \n6.Address \n0.Back\n>";
+    if(typeid(T) == typeid(Student)){
+        selectedStudent->displayInfo();
+        std::cout << "\nSelect attribute you want to change:\n";
+        std::cout << "1.Name \n2.Surname \n3.Patronymic \n4.Age \n5.Sex \n6.Address \n0.Back\n>";
+    }
+    else if(typeid(T) == typeid(Subject)){
+        selectedSubject->displayInfo();
+        std::cout << "\nSelect attribute you want to change:\n";
+        std::cout << "1.Name \n2.Teacher's name \n3.Description \n0.Back \n>";
+    }
+    else if(typeid(T) == typeid(Teacher)){
+        selectedTeacher->displayInfo();
+        std::cout << "\nSelect attribute you want to change:\n";
+        std::cout << "1.Name \n2.Surname \n3.Patronymic \n4.ShortName \n5.Age \n6.Sex \n0.Back\n>";;
+    }
     std::string decition;
     std::getline(std::cin, decition);
     if(decition.empty()){std::cout << "Insertion cannot be empty!"; std::cin.get(); return;}
@@ -426,37 +456,93 @@ void Interface::editStudent(){
         std::cout << "Enter new name: ";
         std::string newName;
         std::getline(std::cin, newName);
-        newName = nsp_check(newName);
-        selectedStudent->setName(newName);
-    }else if(decition == "2"){
+        if(typeid(T) != typeid(Subject)){
+            newName = nsp_check(newName);
+            if(typeid(T) == typeid(Student)){selectedStudent->setName(newName);}
+            else if(typeid(T) == typeid(Teacher)){selectedTeacher->setName(newName);}
+        }else if(typeid(T) == typeid(Subject)){
+            newName = info_check(newName);
+            selectedSubject->setName(newName);
+        }
+    }else if(decition == "2" && typeid(T) != typeid(Subject)){
         system("cls");
         std::cout << "Enter new surname: ";
         std::string newSurname;
         std::getline(std::cin, newSurname);
         newSurname = nsp_check(newSurname);
-        selectedStudent->setSurname(newSurname);
-    }else if(decition == "3"){
+        if(typeid(T) == typeid(Student)){selectedStudent->setSurname(newSurname);}
+        else if(typeid(T) == typeid(Teacher)){selectedTeacher->setSurname(newSurname);}
+    }else if(decition == "2" && typeid(T) == typeid(Subject)){
+        system("cls");
+        std::cout << "Enter new teacher's shortname: ";
+        std::string newShortname;
+        std::getline(std::cin, newShortname);
+        newShortname = info_check(newShortname);
+        selectedSubject->setTeacher(newShortname);
+        loadItems(baseOfTeachers);
+        for(size_t i = 0; i < baseOfTeachers.size(); i++){
+            if(baseOfTeachers[i].getId() == selectedSubject->getIdTeacher()){
+                baseOfTeachers[i].setShortName(newShortname);
+            }
+        }
+        saveBasesOfItems(baseOfTeachers);
+        baseOfTeachers.clear();
+    }else if(decition == "3" && typeid(T) != typeid(Subject)){
         system("cls");
         std::cout << "Enter new patronymic: ";
         std::string newPatronymic;
         std::getline(std::cin, newPatronymic);
         newPatronymic = nsp_check(newPatronymic);
-        selectedStudent->setPatronymic(newPatronymic);
-    }else if(decition == "4"){
+        if(typeid(T) == typeid(Student)){selectedStudent->setPatronymic(newPatronymic);}
+        else if(typeid(T) == typeid(Teacher)){selectedTeacher->setPatronymic(newPatronymic);}
+    }else if(decition == "3" && typeid(T) == typeid(Subject)){
+        system("cls");
+        std::cout << "Enter new description:\n\>";
+        std::string newDescription;
+        std::getline(std::cin, newDescription);
+        newDescription = info_check(newDescription);
+        selectedSubject->setDescription(newDescription);
+    }else if(decition == "4" && typeid(T) == typeid(Teacher) && typeid(T) != typeid(Subject)){
+        system("cls");
+        std::cout << "Enter new teacher's shortname: ";
+        std::string newShortName;
+        std::getline(std::cin, newShortName);
+        newShortName = info_check(newShortName);
+        selectedTeacher->setShortName(newShortName);
+        int idTeacher = selectedTeacher->getId();
+        loadItems(baseOfTeachers);
+        for(size_t i = 0; i < baseOfTeachers.size(); i++){
+            if(baseOfTeachers[i].getId() == selectedTeacher->getId()){
+                baseOfTeachers[i].setShortName(newShortName);
+            }
+        }
+        saveBasesOfItems(baseOfTeachers);
+        loadItems(baseOfSubjects);
+        for(size_t i = 0; i < baseOfSubjects.size(); i++){
+            if(baseOfSubjects[i].getIdTeacher() == idTeacher){
+                baseOfSubjects[i].setTeacher(newShortName);
+            }
+        }
+        saveBasesOfItems(baseOfSubjects);
+        baseOfSubjects.clear();
+        baseOfTeachers.clear();
+    }else if((decition == "4" && typeid(T) == typeid(Student)) || (decition == "5" && typeid(T) == typeid(Teacher)) && typeid(T) != typeid(Subject)){
         system("cls");
         std::cout << "Enter new age: ";
         std::string newAge;
         std::getline(std::cin, newAge);
         int intNewAge = age_check(newAge);
-        selectedStudent->setAge(intNewAge);
-    }else if(decition == "5"){
+        if(typeid(T) == typeid(Student)){selectedStudent->setAge(intNewAge);}
+        else if(typeid(T) == typeid(Teacher)){selectedTeacher->setAge(intNewAge);}
+    }else if((decition == "5" && typeid(T) == typeid(Student)) || (decition == "6" && typeid(T) == typeid(Teacher)) && typeid(T) != typeid(Subject)){
         system("cls");
         std::cout << "Enter new value of Sex (choose between " << rang::style::underline << "Male/Female/Other" << rang::style::reset << "): ";
         std::string newSex;
         std::getline(std::cin, newSex);
         newSex = sex_check(newSex);
-        selectedStudent->setSex(newSex);
-    }else if(decition == "6"){
+        if(typeid(T) == typeid(Student)){selectedStudent->setSex(newSex);}
+        else if(typeid(T) == typeid(Teacher)){selectedTeacher->setSex(newSex);}
+    }else if(decition == "6" && typeid(T) == typeid(Student) && typeid(T) != typeid(Subject)){
         system("cls");
         std::cout << "Write down the new address\n>";
         std::string newAddress;
@@ -464,67 +550,85 @@ void Interface::editStudent(){
         newAddress = address_check(newAddress);
         selectedStudent->setAddress(newAddress);
     }else if(decition == "0"){
-        for(auto it = baseOfStudents.begin(); it != baseOfStudents.end(); it++){
-            if(it->getId() == selectedStudent->getId()){
-                *it = *selectedStudent;
+        if(typeid(T) == typeid(Student)){
+            loadItems(baseOfStudents);
+            for(size_t i = 0; i < baseOfStudents.size(); i++){
+                if(baseOfStudents[i].getId() == selectedStudent->getId()){
+                    baseOfStudents[i] = *selectedStudent;
+                }
             }
         }
-        saveBasesOfItems(baseOfStudents);
+        else if(typeid(T) == typeid(Teacher)){
+            loadItems(baseOfTeachers);
+            for(size_t i = 0; i < baseOfTeachers.size(); i++){
+                if(baseOfTeachers[i].getId() == selectedTeacher->getId()){
+                    baseOfTeachers[i] = *selectedTeacher;
+                }
+            }
+        }
+        else if(typeid(T) == typeid(Subject)){
+            loadItems(baseOfSubjects);
+            for(size_t i = 0; i < baseOfSubjects.size(); i++){
+                if(baseOfSubjects[i].getIdSubject() == selectedSubject->getIdSubject()){
+                    baseOfSubjects[i] = *selectedSubject;
+                }
+            }
+        }
+        saveBasesOfItems(baseOfItem);
         return;
     }
-    editStudent();
-
+    editItem(baseOfItem);
 }
 
-void Interface::editSubject(){
-    system("cls");
-    selectedSubject->displayInfo();
-    std::cout << "\nSelect attribute you want to change:\n";
-    std::cout << "1.Name \n2.Teacher's name \n3.Description \n0.Back \n>";
-    std::string decition;
-    std::getline(std::cin, decition);
-    if(decition == "1"){
-        system("cls");
-        std::cout << "Enter new name: ";
-        std::string newName;
-        std::getline(std::cin, newName);
-        newName = info_check(newName);
-        selectedSubject->setName(newName);
-    }else if(decition == "2"){
-        loadItems(baseOfTeachers);
-        system("cls");
-        std::cout << "Enter new teacher's short name (Example: Voloshchuk M. V.): ";
-        std::string newTeachersName;
-        std::getline(std::cin, newTeachersName);
-        newTeachersName = info_check(newTeachersName);
-        for(auto it = baseOfTeachers.begin(); it != baseOfTeachers.end(); it++){
-            if(selectedSubject->getTeacher() == it->getShortName()){
-                newTeachersName += " ";
-                it->setShortName(newTeachersName);
-            }
-        }
-        selectedSubject->setTeacher(newTeachersName);
-        saveBasesOfItems(baseOfTeachers);
-        baseOfTeachers.clear();
-    }else if(decition == "3"){
-        system("cls");
-        std::cout << "Enter new description of this subject:\n";
-        std::string newDescription;
-        std::getline(std::cin, newDescription);
-        newDescription = info_check(newDescription);
-        selectedSubject->setDescription(newDescription);
-    }else if(decition == "0"){
-        for(auto it = baseOfSubjects.begin(); it != baseOfSubjects.end(); it++){
-            if(it->getIdSubject() == selectedSubject->getIdSubject()){
-                *it = *selectedSubject;
-            }
-        }
-        saveBasesOfItems(baseOfSubjects);
-        return;
-    }
-    editSubject();
-
-}
+//void Interface::editSubject(){
+//    system("cls");
+//    selectedSubject->displayInfo();
+//    std::cout << "\nSelect attribute you want to change:\n";
+//    std::cout << "1.Name \n2.Teacher's name \n3.Description \n0.Back \n>";
+//    std::string decition;
+//    std::getline(std::cin, decition);
+//    if(decition == "1"){
+//        system("cls");
+//        std::cout << "Enter new name: ";
+//        std::string newName;
+//        std::getline(std::cin, newName);
+//        newName = info_check(newName);
+//        selectedSubject->setName(newName);
+//    }else if(decition == "2"){
+//        loadItems(baseOfTeachers);
+//        system("cls");
+//        std::cout << "Enter new teacher's short name (Example: Voloshchuk M. V.): ";
+//        std::string newTeachersName;
+//        std::getline(std::cin, newTeachersName);
+//        newTeachersName = info_check(newTeachersName);
+//        for(auto it = baseOfTeachers.begin(); it != baseOfTeachers.end(); it++){
+//            if(selectedSubject->getTeacher() == it->getShortName()){
+//                newTeachersName += " ";
+//                it->setShortName(newTeachersName);
+//            }
+//        }
+//        selectedSubject->setTeacher(newTeachersName);
+//        saveBasesOfItems(baseOfTeachers);
+//        baseOfTeachers.clear();
+//    }else if(decition == "3"){
+//        system("cls");
+//        std::cout << "Enter new description of this subject:\n";
+//        std::string newDescription;
+//        std::getline(std::cin, newDescription);
+//        newDescription = info_check(newDescription);
+//        selectedSubject->setDescription(newDescription);
+//    }else if(decition == "0"){
+//        for(auto it = baseOfSubjects.begin(); it != baseOfSubjects.end(); it++){
+//            if(it->getIdSubject() == selectedSubject->getIdSubject()){
+//                *it = *selectedSubject;
+//            }
+//        }
+//        saveBasesOfItems(baseOfSubjects);
+//        return;
+//    }
+//    editSubject();
+//
+//}
 
 void Interface::editGrades(int idSubject, int idGrades){
     if(idGrades)
@@ -1568,7 +1672,7 @@ a2:     baseOfGrades.clear();
                     baseOfSubjects.clear();
                     viewStudentSubjects();
                 }else if(decition == "2"){
-                    editStudent();
+                    editItem(baseOfStudents);
                 }else if(decition == "0"){
                     selectedGrades->clearData();
                     selectedSubject->clearData();
@@ -1722,9 +1826,13 @@ Interface::~Interface(){
     baseOfGrades.clear();
     baseOfStudents.clear();
     baseOfSubjects.clear();
+    baseOfTeachers.clear();
+    baseOfParents.clear();
     delete selectedStudent;
     delete selectedGrades;
     delete selectedSubject;
+    delete selectedTeacher;
+    delete selectedParent;
     std::cout << rang::fg::blue << "Destructor of Interface class was called!" << rang::fg::reset << std::endl;
 }
 

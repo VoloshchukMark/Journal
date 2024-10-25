@@ -30,6 +30,8 @@ public:
     Subject* selectedSubject = new Subject();
     std::vector<Teacher> baseOfTeachers;
     Teacher* selectedTeacher = new Teacher();
+    std::vector<Parent> baseOfParents;
+    Parent* selectedParent = new Parent();
 
     //Create functions
     void createStudent();
@@ -49,9 +51,8 @@ public:
     //-----------------------------------------
 
     //Edit functions
-    void editStudent();
-    void editSubject();
-    void editTeacher();
+//    void editSubject();
+//    void editTeacher();
     void editGrades(int idSubject, int idGrades);
     void displayGradesToEdit(std::string nameOfGradesList, std::vector<double> gradesForEdit);
     int connectGradesToStudent(Student* selectedStudent);
@@ -85,6 +86,8 @@ public:
 
 
     //Template functions
+    template<typename T>
+    void editItem(std::vector<T>& baseOfItem);
     template<typename T>
     void sortItems(std::vector<T>& baseOfItems);
     void sortItems(std::vector<Grades>& baseOfItems);
