@@ -1,13 +1,6 @@
 # depslib dependency file v1.0
-1729521632 source:d:\study\programming\coursework\journal\journal\main.cpp
+1729940694 source:d:\study\programming\coursework\journal\journal\main.cpp
 	<iostream>
-	<string.h>
-	"./Headers/Person.h"
-	"./Headers/Parent.h"
-	"./Headers/Student.h"
-	"./Headers/Teacher.h"
-	"./Headers/Subject.h"
-	"./Headers/Grades.h"
 	"./Headers/Interface.h"
 
 1723975158 source:d:\study\programming\coursework\journal\journal\student.cpp
@@ -93,9 +86,8 @@
 1729352684 d:\study\programming\coursework\journal\journal\headers\marks.h
 	<vector>
 
-1729936501 source:d:\study\programming\coursework\journal\journal\sources\interface.cpp
+1729966809 source:d:\study\programming\coursework\journal\journal\sources\interface.cpp
 	"../rang.hpp"
-	<../External-Libraries/variant.hpp>
 	<iostream>
 	<sstream>
 	<string>
@@ -109,10 +101,9 @@
 	"Interface.h"
 	"BubbleSort.h"
 
-1729886969 d:\study\programming\coursework\journal\journal\headers\interface.h
+1729966352 d:\study\programming\coursework\journal\journal\headers\interface.h
 	<iostream>
 	<vector>
-	<algorithm>
 	"Student.h"
 	"Subject.h"
 	"Parent.h"

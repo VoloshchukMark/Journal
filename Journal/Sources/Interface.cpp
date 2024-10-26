@@ -1,5 +1,4 @@
 #include "../rang.hpp"
-#include <../External-Libraries/variant.hpp>
 #include <iostream>
 #include <sstream>
 #include <string>
@@ -19,7 +18,7 @@
 int Interface::startMenu(){
     clearAllBases();
     system("cls");
-    std::cout << "MyJournal 0.3.9  \n" << std::endl;
+    std::cout << "MyJournal 0.3.10  \n" << std::endl;
     std::cout << "(Type '/?' for 'user manual';" << std::endl;
 
     Sleep(500);
@@ -112,8 +111,6 @@ void Interface::saveBasesOfItems(std::vector<T>& baseOfItems){
         std::ofstream savingGrades("./data/grades.txt", std::ios::trunc);
         loadItems(baseOfSubjects);
         int amountOfSubjects = baseOfSubjects.size();
-        std::cout << "Amount of subjects " << amountOfSubjects << std::endl;
-        std::cin.get();
         baseOfSubjects.clear();
         int amountOfStudents = 0;
         for(Grades thatOneListOfGrades : baseOfGrades){
@@ -122,9 +119,7 @@ void Interface::saveBasesOfItems(std::vector<T>& baseOfItems){
             }
         }
         for(size_t i = 0; i < static_cast<int>(amountOfSubjects); i++){
-            std::cout << "Cicle " << i+1 << std::endl;
             for(size_t j = 0; j < static_cast<int>(amountOfStudents); j++){
-                std::cout << j+1 << " " << i+1 << std::endl;
                 savingGrades<<i+1<<" "<<j+1<<" ! ";
                 std::vector<double> thatOneBaseOfHomeWorkGrades = baseOfGrades[(i*amountOfStudents) + j].getHomeWorkGrades();
                 for(double homeworkGrades : thatOneBaseOfHomeWorkGrades){
@@ -166,7 +161,6 @@ void Interface::saveBasesOfItems(std::vector<T>& baseOfItems){
             savingSubject<<(i + 1)<<" ' "<<baseOfSubjects[i].getName()<<" ' "<<idOfTeacher<<" ' "<<baseOfSubjects[i].getTeacher()<<" ' "
                           <<baseOfSubjects[i].getDescription()<<" ' "<<std::endl;
         }
-        std::cin.get();
         savingSubject.close();
     }else if(typeid(T) == typeid(Teacher)){
         std::ofstream savingTeachers("./data/teachers.txt", std::ios::trunc);
@@ -201,6 +195,11 @@ void Interface::selectSubject(){
         std::cout << "0.Go back \n\nChoose the subject: \n>";
         std::string decition;
         std::getline(std::cin, decition);
+        if(!containsOnlyDigits(decition)){
+            std::cout << "Wrong insertion!\n";
+            std::cin.get();
+            return;
+        }
         if(!decition.empty()){
             if(decition == "0"){return;}
             for(Subject thatOneSubject : baseOfSubjects){
@@ -285,23 +284,32 @@ void Interface::gradesInfo(int idSubject, int newPage){
         clearAllBases();
         gradesInfo(idSubject, page - 1);
         return;
+    }else if(decition == "<<"){
+        newPage = 1;
+        gradesInfo(idSubject, newPage);
+        return;
     }else if(decition == ">"){
-        if(static_cast<int>(baseOfGrades[0].getHomeWorkGrades().size()) == static_cast<int>(page * 10)){
+        if(static_cast<int>(baseOfGrades[amountOfStudent*(idSubject-1)].getHomeWorkGrades().size()) == static_cast<int>(page * 10)){
             gradesInfo(idSubject, page);
             return;
         }
         clearAllBases();
         gradesInfo(idSubject, page + 1);
         return;
+    }else if(decition == ">>"){
+        newPage = baseOfGrades[amountOfStudent*(idSubject-1)].getHomeWorkGrades().size()/10;
+        gradesInfo(idSubject, newPage);
+        return;
     }else if(decition == "1"){
         std::cout << "Enter ID of grades you want to edit: ";
         std::string idDecition;
         std::getline(std::cin, idDecition);
-        if(!containsOnlyDigits(idDecition) || stoi(idDecition) > static_cast<int>(baseOfStudents.size()) || idDecition == "0"){
+
+        if(!containsOnlyDigits(idDecition) || idDecition.empty() || stoi(idDecition) > static_cast<int>(baseOfStudents.size()) || idDecition == "0"){
             std::cout << "Wrong insertion!\n";
             std::cin.get();
         }else{
-            editGrades(idSubject, stoi(idDecition));
+            editGrades(idSubject, stoi(idDecition), page, 1, 1, 1);
             return;
         }
     }else if(decition == "2"){
@@ -318,6 +326,7 @@ void Interface::gradesInfo(int idSubject, int newPage){
         return;
     }
     gradesInfo(idSubject, newPage);
+    return;
 }
 
 void Interface::subjectInfo(){
@@ -713,7 +722,7 @@ void Interface::editItem(std::vector<T>& baseOfItem) {
 //
 //}
 
-void Interface::editGrades(int idSubject, int idGrades){
+int Interface::editGrades(int idSubject, int idGrades, int page, int hmPage, int tPage, int sPage){
     if(idGrades)
     for(Grades thatOneGrades : baseOfGrades){
         if(thatOneGrades.getId() == idGrades && thatOneGrades.getIdSubject() == idSubject){
@@ -721,19 +730,54 @@ void Interface::editGrades(int idSubject, int idGrades){
             std::vector<double> testGrades = thatOneGrades.getTestGrades();
             std::vector<double> semesterGrades = thatOneGrades.getSemesterGrades();
 ahah:       system("cls");
-            displayGradesToEdit("Home work", homeWorkGrades);
-            displayGradesToEdit("Test", testGrades);
-            displayGradesToEdit("Semester", semesterGrades);
+            displayGradesToEdit("Home work", homeWorkGrades, page);
+            displayGradesToEdit("Test", testGrades, page);
+            displayGradesToEdit("Semester", semesterGrades, page);
 
-            std::cout << "\n(Enter '<' to go back without changes) \nEnter type (!/@/#) and a coordinate of grade you want to edit (split it by 'space'): ";
+            std::cout << "(Enter '<' to save changes and return) \n(Enter '>', type of grade and page you want to go to (Example: >|!|1))";
+            std::cout << " \n\nEnter type (!/@/#) and a coordinate of grade you want to change (split it by 'space'): ";
             std::string insertion;
             std::getline(std::cin, insertion);
             if(insertion.empty()){std::cout << "Error! Entered nothing!\n"; std::cin.get(); goto ahah;}
-            if(insertion == "<"){gradesInfo(idSubject, 1); return;}
+            if(insertion == "<"){
+                for(size_t i = 0; static_cast<int>(i) < static_cast<int>(baseOfGrades.size()); i++){
+                    if(baseOfGrades[i].getId() == idGrades && baseOfGrades[i].getIdSubject() == idSubject){
+                        baseOfGrades[i].setGrades('h', homeWorkGrades);
+                        baseOfGrades[i].setGrades('t', testGrades);
+                        baseOfGrades[i].setGrades('s', semesterGrades);
+                    }
+                }
+                sortItems(baseOfGrades);
+                saveBasesOfItems(baseOfGrades);
+                gradesInfo(idSubject, page);
+                return page;
+            }
             std::stringstream separator(insertion);
             std::string index, coordinate;
             separator>>index>>coordinate;
-//            std::cout << "[" << index << "]" << std::endl;
+            if(index == ">" && (coordinate == "!" || coordinate == "@" || coordinate == "#")){
+                std::string newPage;
+                separator>>newPage;
+                separator.clear();
+                if(newPage.empty() || !containsOnlyDigits(newPage)){std::cout << "Wrong insertion!\n"; std::cin.get(); goto ahah;}
+                if(coordinate == "!"){
+                    if(stoi(newPage) <= homeWorkGrades.size()/2){
+                        editGrades(idSubject, idGrades, page, stoi(newPage), tPage, sPage);
+                        return page;
+                    }
+                }else if(coordinate == "@"){
+                    if(stoi(newPage) <= homeWorkGrades.size()/5){
+                        editGrades(idSubject, idGrades, page, hmPage, stoi(newPage), sPage);
+                        return page;
+                    }
+                }else if(coordinate == "#"){
+                    if(stoi(newPage) <= homeWorkGrades.size()){
+                        editGrades(idSubject, idGrades, page, hmPage, tPage, stoi(newPage));
+                        return page;
+                    }
+                }
+
+            }
             if(index != "!" && index != "@" && index != "#"){std::cout << "No such index!\n"; std::cin.get(); goto ahah;}
             std::cout << "[" << coordinate << "]\n";
             if(containsOnlyDigits(coordinate)){
@@ -762,31 +806,22 @@ ahah:       system("cls");
                 semesterGrades = changeGrade(semesterGrades, stoi(coordinate), stod(newValue));
             }
             system("cls");
-            displayGradesToEdit("Home work", homeWorkGrades);
-            displayGradesToEdit("Test", testGrades);
-            displayGradesToEdit("Semester", semesterGrades);
-            std::cout << "\nChanges are completed! \n\nChoose an action: \n1.Continue to change \n2.Save all and back to grages list \n3.Cancel all changes\n>";
-            std::string decition;
-            std::getline(std::cin, decition);
-            if(decition == "1"){}
-            else if(decition == "2"){
-                for(size_t i = 0; static_cast<int>(i) < static_cast<int>(baseOfGrades.size()); i++){
-                    if(baseOfGrades[i].getId() == idGrades && baseOfGrades[i].getIdSubject() == idSubject){
-                        baseOfGrades[i].setGrades('h', homeWorkGrades);
-                        baseOfGrades[i].setGrades('t', testGrades);
-                        baseOfGrades[i].setGrades('s', semesterGrades);
-                    }
-                }
-                sortItems(baseOfGrades);
-                saveBasesOfItems(baseOfGrades);
-                gradesInfo(idSubject, 1);
-                return;
-            }
-            else if(decition == "3"){
-                gradesInfo(1, 1);
-                return;
-            }
             goto ahah;
+//            displayGradesToEdit("Home work", homeWorkGrades, );
+//            displayGradesToEdit("Test", testGrades, 1);
+//            displayGradesToEdit("Semester", semesterGrades, 1);
+//            std::cout << "\nChanges are completed! \n\nChoose an action: \n1.Continue to change \n2.Save all and back to grages list \n3.Cancel all changes\n>";
+//            std::string decition;
+//            std::getline(std::cin, decition);
+//            if(decition == "1"){}
+//            else if(decition == "2"){
+//
+//            }
+//            else if(decition == "3"){
+//                gradesInfo(1, 1);
+//                return;
+//            }
+//            goto ahah;
 
         }
     }
@@ -1078,7 +1113,7 @@ void Interface::eraseItem(std::vector<L>& baseOfItems, std::string idDoomedItem,
         if(idDoomedItem.empty()){std::cout << "Error! Empty insertion! Back to the list..."; std::cin.get(); return;}
         if(idDoomedItem == "<"){return;}
         if (!containsOnlyDigits(idDoomedItem)) {
-            std::cout << "Error! ID consist only from digits!";
+            std::cout << "Error! ID must consist only from digits!";
             std::cin.get();
             baseOfGrades.clear();
             return;
@@ -1093,9 +1128,10 @@ void Interface::eraseItem(std::vector<L>& baseOfItems, std::string idDoomedItem,
                 std::getline(std::cin, decision);
                 if (decision == "1") {
                     eraseItem(baseOfGrades, idDoomedItem, "marks");
-                    std::cout << "Grades has been deleted! \n";
+//                    std::cout << "Grades has been deleted! \n";
                     eraseItem(baseOfParents, idDoomedItem, "");
-                    std::cout << "Parent has been deleted(.. \n";
+//                    std::cout << "Parent has been deleted(.. \n";
+                    std::cin.get();
                     baseOfStudents.erase(it);
                     saveBasesOfItems(baseOfStudents);
                     std::cout << "Student info has been deleted successfully! \nBack to the student list...";
@@ -1123,7 +1159,7 @@ void Interface::eraseItem(std::vector<L>& baseOfItems, std::string idDoomedItem,
             for (auto it = baseOfGrades.begin(); it != baseOfGrades.end(); ++it){
     //            std::cout << "Checking Grades with ID of: " << it->getId() << std::endl;
                 if(it->getId() == intIdDoomedItem){
-                    std::cout << "Erasing Grades with ID of: " << it->getId() << std::endl;
+//                    std::cout << "Erasing Grades with ID of: " << it->getId() << std::endl;
                     it = baseOfGrades.erase(it);
                     it = baseOfGrades.begin();
                 }
@@ -1138,9 +1174,9 @@ void Interface::eraseItem(std::vector<L>& baseOfItems, std::string idDoomedItem,
             for (size_t i = 0; i < baseOfGrades.size(); ){
     //            std::cout << "Checking Grades with ID of: " << it->getId() << std::endl;
                 if(baseOfGrades[i].getIdSubject() == intIdDoomedItem){
-                    std::cout << baseOfGrades[i].getIdSubject() << std::endl;
-                    std::cin.get();
-                    std::cout << "Erasing Grades with ID of: " << baseOfGrades[i].getId() << std::endl;
+//                    std::cout << baseOfGrades[i].getIdSubject() << std::endl;
+//                    std::cin.get();
+//                    std::cout << "Erasing Grades with ID of: " << baseOfGrades[i].getId() << std::endl;
                     baseOfGrades.erase(baseOfGrades.begin() + i);
                     i = 0;
                 }else i++;
@@ -1227,25 +1263,23 @@ void Interface::eraseItem(std::vector<L>& baseOfItems, std::string idDoomedItem,
                 if(baseOfTeachers.size() == 1){baseOfTeachers.clear();}
                 else{it = baseOfTeachers.erase(it);}
                 saveBasesOfItems(baseOfTeachers);
-                std::cout << "Teacher info has been deleted successfully! \n";
+//                std::cout << "Teacher info has been deleted successfully! \n";
                 std::cin.get();
                 return;
             }
         }
     }else if(typeid(L) == typeid(Parent)){
-        std::cout << "gonna load tha shi...\n";
         loadItems(baseOfParents);
-        std::cout << "Get ready to be deleted!\n"<<baseOfParents.size()<<std::endl;
         if(baseOfParents.size() == 1){baseOfParents.clear();}
         else{
-            for(auto it = baseOfParents.begin(); it != baseOfParents.end(); it++){
-                if(it->getId() == stoi(idDoomedItem)){
-                    it = baseOfParents.erase(it);
-                }
+            for(size_t i = 0; i < baseOfParents.size(); ){
+                if(baseOfParents[i].getId() == stoi(idDoomedItem)){
+                    baseOfParents.erase(baseOfParents.begin() + i);
+                }else{i++;}
             }
         }
         saveBasesOfItems(baseOfParents);
-        std::cout << "Parent info has been deleted successfully!\n";
+//        std::cout << "Parent info has been deleted successfully!\n";
     }
 }
 
@@ -1345,7 +1379,7 @@ void Interface::sortItems(std::vector<Grades>& baseOfItems){
 //        for(Grades grade : baseOfGrades){
 //            std::cout << grade.getId() << std::endl;
 //        }
-        std::cout << "Sorting is completed!\n";
+//        std::cout << "Sorting is completed!\n";
         saveBasesOfItems(baseOfGrades);
     }
 }
@@ -1506,7 +1540,7 @@ std::string Interface::address_check(std::string uncheckedNewAddress){
     }else{
         if(uncheckedNewAddress == "<"){return "<";}
         std::string checkedNewAddress = uncheckedNewAddress;
-        std::cout << checkedNewAddress << std::endl << "Are you sure?\n";
+        std::cout << "' " << checkedNewAddress << " ' " << std::endl << "Are you sure?\n";
         std::cout << "1.Yes \n2.Rewrite\n>";
         std::string decition;
         std::getline(std::cin, decition);
@@ -1523,7 +1557,7 @@ std::string Interface::address_check(std::string uncheckedNewAddress){
 }
 
 void Interface::createBlankGradesForStudent(int idStudent){
-    std::cout << "Start to create new blank grades!\n";
+//    std::cout << "Start to create new blank grades!\n";
     baseOfGrades.clear();
     loadItems(baseOfGrades);
     std::ofstream createNewGrades("./data/grades.txt", std::ios::app);
@@ -1538,8 +1572,8 @@ void Interface::createBlankGradesForStudent(int idStudent){
                 createNewGrades<<"# ";
                 for(int i = 0; i < 10; i++){createNewGrades<<"0"<<" ";}
                 createNewGrades<<">"<<std::endl;
-                std::cout << "Created successfuly!\n";
-                std::cin.get();
+//                std::cout << "Created successfuly!\n";
+//                std::cin.get();
             }
         }
     }
@@ -1551,18 +1585,18 @@ void Interface::createBlankGradesForStudent(int idStudent){
             int amountHomeWorkGrades = baseOfGrades[counter].getHomeWorkGrades().size();
             int amountTestGrades = baseOfGrades[counter].getTestGrades().size();
             int amountSemesterGrades = baseOfGrades[counter].getSemesterGrades().size();
-            std::cout << "[" << amountHomeWorkGrades << "|" << amountTestGrades << "|" << amountSemesterGrades << "]\n";
+//            std::cout << "[" << amountHomeWorkGrades << "|" << amountTestGrades << "|" << amountSemesterGrades << "]\n";
             for(int i = 0; i < amountHomeWorkGrades; i++){createNewGrades<<"0"<<" ";}
             createNewGrades<<"? ";
             for(int i = 0; i < amountTestGrades; i++){createNewGrades<<"0"<<" ";}
             createNewGrades<<"# ";
             for(int i = 0; i < amountSemesterGrades; i++){createNewGrades<<"0"<<" ";}
             createNewGrades<<">"<<std::endl;
-            std::cout << "Cycle " << idSubject << std::endl;
+//            std::cout << "Cycle " << idSubject << std::endl;
             while(counter < baseOfGrades.size() && baseOfGrades[counter].getIdSubject() == idSubject){
                 counter++;
             }
-            std::cout << "[" << counter << "]\n";
+//            std::cout << "[" << counter << "]\n";
             idSubject++;
         }while(counter < baseOfGrades.size());
     }
@@ -1635,7 +1669,7 @@ void Interface::createSubject(){
 
 
         system("cls");
-        std::cout << "IdSubject = " << newIdSubject << std::endl;
+//        std::cout << "IdSubject = " << newIdSubject << std::endl;
 
         creatingSubject<<newIdSubject<< " ' " << newName << " ' " << newIdTeacher << " ' "
                        << newTeacher <<  " ' " << newDescription << " '"<<std::endl;
@@ -1882,7 +1916,7 @@ bool Interface::selectStudent(std::string selectedId){
             delete selectedStudent;
             selectedStudent = new Student(baseOfStudents[i]);
             std::cout << "Student has been selected!\n";
-            Sleep(1000);
+            std::cin.get();
             return true;
         }
     }
@@ -2015,29 +2049,175 @@ void Interface::viewGrades(std::string name, int idSubject, int idGrades){
     std::cin.get();
 }
 
-void Interface::displayGradesToEdit(std::string nameOfGradesList, std::vector<double> gradesForEdit){
+void Interface::displayGradesToEdit(std::string nameOfGradesList, std::vector<double> gradesForEdit, int TPage){
     std::cout <<rang::style::underline << nameOfGradesList << " grades(";
     if(nameOfGradesList == "Home work"){ std::cout << "!";}
     else if(nameOfGradesList == "Test"){ std::cout << "@";}
     else if(nameOfGradesList == "Semester"){ std::cout << "#";}
-    std::cout << "):" << rang::style::reset << std::endl;
-    for(double grade : gradesForEdit){
-        std::cout << grade;
-        if(std::to_string(grade).size() > 8){ std::cout << std::setw(14 - std::to_string(grade).size()); }
-        else{ std::cout << std::setw(13 - std::to_string(grade).size()); }
-//                std::cout << "{" << std::to_string(grade).size() << "]\n";
+    std::cout << ")" << rang::style::reset << ":" << std::endl;
+    int overallPages = 0;
+    if(nameOfGradesList == "Home work"){
+        if(gradesForEdit.size()/10 < 2){
+            overallPages = 1;
+        }else{
+            overallPages = 2;
+        }
+        if((gradesForEdit.size()/10.0) - TPage < 1){
+            if(gradesForEdit.size()/10.0 > 1){
+                TPage = gradesForEdit.size()/10 - 1;
+            }
+            else{TPage = 1;}
+        }
+        for(int i = 0; i < overallPages; i++){
+            std::cout<< " |" << TPage << "|";
+            std::cout << std::setw(3);
+            int counter = 0;
+            do{
+                std::cout << gradesForEdit[counter + (10*(TPage - 1))];
+                if(std::to_string(gradesForEdit[counter + (10*(TPage - 1))]).size() > 8){
+                    std::cout << std::setw(14 - std::to_string(gradesForEdit[counter + (10*(TPage - 1))]).size());
+                }
+                else{
+                    std::cout << std::setw(13 - std::to_string(gradesForEdit[counter + (10*(TPage - 1))]).size());
+                }
+                counter++;
+            }while(counter < 10);
+            TPage++;
+        }
+        std::cout << std::endl;
+        TPage = TPage - overallPages;
+        for(int i = 0; i < overallPages; i++){
+            if(TPage > 9){std::cout << std::setw(8);}
+            else{std::cout << std::setw(7);}
+//            std::cout << std::setw(7);
+//            if(gradesForEdit[0] > 9){ std::cout << " ";}
+            for(size_t i = 0; i < 10; i++){
+                std::cout << "^" << std::setw(5);
+            }
+            std::cout << std::setw(1) << "   ";
+            TPage++;
+        }
+        std::cout << std::endl;
+        TPage = TPage - overallPages;
+        for(int i = 0; i < overallPages; i++){
+            if(TPage > 9){std::cout << std::setw(8);}
+            else{std::cout << std::setw(7);}
+//            std::cout << std::setw(7);
+//            if(gradesForEdit[0] > 9){ std::cout << " ";}
+            for(size_t i = 0; i < 10; i++){
+                std::cout << i + (10*(TPage - 1)) << std::setw(5);
+            }
+            std::cout << std::setw(1) << "   ";
+            TPage++;
+        }
+
+
+    }else if(nameOfGradesList == "Test"){
+        if(gradesForEdit.size()/3 < 5){
+            overallPages = gradesForEdit.size()/3;
+        }else{
+            overallPages = 5;
+            if((gradesForEdit.size()/3.0) - TPage < 5){
+                TPage = gradesForEdit.size()/3 - 4;
+            }
+        }
+        for(int i = 0; i < overallPages; i++){
+            std::cout<< " |" << TPage << "|" << std::setw(3);
+            int counter = 0;
+            do{
+                std::cout << gradesForEdit[counter + (3*(TPage - 1))];
+                if(std::to_string(gradesForEdit[counter + (3*(TPage - 1))]).size() > 8){
+                    std::cout << std::setw(14 - std::to_string(gradesForEdit[counter + (3*(TPage - 1))]).size());
+                }
+                else{
+                    std::cout << std::setw(13 - std::to_string(gradesForEdit[counter + (3*(TPage - 1))]).size());
+                }
+                counter++;
+            }while(counter < 3);
+            TPage++;
+        }
+        std::cout << std::endl;
+        TPage = TPage - overallPages;
+        for(int i = 0; i < overallPages; i++){
+            if(TPage > 9){std::cout << std::setw(8);}
+            else{std::cout << std::setw(7);}
+//            std::cout << std::setw(7);
+//            if(gradesForEdit[0] > 9){ std::cout << " ";}
+            for(size_t i = 0; i < 3; i++){
+                std::cout << "^" << std::setw(5);
+            }
+            std::cout << std::setw(1) << "   ";
+            TPage++;
+        }
+        std::cout << std::endl;
+        TPage = TPage - overallPages;
+        for(int i = 0; i < overallPages; i++){
+            if(TPage > 9){std::cout << std::setw(8);}
+            else{std::cout << std::setw(7);}
+//            std::cout << std::setw(7);
+//            if(gradesForEdit[0] > 9){ std::cout << " ";}
+            for(size_t i = 0; i < 3; i++){
+                std::cout << i + (3*(TPage - 1)) << std::setw(5);
+            }
+            std::cout << std::setw(1) << "   ";
+            TPage++;
+        }
+
+
+
+    }else if(nameOfGradesList == "Semester"){
+        if(gradesForEdit.size() < 12){
+            overallPages = gradesForEdit.size();
+        }else{
+            overallPages = 12;
+//            std::string gradesForEditString = std::to_string(gradesForEdit.size());
+        }
+        if((gradesForEdit.size()/1.0) - TPage < 12){
+                if(gradesForEdit.size() < 12){
+                    TPage = 1;
+                }
+                else{ TPage = gradesForEdit.size() - 11; }
+
+            }
+        for(int i = 0; i < overallPages; i++){
+            std::cout<< " |" << std::setw(4);
+            std::cout << gradesForEdit[TPage - 1];
+            if(std::to_string(gradesForEdit[TPage - 1]).size() > 8){
+                std::cout << std::setw(14 - std::to_string(gradesForEdit[TPage - 1]).size());
+            }
+            else{
+                std::cout << std::setw(13 - std::to_string(gradesForEdit[TPage - 1]).size());
+            }
+            TPage++;
+        }
+        std::cout << std::endl << std::setw(1);
+        TPage = TPage - overallPages;
+        for(int i = 0; i < overallPages; i++){
+            if(TPage > 10){std::cout << std::setw(6);}
+            else{std::cout << std::setw(6);}
+//            std::cout << std::setw(7);
+//            if(gradesForEdit[0] > 9){ std::cout << " ";}
+            for(size_t i = 0; i < 1; i++){
+                std::cout << "^" << std::setw(5);
+            }
+            std::cout << std::setw(1) << "   ";
+            TPage++;
+        }
+        std::cout << std::endl << std::setw(1);
+        TPage = TPage - overallPages;
+        for(int i = 0; i < overallPages; i++){
+            if(TPage > 10){std::cout << std::setw(6);}
+            else{std::cout << std::setw(6);}
+//            std::cout << std::setw(7);
+//            if(gradesForEdit[0] > 9){ std::cout << " ";}
+            for(size_t i = 0; i < 1; i++){
+                std::cout << TPage - 1 << std::setw(5);
+            }
+            std::cout << std::setw(1) << "   ";
+            TPage++;
+        }
     }
-    std::cout << "\n" << std::setw(0);
-    if(gradesForEdit[0] > 9){ std::cout << " ";}
-    for(size_t i = 0; i < gradesForEdit.size(); i++){
-        std::cout << "^" << std::setw(5);
-    }
-    std::cout << "\n" << std::setw(0);
-    if(gradesForEdit[0] > 9){ std::cout << " ";}
-    for(size_t i = 0; i < gradesForEdit.size(); i++){
-        std::cout << i << std::setw(5);
-    }
-    std::cout << "\n\n";
+    std::cout << "\n\n--------------------------------------------------------------------------------------------------------------\n";
 }
 
 int Interface::connectGradesToStudent(Student* selectedStudent){

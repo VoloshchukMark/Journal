@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <vector>
-#include <algorithm>
+//#include <algorithm>
 
 #include "Student.h"
 #include "Subject.h"
@@ -53,8 +53,8 @@ public:
     void createParent(int idParent);
 
     //Edit functions---------------------------------------------------------------------
-    void editGrades(int idSubject, int idGrades);
-    void displayGradesToEdit(std::string nameOfGradesList, std::vector<double> gradesForEdit);
+    int editGrades(int idSubject, int idGrades, int page, int hmPage, int tPage, int sPage);
+    void displayGradesToEdit(std::string nameOfGradesList, std::vector<double> gradesForEdit, int TPage);
     int connectGradesToStudent(Student* selectedStudent);
     std::vector<double> changeGrade(std::vector<double> insertedGrades, int coordinate, double newValue);
 
