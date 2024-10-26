@@ -30,7 +30,7 @@
 1723909496 d:\study\programming\coursework\journal\journal\\person.h
 	<string>
 
-1729805075 source:d:\study\programming\coursework\journal\journal\sources\person.cpp
+1729936342 source:d:\study\programming\coursework\journal\journal\sources\person.cpp
 	"../rang.hpp"
 	"../Headers/Person.h"
 	<iostream>
@@ -51,18 +51,18 @@
 	<list>
 	<functional>
 
-1729013207 source:d:\study\programming\coursework\journal\journal\sources\parent.cpp
+1729934823 source:d:\study\programming\coursework\journal\journal\sources\parent.cpp
 	"../rang.hpp"
 	"../Headers/Parent.h"
 	"../Headers/Person.h"
 	<iostream>
 
-1728484450 d:\study\programming\coursework\journal\journal\headers\parent.h
+1729878641 d:\study\programming\coursework\journal\journal\headers\parent.h
 	"Person.h"
 	<iostream>
 	<vector>
 
-1729675654 source:d:\study\programming\coursework\journal\journal\sources\teacher.cpp
+1729878621 source:d:\study\programming\coursework\journal\journal\sources\teacher.cpp
 	"../rang.hpp"
 	"../Headers/Teacher.h"
 	"../Headers/Person.h"
@@ -93,7 +93,7 @@
 1729352684 d:\study\programming\coursework\journal\journal\headers\marks.h
 	<vector>
 
-1729876132 source:d:\study\programming\coursework\journal\journal\sources\interface.cpp
+1729936501 source:d:\study\programming\coursework\journal\journal\sources\interface.cpp
 	"../rang.hpp"
 	<../External-Libraries/variant.hpp>
 	<iostream>
@@ -109,7 +109,7 @@
 	"Interface.h"
 	"BubbleSort.h"
 
-1729877825 d:\study\programming\coursework\journal\journal\headers\interface.h
+1729886969 d:\study\programming\coursework\journal\journal\headers\interface.h
 	<iostream>
 	<vector>
 	<algorithm>

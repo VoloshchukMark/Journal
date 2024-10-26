@@ -20,7 +20,7 @@
 class Interface
 {
 public:
-    //Bases and selected objects
+    //Bases and selected objects---------------------------------------------------------------------
     bool shouldLoad = true;
     std::vector<Student> baseOfStudents;
     Student* selectedStudent = new Student();
@@ -33,12 +33,13 @@ public:
     std::vector<Parent> baseOfParents;
     Parent* selectedParent = new Parent();
 
-    //Create functions
+    //Create functions---------------------------------------------------------------------------
     void createStudent();
     std::string nsp_check(std::string item);
     int age_check(std::string uncheckedNewAge);
     std::string sex_check(std::string uncheckedNewSex);
     std::string address_check(std::string uncheckedNewAddress);
+    void createBlankGradesForStudent(int idStudent);
 
     void createSubject();
     std::string info_check(std::string item);
@@ -48,44 +49,42 @@ public:
     void createBlankGrades(int idSubject);
     void createAndAddBlankGrades(int idSubject);
     void removeExistantGradesPage(int idSubject);
-    //-----------------------------------------
 
-    //Edit functions
-//    void editSubject();
-//    void editTeacher();
+    void createParent(int idParent);
+
+    //Edit functions---------------------------------------------------------------------
     void editGrades(int idSubject, int idGrades);
     void displayGradesToEdit(std::string nameOfGradesList, std::vector<double> gradesForEdit);
     int connectGradesToStudent(Student* selectedStudent);
     std::vector<double> changeGrade(std::vector<double> insertedGrades, int coordinate, double newValue);
 
 
-    //General functions
-    void equalization();
+    //General functions---------------------------------------------------------------------
     void userManual();
     bool containsOnlyDigits(const std::string& str);
     void clearAllBases();
 
-    //Start menu functions
+    //Start menu ------------------------------------------------------------------------------
     int startMenu();
     int studentInfo();
     void gradesInfo(int idSubject, int newPage);
     void subjectInfo();
-    void teacherInfo();
 
-    //View object functions
+    //View object functions---------------------------------------------------------------------
     void viewStudent();
     void viewStudentSubjects();
     void viewGrades(std::string name, int idSubject, int idGrades);
     void viewSubject();
     void viewTeacher(int idTeacher);
+    void viewParent(int idParent);
 
 
-    //Uhhh, function-selectors, I guess?
+    //Uhhh, function-selectors, I guess?------------------------------------------------------
     bool selectStudent(std::string selectedId);
     void selectSubject();
 
 
-    //Template functions
+    //Template functions-----------------------------------------------------------------------
     template<typename T>
     void editItem(std::vector<T>& baseOfItem);
     template<typename T>
@@ -103,8 +102,5 @@ public:
     ~Interface();
 };
 
-//bool compareById(const Student& a, const Student& b) {
-//    return a.getId() < b.getId();
-//}
 
 #endif // INTERFACE_H

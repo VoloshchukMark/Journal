@@ -1,24 +1,25 @@
 #include "../rang.hpp"
 #include "../Headers/Parent.h"
-
 #include "../Headers/Person.h"
 
 #include <iostream>
 
 
-std::string Parent::getWork()
-{
+std::string Parent::getWork(){
     return *work;
 }
-
-void Parent::setWork(std::string newWork)
-{
+void Parent::setWork(std::string newWork){
     work = new std::string(newWork);
 }
+void Parent::displayWork(){
+    std::cout << "Work: ";
+    if(this->getWork() == "None "){ std::cout << "[Empty]" << std::endl;}
+    else{std::cout << this->getWork() << std::endl;}
+}
 
-void Parent::displayWork()
-{
-    std::cout << "Work: " << this->getWork() << std::endl;
+void Parent::updateInfo(int newId, std::string newName,std::string newSurname, std::string newPatromymic, int newAge, std::string newSex, std::string newAddress, std::string newWork){
+    Person::updateInfo(newId, newName, newSurname, newPatromymic, newAge, newSex, newAddress);
+    work = new std::string(newWork);
 }
 
 void Parent::displayInfo(){

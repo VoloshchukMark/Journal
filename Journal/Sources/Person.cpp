@@ -77,22 +77,34 @@ void Person::displayId(){
     std::cout << "ID: " << getId() << std::endl;
 }
 void Person::displayName(){
-    std::cout << "First name: " << getName() << std::endl;
+    std::cout << "First name: ";
+    if(getName() == "None"){std::cout << "[Empty]" << std::endl;}
+    else {std::cout << getName() << std::endl;}
 }
 void Person::displaySurname(){
-    std::cout << "Second name: " << getSurname() << std::endl;
+    std::cout << "Second name: ";
+    if(getSurname() == "None"){std::cout << "[Empty]" << std::endl;}
+    else {std::cout << getSurname() << std::endl;}
 }
 void Person::displayPatronymic(){
-    std::cout << "Patronymic: " << getPatronymic() << std::endl;
+    std::cout << "Patronymic: ";
+    if(getPatronymic() == "None"){std::cout << "[Empty]" << std::endl;}
+    else {std::cout << getPatronymic() << std::endl;}
 }
 void Person::displayAge(){
-    std::cout << "Age: " << getAge() << std::endl;
+    std::cout << "Age: ";
+    if(getAge() == 0){std::cout << "[Empty]" << std::endl;}
+    else {std::cout << getAge() << std::endl;}
 }
 void Person::displaySex(){
-    std::cout << "Sex: " << getSex() << std::endl;
+    std::cout << "Sex: ";
+    if(getSex() == "None"){std::cout << "[Empty]" << std::endl;}
+    else {std::cout << getSex() << std::endl;}
 }
 void Person::displayAddress(){
-    std::cout << "Address: " << getAddress() << std::endl;
+    std::cout << "Address: ";
+    if(getAddress() == "None "){std::cout << "[Empty]" << std::endl;}
+    else {std::cout << getAddress() << std::endl;}
 }
 void Person::displayInfo(){
     std::cout << "================================" << std::endl;

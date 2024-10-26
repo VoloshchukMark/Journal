@@ -1,6 +1,5 @@
 #include "../rang.hpp"
 #include "../Headers/Teacher.h"
-
 #include "../Headers/Person.h"
 
 #include <iostream>
@@ -8,7 +7,6 @@
 void Teacher::updateInfo(int newId, std::string newName,std::string newSurname, std::string newPatromymic, int newAge, std::string newSex, std::string newShortName){
     Person::updateInfo(newId, newName, newSurname, newPatromymic, newAge, newSex, "");
     shortName = new std::string(newShortName);
-
 }
 
 void Teacher::displayInfo(){
@@ -45,5 +43,6 @@ Teacher::Teacher(int newId, std::string newName, std::string newSurname, std::st
 
 
 Teacher::~Teacher() {
+    delete shortName;
     std::cout << "Destructor of Teacher class was called!" << std::endl;
     }
