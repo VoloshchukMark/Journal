@@ -2,7 +2,7 @@
 
 #include "./Headers/Interface.h"
 
-
+bool showConDesMessages = false;
 
 using namespace std;
 

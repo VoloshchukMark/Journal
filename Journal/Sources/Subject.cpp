@@ -1,9 +1,13 @@
+#include "../rang.hpp"
 #include "../Headers/Subject.h"
+#include "../Headers/Interface.h"
 
 #include <iostream>
 #include <string>
 #include <sstream>
 #include <iomanip>
+
+
 
 
 int Subject::getIdSubject(){
@@ -121,6 +125,7 @@ Subject::Subject(int newIdSubject, std::string newName, int newIdTeacher, std::s
     idTeacher = new int(newIdTeacher);
     teacher = new std::string(newTeacher);
     description = new std::string(newDescription);
+    if(showConDesMessages) std::cout<< rang::fg::cyan << "Constructor of Subject class was called!" << rang::fg::reset << std::endl;
 }
 
 Subject::~Subject(){
@@ -129,4 +134,6 @@ Subject::~Subject(){
     delete idTeacher;
     delete teacher;
     delete description;
+    if(showConDesMessages) std::cout << rang::fg::blue << "Destructor of Subject class was called!" << rang::fg::reset << std::endl;
+
 }

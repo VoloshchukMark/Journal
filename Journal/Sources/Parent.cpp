@@ -1,6 +1,7 @@
 #include "../rang.hpp"
 #include "../Headers/Parent.h"
 #include "../Headers/Person.h"
+#include "../Headers/Interface.h"
 
 #include <iostream>
 
@@ -40,11 +41,11 @@ Parent::Parent()
 Parent::Parent(int newId, std::string newName, std::string newSurname, std::string newPatronymic, int newAge, std::string newSex, std::string newAddress, std::string newWork)
     :Person(newId, newName, newSurname, newPatronymic, newAge, newSex, newAddress) {
         work = new std::string(newWork);
-        std::cout << rang::fg::cyan << "Constructor of Parent class was called!" << rang::fg::reset << std::endl;
+        if(showConDesMessages) std::cout << rang::fg::cyan << "Constructor of Parent class was called!" << rang::fg::reset << std::endl;
     }
 
 Parent::~Parent() {
     delete work;
-    std::cout << rang::fg::blue << "Destructor of Parent class was called!" << rang::fg::reset << std::endl;
+    if(showConDesMessages) std::cout << rang::fg::blue << "Destructor of Parent class was called!" << rang::fg::reset << std::endl;
     }
 

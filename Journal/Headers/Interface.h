@@ -3,7 +3,6 @@
 
 #include <iostream>
 #include <vector>
-//#include <algorithm>
 
 #include "Student.h"
 #include "Subject.h"
@@ -12,10 +11,7 @@
 #include "Grades.h"
 
 
-//bool compareByName(const Student& a, const Student& b) {
-//    return a.getName() < b.getName();
-//}
-
+extern bool showConDesMessages;
 
 class Interface
 {
@@ -63,6 +59,9 @@ public:
     void userManual();
     bool containsOnlyDigits(const std::string& str);
     void clearAllBases();
+    void setting();
+    void importData();
+    void exportData();
 
     //Start menu ------------------------------------------------------------------------------
     int startMenu();

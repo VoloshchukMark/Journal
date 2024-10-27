@@ -1,4 +1,5 @@
 #include "../External-libraries/rang.hpp"
+#include "../Headers/Interface.h"
 #include "Grades.h"
 
 #include <iostream>
@@ -143,19 +144,19 @@ Grades::Grades()
 Grades::Grades(int newIdGrades, int newIdSubject){
     idGrades = new int(newIdGrades);
     idSubject = new int(newIdSubject);
-    std::cout << rang::fg::cyan <<"Constructor of Grades class was called!" << rang::fg::reset << std::endl;
+    if(showConDesMessages) std::cout << rang::fg::cyan <<"Constructor of Grades class was called!" << rang::fg::reset << std::endl;
     }
 Grades::Grades(int newIdGrades, int newIdSubject, std::vector<double> newHomeworkGrades, std::vector<double> newTestGrades, std::vector<double> newSemesterGrades)
     :Grades(newIdGrades, newIdSubject){
         home_work = newHomeworkGrades;
         test = newTestGrades;
         semester = newSemesterGrades;
-        std::cout << rang::fg::cyan <<"Constructor of Grades class was called!" << rang::fg::reset << std::endl;
+        if(showConDesMessages) std::cout << rang::fg::cyan <<"Constructor of Grades class was called!" << rang::fg::reset << std::endl;
     }
 
 Grades::~Grades() {
     home_work.clear();
     test.clear();
     semester.clear();
-//    std::cout << rang::fg::blue << "Destructor of Grades class was called!" << rang::style::reset << std::endl;
+    if(showConDesMessages) std::cout << rang::fg::blue << "Destructor of Grades class was called!" << rang::style::reset << std::endl;
     }

@@ -1,6 +1,7 @@
 #include "../rang.hpp"
 #include "../Headers/Teacher.h"
 #include "../Headers/Person.h"
+#include "../Headers/Interface.h"
 
 #include <iostream>
 
@@ -38,11 +39,11 @@ Teacher::Teacher()
 Teacher::Teacher(int newId, std::string newName, std::string newSurname, std::string newPatronymic, int newAge, std::string newSex, std::string newAddress, std::string newShortName)
     :Person(newId, newName, newSurname, newPatronymic, newAge, newSex, newAddress) {
         shortName = new std::string(newShortName);
-        std::cout<< rang::fg::cyan << "Constructor of Teacher class was called!" << rang::fg::reset << std::endl;
+        if(showConDesMessages) std::cout << rang::fg::cyan << "Constructor of Teacher class was called!" << rang::fg::reset << std::endl;
     }
 
 
 Teacher::~Teacher() {
     delete shortName;
-    std::cout << "Destructor of Teacher class was called!" << std::endl;
+    if(showConDesMessages) std::cout << rang::fg::blue << "Destructor of Teacher class was called!" << rang::fg::reset << std::endl;
     }
